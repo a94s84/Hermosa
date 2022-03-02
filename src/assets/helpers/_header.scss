@@ -1,0 +1,210 @@
+/*------------------------------------*\
+#header
+\*------------------------------------*/
+
+header {
+    // border-bottom: black 1px solid;
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    top: 0;
+    background-color: transparent;    
+    transition: all 0.2s ease-in-out;
+    &.header_white {
+        background-color: white;
+        box-shadow: 5px 0px 10px rgba(0,0,0,20%);
+        .header_inner{
+            padding-top: 0;
+        }
+    }
+}
+
+.header_inner {
+    height: $desktop_header_height;
+    padding-top: 50px;
+    transition: all 0.2s ease-in-out;
+    @include flex;
+    >div {
+        width: 33.33%;
+    }
+}
+
+.header_bannerBar {
+    display: none;
+    height: $banner_height;
+    line-height: $banner_height;
+    background-color:#c99b6f;
+    font-family: 'Noto Sans TC', sans-serif;
+    letter-spacing: .1rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    width: 100%;
+    p {
+        display: inline-block;
+        width: 95%;
+        height: $banner_height;
+        overflow: hidden;
+        padding: 0 20px;
+        font-size: 14px;
+    }
+    .close_banner {
+        display: inline-block;
+        line-height: $banner_height;
+        position: absolute;
+        right: 20px;
+        img {
+            vertical-align: middle;
+            height: 15px;
+            width: 15px;
+        }
+    }
+}
+
+.header_logo {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    // height: 41px;
+    img{
+        width: 100%;
+    }
+}
+
+.header_pc_menu {
+    // cursor: pointer;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.header_menu {
+    display: inline-block;
+    height: $desktop_header_height;
+    width: 60px;
+    position: relative;
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 60px;
+        height: 12px;
+        border-top: black solid 2px;
+        border-bottom: black solid 2px;
+        top: 30px;
+        left: 0;
+    }
+}
+
+.header_side_icon {
+    @include flex;
+    justify-content: flex-end;
+    a {
+        display: flex;
+        width: 18px;
+        height: 18px;
+        margin-right: 20px;
+        // &:last-of-type {
+        //     margin-right: 0;
+        // }
+    }
+    .header_favorite {
+        width: 16px;
+        height: 16px;
+    }
+}
+.header_login{
+    img{
+        width: 100%;
+    }
+}
+.header_cart {
+    @include flex;
+    position: relative;
+    align-items: center;
+    span {
+        position: absolute;
+        right: -18px;
+    }
+    img {
+        width: 71%;
+    }
+}
+
+@include tablet-width() {
+    .header_inner {
+        padding-top: 0;
+        // background-color: white;
+    }
+    .header_searchWrap {
+        input {
+            display: none;
+        }
+        .header_search {
+            &::before {
+                content: none;
+            }
+        }
+    }
+    .header_menu {
+        height: $phone_header_height;
+        width: 45px;
+        &::before {
+            width: 45px;
+            height: 8px;
+        }
+    }
+    .header_pc_menu {
+        // cursor: pointer;
+        height: $phone_header_height;
+    }
+}
+
+@include phones-width() {
+    .header_searchWrap {
+        display: none;
+    }
+    .header_logo {
+        width: 100px;
+        // height: 28px;
+    }
+    .header_side_icon {
+        padding-right: 20px;
+        // justify-content: initial;
+        a {
+            width: 15px;
+            height: 15px;
+            margin-right: 0;
+            margin-left: 15px;
+            justify-content: center;
+        }
+        .header_favorite{
+            width: 14px;
+            height: 14px;
+        }
+    }
+    .header_bannerBar {
+        // p{
+        //    width: 100%;
+        //    white-space: nowrap;
+        //    overflow: visible;
+        //    -webkit-animation: marqee 15s linear infinite;
+        //    animation: marqee 15s linear infinite;
+        //    position: relative;
+        //    font-size: 12px;
+        // }
+        // .close_banner {
+        //     display: none;
+        // }
+    }
+}
+@keyframes marqee {
+	from {
+		left: 100%;
+		transform: translateX(0%);
+	}
+    to {
+		left: 0;
+		transform: translateX(-180%);
+	}
+}
