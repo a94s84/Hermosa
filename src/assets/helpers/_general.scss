@@ -50,9 +50,9 @@ input[type="password"],
 input[type="address"],
 input[type="submit"] ,
 textarea {
-    border: 1px solid #949292;
-    border-radius: 0;
-    -webkit-appearance: none;
+    // border: 1px solid #949292;
+    // border-radius: 0;
+    // -webkit-appearance: none;
     width: 100%;
     padding: 3px 10px;
     &::placeholder{
