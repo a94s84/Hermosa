@@ -32,6 +32,19 @@
               </div>
               <img class="img-fluid" :src="innerTempProduct.imageUrl" alt="">
               <!-- 延伸技巧，多圖 -->
+              <div class="mt-5" v-if="innerTempProduct.imagesUrl">
+                <div v-for="(image, key) in innerTempProduct.imagesUrl" class="mb-3 input-group" :key="key">
+                  <input type="url" class="form-control form-control" v-model="innerTempProduct.imagesUrl[key]" placeholder="請輸入連結">
+                  <button type="button" class="btn btn-outline-secondary" @click="innerTempProduct.imagesUrl.splice(key, 1)">>
+                    移除
+                  </button>
+                </div>
+                <div v-if="innerTempProduct.imagesUrl[innerTempProduct.imagesUrl.length - 1] || !innerTempProduct.imagesUrl.length">
+                  <button
+                    class="btn btn-outline-primary btn-sm d-block w-100"
+                    @click="innerTempProduct.imagesUrl.push('')" >新增圖片</button>
+                </div>
+             </div>
             </div>
             <div class="col-sm-8">
               <div class="mb-3">
@@ -78,11 +91,11 @@
               </div>
               <div class="mb-3">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox"
+                  <input class="form-check-input mt-0" type="checkbox"
                           :true-value="1"
                           :false-value="0"
                           id="is_enabled"  v-model="innerTempProduct.is_enabled">
-                  <label class="form-check-label" for="is_enabled">
+                  <label class="form-check-label lh-base" for="is_enabled">
                     是否啟用
                   </label>
                 </div>
@@ -102,7 +115,7 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
+import modalMixin from '@/mixins/modalMixin'
 
 export default {
   props: {
@@ -122,13 +135,8 @@ export default {
       innerTempProduct: {}
     }
   },
+  mixins: [modalMixin],
   methods: {
-    showModal () {
-      this.modal.show()
-    },
-    hideModal () {
-      this.modal.hide()
-    },
     uploadFile () {
       const uploadedFile = this.$refs.fileInput.files[0]
       const formDate = new FormData()
@@ -144,9 +152,6 @@ export default {
         }
       })
     }
-  },
-  mounted () {
-    this.modal = new Modal(this.$refs.modal)
   }
 }
 </script>

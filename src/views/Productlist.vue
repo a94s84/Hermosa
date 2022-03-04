@@ -38,19 +38,21 @@
                     <td class="text-center">
                         <div class="btn-group">
                         <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-                        <button class="btn btn-outline-danger btn-sm">刪除</button>
+                        <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
                         </div>
                     </td>
                     </tr>
                 </tbody>
                 </table>
                 <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
+                <DelModal ref="delModal"></DelModal>
             </div>
           </main>
 </template>
 
 <script>
 import ProductModal from '@/components/ProductModal.vue'
+import DelModal from '@/components/DelModal.vue'
 
 export default {
   data () {
@@ -62,7 +64,7 @@ export default {
     }
   },
   components: {
-    ProductModal
+    ProductModal, DelModal
   },
   methods: {
     openModal (isNew, item) {
@@ -105,6 +107,9 @@ export default {
           console.log(res)
         }
       })
+    },
+    openDelModal (item) {
+      this.$refs.delModal.showModal()
     }
   },
   created () {
