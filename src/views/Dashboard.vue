@@ -4,16 +4,21 @@
         <Daside></Daside>
         <router-view/>
     </div>
-    <div class="pageCover"></div>
 </body>
 </template>
 
 <script>
 import Daside from '@/components/Daside.vue'
+import emitter from '@/methods/emitter'
 
 export default {
   components: {
     Daside
+  },
+  provide () {
+    return {
+      emitter
+    }
   },
   created () {
     //   確認是否維持登入狀態

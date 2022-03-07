@@ -1,4 +1,5 @@
 <template>
+    <Loading :active="isLoading"></Loading>
     <Header></Header>
      <div class="contentWrap">
         <form class="login_tabCnt loginWrap" @submit.prevent="signIn">
@@ -34,14 +35,17 @@ export default {
       user: {
         username: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
   methods: {
     signIn () {
+      this.isLoading = true
       const api = `${process.env.VUE_APP_API}admin/signin`
       this.$http.post(api, this.user)
         .then((res) => {
+          this.isLoading = false
           if (res.data.success) {
             const { token, expired } = res.data
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
