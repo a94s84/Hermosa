@@ -3,17 +3,19 @@
    <div class="d-flex">
         <Daside></Daside>
         <router-view/>
+        <ToastList></ToastList>
     </div>
 </body>
 </template>
 
 <script>
 import Daside from '@/components/Daside.vue'
+import ToastList from '@/components/ToastList.vue'
 import emitter from '@/methods/emitter'
 
 export default {
   components: {
-    Daside
+    Daside, ToastList
   },
   provide () {
     return {

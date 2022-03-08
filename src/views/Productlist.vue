@@ -1,6 +1,6 @@
 <template>
       <Loading :active="isLoading"></Loading>
-      <main class="main container-fluid">
+      <main class="main">
         <div class="bg-white w-100 border-bottom sticky-top d-flex">
           <a href="#" class="d-inline-block py-3 px-4 border-end" id="toggle-btn">
             <i class="bi bi-arrows-angle-expand"></i>
@@ -14,20 +14,20 @@
           <table class="table mt-4">
             <thead>
               <tr>
-                <th width="120">分類</th>
-                <th>產品名稱</th>
-                <th width="120">原價</th>
-                <th width="120">售價</th>
-                <th width="100">是否啟用</th>
-                <th width="200" class="text-center">編輯</th>
+                <th width="10%">分類</th>
+                <th width="35%">產品名稱</th>
+                <th width="12%">原價</th>
+                <th width="12%">售價</th>
+                <th width="10%">是否啟用</th>
+                <th width="19%" class="text-center">編輯</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in products" :key="item.id">
                 <td>{{item.category}}</td>
                 <td>{{item.title}}</td>
-                <td class="text-right">{{item.origin_price}}</td>
-                <td class="text-right">{{item.price}}</td>
+                <td class="text-right">{{ item.origin_price}}</td>
+                <td class="text-right">{{ item.price }}</td>
                 <td>
                   <span class="text-success" v-if="item.is_enabled">啟用</span>
                   <span class="text-muted" v-else>未啟用</span>
@@ -50,6 +50,7 @@
 <script>
 import ProductModal from '@/components/ProductModal.vue'
 import DelModal from '@/components/DelModal.vue'
+// import { currency } from '../methods/filters'
 
 export default {
   data () {
@@ -66,6 +67,7 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    // currency,
     openModal (isNew, item) {
       if (isNew) {
         this.tempProduct = {}
@@ -99,13 +101,19 @@ export default {
       }
       const productComponet = this.$refs.productModal
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
+        productComponet.hideModal()
         if (res.data.success) {
-          productComponet.hideModal()
           this.getProducts()
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: '更新成功'
+          })
         } else {
-          alert('請填寫所有必填欄位')
-          this.getProducts()
-          console.log(res)
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: '更新失敗',
+            content: res.data.message.join('、')
+          })
         }
       })
     },
@@ -118,6 +126,10 @@ export default {
       this.$http.delete(api).then((res) => {
         const delComponet = this.$refs.delModal
         delComponet.hideModal()
+        this.emitter.emit('push-message', {
+          style: 'success',
+          title: '成功刪除'
+        })
         this.getProducts()
       })
     }

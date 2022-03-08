@@ -63,6 +63,13 @@ $sidebar-width:280px;
   .sidebar-toggled .main {
     margin-left: 280px;
   }
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    img{
+      width: 100%;
+    }
+}
   
   @media (min-width: 992px) {
     .sidebar {

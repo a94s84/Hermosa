@@ -7,7 +7,7 @@
     aria-hidden="true"
     ref="modal"
     >
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title fs-6" id="exampleModalLabel">
@@ -18,21 +18,48 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
               <div class="mb-3">
-                <label for="image" class="form-label">輸入圖片網址</label>
+                <label for="image" class="form-label">輸入主圖網址</label>
                 <input type="text" class="form-control" id="image"
                   v-model="innerTempProduct.imageUrl" placeholder="請輸入圖片連結">
               </div>
               <div class="mb-3">
-                <label for="customFile" class="form-label">或 上傳圖片
+                <label for="customFile" class="form-label">或 上傳主圖圖片
                   <i class="fas fa-spinner fa-spin"></i>
                 </label>
                 <input type="file" id="customFile" class="form-control"  ref="fileInput" @change="uploadFile">
               </div>
               <img class="img-fluid" :src="innerTempProduct.imageUrl" alt="">
+              <div class="form-row">
+                <div item="0" class="form-group col-lg-6 p-1">
+                  <label for="image1">輸入圖片網址 1 </label>
+                  <input type="text" id="image1" placeholder="請輸入圖片連結" class="form-control mb-2">
+                  <img src="" alt="圖片1">
+                </div>
+                <div item="1" class="form-group col-lg-6 p-1">
+                  <label for="image2">輸入圖片網址 2 </label>
+                  <input type="text" id="image2" placeholder="請輸入圖片連結" class="form-control mb-2">
+                  <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80" alt="圖片2">
+                </div>
+                <div item="2" class="form-group col-lg-6 p-1">
+                  <label for="image3">輸入圖片網址 3 </label>
+                  <input type="text" id="image3" placeholder="請輸入圖片連結" class="form-control mb-2">
+                  <img src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1948&amp;q=80" alt="圖片3">
+                </div>
+                <div item="3" class="form-group col-lg-6 p-1">
+                  <label for="image4">輸入圖片網址 4 </label>
+                  <input type="text" id="image4" placeholder="請輸入圖片連結" class="form-control mb-2">
+                  <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80" alt="圖片4" class="img-fluid">
+                </div>
+                <div item="4" class="form-group col-lg-6 p-1">
+                  <label for="image5">輸入圖片網址 5 </label>
+                  <input type="text" id="image5" placeholder="請輸入圖片連結" class="form-control mb-2">
+                  <img src="https://images.unsplash.com/photo-1511914265872-c40672604a80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1867&amp;q=80" alt="圖片5">
+                </div>
+              </div>
               <!-- 延伸技巧，多圖 -->
-              <div class="mt-5" v-if="innerTempProduct.imagesUrl">
+              <!-- <div class="mt-5" v-if="innerTempProduct.imagesUrl">
                 <div v-for="(image, key) in innerTempProduct.imagesUrl" class="mb-3 input-group" :key="key">
                   <input type="url" class="form-control form-control" v-model="innerTempProduct.imagesUrl[key]" placeholder="請輸入連結">
                   <button type="button" class="btn btn-outline-secondary" @click="innerTempProduct.imagesUrl.splice(key, 1)">>
@@ -44,9 +71,9 @@
                     class="btn btn-outline-primary btn-sm d-block w-100"
                     @click="innerTempProduct.imagesUrl.push('')" >新增圖片</button>
                 </div>
-             </div>
+             </div> -->
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-6">
               <div class="mb-3">
                 <label for="title" class="form-label">*標題</label>
                 <input type="text" class="form-control" id="title" v-model="innerTempProduct.title" required
