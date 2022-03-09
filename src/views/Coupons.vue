@@ -1,0 +1,3 @@
+<template>
+    Coupon
+</template>

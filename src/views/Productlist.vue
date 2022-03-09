@@ -77,8 +77,8 @@ export default {
       this.isNew = isNew
       this.$refs.productModal.showModal()
     },
-    getProducts () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`
+    getProducts (page = 1) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`
       this.isLoading = true
       this.$http.get(api).then((res) => {
         this.isLoading = false

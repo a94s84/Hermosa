@@ -30,48 +30,21 @@
                 </label>
                 <input type="file" id="customFile" class="form-control"  ref="fileInput" @change="uploadFile">
               </div>
-              <img class="img-fluid" :src="innerTempProduct.imageUrl" alt="">
-              <div class="form-row">
-                <div item="0" class="form-group col-lg-6 p-1">
-                  <label for="image1">輸入圖片網址 1 </label>
-                  <input type="text" id="image1" placeholder="請輸入圖片連結" class="form-control mb-2">
-                  <img src="" alt="圖片1">
-                </div>
-                <div item="1" class="form-group col-lg-6 p-1">
-                  <label for="image2">輸入圖片網址 2 </label>
-                  <input type="text" id="image2" placeholder="請輸入圖片連結" class="form-control mb-2">
-                  <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80" alt="圖片2">
-                </div>
-                <div item="2" class="form-group col-lg-6 p-1">
-                  <label for="image3">輸入圖片網址 3 </label>
-                  <input type="text" id="image3" placeholder="請輸入圖片連結" class="form-control mb-2">
-                  <img src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1948&amp;q=80" alt="圖片3">
-                </div>
-                <div item="3" class="form-group col-lg-6 p-1">
-                  <label for="image4">輸入圖片網址 4 </label>
-                  <input type="text" id="image4" placeholder="請輸入圖片連結" class="form-control mb-2">
-                  <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80" alt="圖片4" class="img-fluid">
-                </div>
-                <div item="4" class="form-group col-lg-6 p-1">
-                  <label for="image5">輸入圖片網址 5 </label>
-                  <input type="text" id="image5" placeholder="請輸入圖片連結" class="form-control mb-2">
-                  <img src="https://images.unsplash.com/photo-1511914265872-c40672604a80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1867&amp;q=80" alt="圖片5">
-                </div>
-              </div>
+              <img class="img-fluid" :src="innerTempProduct.imageUrl" alt="" width="250">
               <!-- 延伸技巧，多圖 -->
-              <!-- <div class="mt-5" v-if="innerTempProduct.imagesUrl">
-                <div v-for="(image, key) in innerTempProduct.imagesUrl" class="mb-3 input-group" :key="key">
-                  <input type="url" class="form-control form-control" v-model="innerTempProduct.imagesUrl[key]" placeholder="請輸入連結">
-                  <button type="button" class="btn btn-outline-secondary" @click="innerTempProduct.imagesUrl.splice(key, 1)">>
+              <div class="mt-5" v-if="innerTempProduct.images">
+                <div v-for="(image, key) in innerTempProduct.images" class="mb-3 input-group" :key="key">
+                  <input type="url" class="form-control form-control" v-model="innerTempProduct.images[key]" placeholder="請輸入連結">
+                  <button type="button" class="btn btn-outline-secondary" @click="innerTempProduct.images.splice(key, 1)">>
                     移除
                   </button>
                 </div>
-                <div v-if="innerTempProduct.imagesUrl[innerTempProduct.imagesUrl.length - 1] || !innerTempProduct.imagesUrl.length">
+                <div v-if="innerTempProduct.images[innerTempProduct.images.length - 1] || !innerTempProduct.images.length">
                   <button
                     class="btn btn-outline-primary btn-sm d-block w-100"
-                    @click="innerTempProduct.imagesUrl.push('')" >新增圖片</button>
+                    @click="innerTempProduct.images.push('')" >新增圖片</button>
                 </div>
-             </div> -->
+             </div>
             </div>
             <div class="col-sm-6">
               <div class="mb-3">
@@ -154,6 +127,9 @@ export default {
   watch: {
     modalProduct () {
       this.innerTempProduct = this.modalProduct
+      if (!this.innerTempProduct.images) {
+        this.innerTempProduct.images = []
+      }
     }
   },
   data () {
