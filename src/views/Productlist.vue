@@ -1,55 +1,49 @@
 <template>
       <Loading :active="isLoading"></Loading>
-      <main class="main">
-        <div class="bg-white w-100 border-bottom sticky-top d-flex">
-          <a href="#" class="d-inline-block py-3 px-4 border-end" id="toggle-btn">
-            <i class="bi bi-arrows-angle-expand"></i>
-          </a>
-              <p class="py-3 px-4">Hermosa-後台管理</p>
-        </div>
-        <div class="p-4">
-          <div class="text-end mt-3">
-            <button class="btn btn-warning btn-sm" type="button" @click="openModal(true)">增加產品</button>
-          </div>
-          <table class="table mt-4">
-            <thead>
-              <tr>
-                <th width="10%">分類</th>
-                <th width="35%">產品名稱</th>
-                <th width="12%">原價</th>
-                <th width="12%">售價</th>
-                <th width="10%">是否啟用</th>
-                <th width="19%" class="text-center">編輯</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in products" :key="item.id">
-                <td>{{item.category}}</td>
-                <td>{{item.title}}</td>
-                <td class="text-right">{{ item.origin_price}}</td>
-                <td class="text-right">{{ item.price }}</td>
-                <td>
-                  <span class="text-success" v-if="item.is_enabled">啟用</span>
-                  <span class="text-muted" v-else>未啟用</span>
-                </td>
-                <td class="text-center">
-                  <div class="btn-group">
-                  <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-                  <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
-          <DelModal ref="delModal" @del-Product="delProduct" :delItem="tempProduct"></DelModal>
-        </div>
-      </main>
+     <div class="p-4">
+      <div class="text-end mt-3">
+        <button class="btn btn-warning btn-sm" type="button" @click="openModal(true)">增加產品</button>
+      </div>
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th width="10%">分類</th>
+            <th width="35%">產品名稱</th>
+            <th width="12%">原價</th>
+            <th width="12%">售價</th>
+            <th width="10%">是否啟用</th>
+            <th width="19%" class="text-center">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in products" :key="item.id">
+            <td>{{item.category}}</td>
+            <td>{{item.title}}</td>
+            <td class="text-right">{{ item.origin_price}}</td>
+            <td class="text-right">{{ item.price }}</td>
+            <td>
+              <span class="text-success" v-if="item.is_enabled">啟用</span>
+              <span class="text-muted" v-else>未啟用</span>
+            </td>
+            <td class="text-center">
+              <div class="btn-group">
+              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <Pagination :pages="pagination" @emitPages="getProducts"></Pagination>
+      <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
+      <DelModal ref="delModal" @del-Product="delProduct" :delItem="tempProduct"></DelModal>
+    </div>
 </template>
 
 <script>
 import ProductModal from '@/components/ProductModal.vue'
 import DelModal from '@/components/DelModal.vue'
+import Pagination from '@/components/Pagination.vue'
 // import { currency } from '../methods/filters'
 
 export default {
@@ -63,7 +57,7 @@ export default {
     }
   },
   components: {
-    ProductModal, DelModal
+    ProductModal, DelModal, Pagination
   },
   inject: ['emitter'],
   methods: {
@@ -102,19 +96,20 @@ export default {
       const productComponet = this.$refs.productModal
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         productComponet.hideModal()
-        if (res.data.success) {
-          this.getProducts()
-          this.emitter.emit('push-message', {
-            style: 'success',
-            title: '更新成功'
-          })
-        } else {
-          this.emitter.emit('push-message', {
-            style: 'danger',
-            title: '更新失敗',
-            content: res.data.message.join('、')
-          })
-        }
+        this.$httpMessageState(res, '更新成功')
+        // if (res.data.success) {
+        //   this.getProducts()
+        //   this.emitter.emit('push-message', {
+        //     style: 'success',
+        //     title: '更新成功'
+        //   })
+        // } else {
+        //   this.emitter.emit('push-message', {
+        //     style: 'danger',
+        //     title: '更新失敗',
+        //     content: res.data.message.join('、')
+        //   })
+        // }
       })
     },
     openDelModal (item) {

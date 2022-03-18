@@ -10,8 +10,8 @@
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title fs-6" id="exampleModalLabel">
-            <span>新增產品</span>
+          <h5 class="modal-title fs-6 lh-1" id="exampleModalLabel">
+            <span>產品</span>
           </h5>
           <button type="button" class="btn-close"
                   data-bs-dismiss="modal" aria-label="Close"></button>
