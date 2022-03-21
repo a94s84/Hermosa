@@ -10,8 +10,8 @@
           <button type="button" class="btn-close"
                   data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-        是否刪除 <strong class="text-danger">{{ delItem.title }}</strong> (刪除後將無法恢復)。
+        <div class="modal-body fs-6">
+        是否刪除 <strong class="text-danger">{{ delItem.title }}?</strong> (刪除後將無法恢復)。
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary"

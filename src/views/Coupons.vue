@@ -7,11 +7,11 @@
     <table class="table mt-4">
       <thead>
       <tr>
-        <th>名稱</th>
+        <th width="30%">名稱</th>
         <th>折扣百分比</th>
         <th>到期日</th>
         <th>是否啟用</th>
-        <th>編輯</th>
+        <th class="text-center">編輯</th>
       </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
           <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
           <span v-else class="text-muted">未起用</span>
         </td>
-        <td>
+        <td class="text-center">
           <div class="btn-group">
             <button class="btn btn-outline-primary btn-sm" @click="openCouponModal(false, item)">編輯</button>
             <button class="btn btn-outline-danger btn-sm" @click="openDelCouponModal(item)">刪除</button>
@@ -32,18 +32,16 @@
       </tr>
       </tbody>
     </table>
-    <CouponModal ref="couponModal" @update-coupon="updateCoupon"></CouponModal>
-    <!-- <couponModal :coupon="tempCoupon" ref="couponModal"
-    @update-coupon="updateCoupon"/>
-    <DelModal :item="tempCoupon" ref="delModal" @del-item="delCoupon"/> -->
+    <CouponModal ref="couponModal" :coupon="tempCoupon" @update-coupon="updateCoupon"></CouponModal>
+    <DelModal :delItem="tempCoupon" ref="delModal" @del-product="delCoupon"/>
   </div>
 </template>
 
 <script>
 import CouponModal from '@/components/CouponModal.vue'
-// import DelModal from '@/components/DelModal.vue';
+import DelModal from '@/components/DelModal.vue'
 export default {
-  components: { CouponModal },
+  components: { CouponModal, DelModal },
   props: {
     config: Object
   },
@@ -72,25 +70,51 @@ export default {
       }
       this.$refs.couponModal.showModal()
     },
+    openDelCouponModal (item) {
+      this.tempCoupon = { ...item }
+      this.$refs.delModal.showModal()
+    },
+    getCoupons () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons`
+      this.$http.get(url, this.tempCoupon).then((res) => {
+        this.coupons = res.data.coupons
+        console.log(res)
+      })
+    },
     updateCoupon (tempCoupon) {
+      this.isLoading = true
       if (this.isNew) {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
         this.$http.post(url, { data: tempCoupon }).then((res) => {
           console.log(res, tempCoupon)
-          this.$httpMessageState(res, '新增優惠券')
+          this.$httpMessageState(res, '新增優惠券成功')
+          this.getCoupons()
           this.$refs.couponModal.hideModal()
-        //   this.getCoupons();
+          this.isLoading = false
         })
       } else {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
-        this.$http.put(url, { data: this.tempCoupon }).then((response) => {
-          console.log(response)
-          this.$httpMessageState(response, '新增優惠券')
+        this.$http.put(url, { data: this.tempCoupon }).then((res) => {
+          this.$httpMessageState(res, '更新優惠券成功')
           this.getCoupons()
           this.$refs.couponModal.hideModal()
+          this.isLoading = false
         })
       }
+    },
+    delCoupon () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
+      this.isLoading = true
+      this.$http.delete(url).then((res) => {
+        this.isLoading = false
+        this.$httpMessageState(res, '刪除優惠券成功')
+        this.$refs.delModal.hideModal()
+        this.getCoupons()
+      })
     }
+  },
+  created () {
+    this.getCoupons()
   }
 //   methods: {
 //     openCouponModal(isNew, item) {
@@ -149,8 +173,8 @@ export default {
 //       });
 //     },
 //   },
-//   created() {
-//     this.getCoupons();
-//   },
+  // created() {
+  //   this.getCoupons();
+  // },
 }
 </script>
