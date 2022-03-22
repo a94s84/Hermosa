@@ -1,0 +1,194 @@
+/*------------------------------------*\
+  #Default
+\*------------------------------------*/
+
+.defaultWrap {
+    margin-top: -$desktop_header_height - 50px;
+    .carousel {
+        max-width: 1300px;
+        margin: 0 auto;
+        .slick-prev {
+            left: -5%;
+            z-index: 2;
+        }
+        .slick-next {
+            right: -5%;
+        }
+        .ootdBox {
+            padding: 0 12px;
+        }
+    }
+    .homeSlide {
+        img{
+            width: 100%;
+        }
+        .slick-dots {
+            bottom: 30px;       
+        }
+        &.slick-dotted.slick-slider {
+            margin-bottom: 0;
+        }
+    }
+    .pdbox_color {
+        ul {
+            margin: 25px 0 0;
+        }
+        li {
+            margin: 0 10px 0 0;
+            img {
+                border-radius: 50%;
+            }
+            &:last-of-type{
+                margin:0;
+            }
+        }
+    }
+}
+.js-carousel3 {
+    padding-bottom: 40px;
+    .ootdBox {
+        padding: 0 12px;
+    }
+    .pdbox{
+        padding:0 2.5px;
+    }
+}
+.js-carousel4 {
+    .igBox {
+        padding: 0 2.5px;
+    }
+}
+.lessMargin {
+    padding: 55px 140px;
+}
+.secTitle {
+    font-size: $title_font_size_pc;
+    padding-bottom: 35px;
+    &.txt-center {
+        text-align: center;
+    }
+    img {
+        width: 30px;
+        margin-right: 20px;
+        vertical-align: middle;
+    }
+}
+
+#startAd {
+    .default_popupSubtitle {
+        letter-spacing: 1;
+        font-size: 12px;
+        font-weight: normal;
+        color:$main_color;
+        margin-top: 15px;
+    }
+    img{
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@include tablet-width() {
+    .defaultWrap {
+        .carousel {
+            padding:0 45px;
+            .slick-prev {
+                left: -10px;
+            }
+            .slick-next {
+                right: -10px;
+            }
+        }
+        .js-carousel3 {
+            padding-bottom: 40px;
+            .slick-dots{
+                left:0;
+            }
+        }
+    }
+    .lessMargin {
+        padding:65px 50px;
+    }
+   
+
+}
+
+@include phones-width() {
+    .lessMargin {
+        padding:45px 20px;
+    }
+    .secTitle {
+        font-size: 27px;
+        text-align: center;
+        padding-bottom: 35px;
+        &.igTitle{
+            font-size: 18px;
+            padding: 45px 0 35px;
+            position: relative;
+            img{
+             position: absolute;
+             top:0;
+             left:47%;
+            }
+        }
+    }
+
+    .defaultWrap {
+        padding-bottom: 20px;
+        .carousel{
+            padding:0 0 30px;
+            .slick-prev {
+                width: 15px;
+                height: 40px;
+                left: 15px;
+                top: calc( 100% - 10px );
+            }
+            .slick-next {
+                width: 15px;
+                height: 40px;
+                right: 15px;
+                top: calc( 100% - 10px);
+            }
+            
+        }
+       
+        .js-carousel3,.js-carousel4{
+            margin-bottom: 50px;
+            .slick-dots {
+                bottom:-20px;
+            }
+            .slick-prev {
+                top: calc( 100% + 15px );
+            }
+            .slick-next {
+                top: calc( 100% + 15px);
+            }
+        }
+        .slick-dots {
+            li {
+                button:before {
+                    color: grey;
+                }
+                &.slick-active button:before {
+                    color: black;
+                    opacity: 1;
+                }
+            }
+        }
+        .pdinfo{
+           display: flex;
+           justify-content: space-between;
+        }
+        .pdbox_price-sale{
+            padding-bottom: 20px;
+        }
+        .pdbox_color {
+            ul {
+                margin: 10px 0 0;
+            }
+            li {
+               height:30px;
+            }
+        }
+    }
+}

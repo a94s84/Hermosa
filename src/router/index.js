@@ -4,23 +4,30 @@ import Home from '../views/Home.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/About.vue')
   },
   {
     path: '/login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/user',
+    component: () => import('../views/Userboard.vue'),
+    children: [
+      {
+        path: 'cart',
+        component: () => import('../views/UserCart.vue')
+      },
+      {
+        path: 'product/:productId',
+        component: () => import('../views/UserProduct.vue')
+      }
+    ]
   },
   {
     path: '/dashboard',

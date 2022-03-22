@@ -3,14 +3,17 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/bootstrap";
-
+@import "~slick-carousel/slick/slick";
+@import "~slick-carousel/slick/slick-theme";
 
 @import "./helpers/reset";
 @import "./helpers/mixin";
 @import "./helpers/general";
 @import "./helpers/header";
+@import "./helpers/footer";
 @import "./helpers/login";
 @import "./helpers/b_dashboard";
+@import "./helpers/home";
 // @import "./helpers/mixin";
 // @import "./helpers/mixin";
 // @import "./helpers/mixin";

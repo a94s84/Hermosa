@@ -2,7 +2,7 @@
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li class="page-item" :class="{ 'disabled': !pages.has_pre }">
-        <a class="page-link" href="javascript:void(0)" aria-label="Previous" @click.prevent="prePage(pages)">
+        <a class="page-link" href="javascript:void(0)" aria-label="Previous" @click.prevent="updatePage(pages.current_page - 1)">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="page-item" :class="{ 'disabled': !pages.has_next }">
-        <a class="page-link" href="javascript:void(0)" aria-label="Next" @click.prevent="nextPage(pages)">
+        <a class="page-link" href="javascript:void(0)" aria-label="Next" @click.prevent="updatePage(pages.current_page + 1)">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
@@ -27,18 +27,6 @@ export default {
   methods: {
     updatePage (page) {
       this.$emit('emit-pages', page)
-    },
-    nextPage (pages) {
-      if (pages.has_next) {
-        pages.current_page = pages.current_page + 1
-        this.$emit('emit-pages', pages.current_page)
-      }
-    },
-    prePage (pages) {
-      if (pages.has_pre) {
-        pages.current_page = pages.current_page - 1
-        this.$emit('emit-pages', pages.current_page)
-      }
     }
   }
 }

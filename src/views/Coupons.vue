@@ -32,6 +32,7 @@
       </tr>
       </tbody>
     </table>
+    <Pagination :pages="pagination" @emitPages="getCoupons"></Pagination>
     <CouponModal ref="couponModal" :coupon="tempCoupon" @update-coupon="updateCoupon"></CouponModal>
     <DelModal :delItem="tempCoupon" ref="delModal" @del-product="delCoupon"/>
   </div>
@@ -40,14 +41,17 @@
 <script>
 import CouponModal from '@/components/CouponModal.vue'
 import DelModal from '@/components/DelModal.vue'
+import Pagination from '@/components/Pagination.vue'
 export default {
-  components: { CouponModal, DelModal },
+  components: { CouponModal, DelModal, Pagination },
   props: {
     config: Object
   },
+  inject: ['emitter'],
   data () {
     return {
       coupons: {},
+      pagination: {},
       tempCoupon: {
         title: '',
         is_enabled: 0,
@@ -74,11 +78,11 @@ export default {
       this.tempCoupon = { ...item }
       this.$refs.delModal.showModal()
     },
-    getCoupons () {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons`
+    getCoupons (page = 1) {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`
       this.$http.get(url, this.tempCoupon).then((res) => {
         this.coupons = res.data.coupons
-        console.log(res)
+        this.pagination = res.data.pagination
       })
     },
     updateCoupon (tempCoupon) {
@@ -106,75 +110,15 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
       this.isLoading = true
       this.$http.delete(url).then((res) => {
-        this.isLoading = false
         this.$httpMessageState(res, '刪除優惠券成功')
-        this.$refs.delModal.hideModal()
         this.getCoupons()
+        this.$refs.delModal.hideModal()
+        this.isLoading = false
       })
     }
   },
   created () {
     this.getCoupons()
   }
-//   methods: {
-//     openCouponModal(isNew, item) {
-//       this.isNew = isNew;
-//       if (this.isNew) {
-//         this.tempCoupon = {
-//           due_date: new Date().getTime() / 1000,
-//         };
-//       } else {
-//         this.tempCoupon = { ...item };
-//       }
-//       this.$refs.couponModal.showModal();
-//     },
-//     openDelCouponModal(item) {
-//       this.tempCoupon = { ...item };
-//       const delComponent = this.$refs.delModal;
-//       delComponent.showModal();
-//     },
-//     getCoupons() {
-//       this.isLoading = true;
-//       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons`;
-//       this.$http.get(url, this.tempProduct).then((response) => {
-//         this.coupons = response.data.coupons;
-//         this.isLoading = false;
-//         console.log(response);
-//       });
-//     },
-//     updateCoupon(tempCoupon) {
-//       if (this.isNew) {
-//         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
-//         this.$http.post(url, { data: tempCoupon }).then((response) => {
-//           console.log(response, tempCoupon);
-//           this.$httpMessageState(response, '新增優惠券');
-//           this.getCoupons();
-//           this.$refs.couponModal.hideModal();
-//         });
-//       } else {
-//         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
-//         this.$http.put(url, { data: this.tempCoupon }).then((response) => {
-//           console.log(response);
-//           this.$httpMessageState(response, '新增優惠券');
-//           this.getCoupons();
-//           this.$refs.couponModal.hideModal();
-//         });
-//       }
-//     },
-//     delCoupon() {
-//       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
-//       this.isLoading = true;
-//       this.$http.delete(url).then((response) => {
-//         console.log(response, this.tempCoupon);
-//         this.$httpMessageState(response, '刪除優惠券');
-//         const delComponent = this.$refs.delModal;
-//         delComponent.hideModal();
-//         this.getCoupons();
-//       });
-//     },
-//   },
-  // created() {
-  //   this.getCoupons();
-  // },
 }
 </script>

@@ -8,6 +8,7 @@ import router from './router'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import $httpMessageState from './methods/pushMessageState.js'
 import { currency, date } from './methods/filters.js'
+import 'slick-carousel/slick/slick.min.js'
 
 const app = createApp(App)
 app.config.globalProperties.$httpMessageState = $httpMessageState
