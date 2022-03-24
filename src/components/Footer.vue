@@ -1,4 +1,5 @@
 <template>
+    <div class="pageCover"></div>
     <footer>
         <div class="footerWrap">
             <div class="footer_left">

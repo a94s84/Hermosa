@@ -1,6 +1,6 @@
 <template>
   <body class="hasBannerBar">
-      <Header/>@@include('./template/_offcanvas.html')
+      <Header/>
       <div class="contentWrap">
           <div class="defaultWrap">
               <!-- 首頁大圖輪播 -->
@@ -18,120 +18,28 @@
                       </picture>
                   </a>
               </div>
-              <!-- collation -->
+              <!-- NEW IN -->
               <section class="wrap lessMargin">
-                  <h2 class="secTitle">COLLECTION</h2>
-                  <div class="js-carousel3 carousel">
-                      <div class="pdbox">
-                          <a href="product.html">
-                              <img data-lazy="http://via.placeholder.com/352x436" alt="">
-                          </a>
-                          <div class="pdinfo">
-                              <div>
-                                  <a href="#">
-                                      <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                                  </a>
-                                  <p class="pdbox_price">NT$800</p>
-                              </div>
-                              <div class="pdbox_color">
-                                  <ul>
-                                      <li>
-                                          <a href="#" data-color="02" data-colorname="綠色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/023.jpg" alt="">
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" data-color="03" data-colorname="藍色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/029.jpg" alt="">
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="pdbox">
-                          <a href="product.html">
-                              <img data-lazy="http://via.placeholder.com/352x436" alt="">
-                          </a>
-                          <div class="pdinfo">
-                              <div>
-                                  <a href="#">
-                                      <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                                  </a>
-                                  <p class="pdbox_price-origin">NT$500</p>
-                                  <p class="pdbox_price-sale">NT$300 <span>SALE</span></p>
-                              </div>
-                              <div class="pdbox_color">
-                                  <ul>
-                                      <li>
-                                          <a href="#" data-color="01" data-colorname="橘色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/053.jpg" alt="">
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" data-color="02" data-colorname="綠色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/023.jpg" alt="">
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" data-color="03" data-colorname="藍色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/029.jpg" alt="">
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="pdbox">
-                          <a href="product.html">
-                              <img data-lazy="http://via.placeholder.com/352x436" alt="">
-                          </a>
-                          <div class="pdinfo">
-                              <div>
-                                  <a href="#">
-                                      <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                                  </a>
-                                  <p class="pdbox_price">NT$500</p>
-                              </div>
-                              <div class="pdbox_color">
-                                  <ul>
-                                      <li>
-                                          <a href="#" data-color="01" data-colorname="橘色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/053.jpg" alt="">
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" data-color="03" data-colorname="藍色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/029.jpg" alt="">
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="pdbox">
-                          <a href="product.html">
-                              <img data-lazy="http://via.placeholder.com/352x436" alt="">
-                          </a>
-                          <div class="pdinfo">
-                              <div>
-                                  <a href="#">
-                                      <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                                  </a>
-                                  <p class="pdbox_price">NT$500</p>
-                              </div>
-                              <div class="pdbox_color">
-                                  <ul>
-                                      <li>
-                                          <a href="#" data-color="03" data-colorname="藍色">
-                                              <img src="https://photo.minimatters.com.tw/BigColorIcon/029.jpg" alt="">
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                  <h2 class="secTitle">NEW IN</h2>
+                  <div class="js-carousel3 carousel" ref="carousel3">
+                    <div class="pdbox" v-for="item in products.slice(0,6)" :key="item.id">
+                        <a type="button" @click.prevent="getProduct(item.id)">
+                            <img :src="`${item.imageUrl}`">
+                        </a>
+                        <div class="pdinfo">
+                            <div>
+                                <a href="#">
+                                    <p class="pdbox_name">{{item.title}}</p>
+                                </a>
+                                <div v-if="item.origin_price !== item.price">
+                                    <p class="pdbox_price-origin">NT${{ item.origin_price}}</p>
+                                    <p class="pdbox_price-sale">NT${{ item.price}} <span>SALE</span></p>
+                                </div>
+                                  <p class="pdbox_price" v-else>NT${{ item.origin_price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
               </section>
               <!-- 第二則輪播  -->
               <div class="homeSlide">
@@ -194,48 +102,53 @@ export default {
   components: {
     Header, Footer
   },
+  data () {
+    return {
+      products: [],
+      product: {},
+      status: {
+        loadingItem: ''
+      }
+    }
+  },
   methods: {
+    getPdList () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
+      this.isLoading = true
+      this.$http.get(url).then((res) => {
+        this.products = res.data.products
+        this.isLoading = false
+      })
+    },
     getProduct (id) {
       this.$router.push(`/user/product/${id}`)
+    },
+    carousels () {
+      $('.js-carousel3').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        autoplay: false,
+        responsive: [{
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            dots: true,
+            arrows: true
+          }
+        }]
+      })
     }
+  },
+  created () {
+    this.getPdList()
   },
   mounted () {
     $('.homeSlide').slick({
       dots: true,
       arrows: false,
       autoplay: true
-    })
-    $('.js-carousel2').slick({
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      arrows: true,
-      autoplay: false,
-      autoplaySpeed: 1500,
-      responsive: [{
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          dots: true,
-          arrows: true
-        }
-      }
-      ]
-    })
-    $('.js-carousel3').slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      dots: true,
-      arrows: true,
-      autoplay: false,
-      responsive: [{
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          dots: true,
-          arrows: true
-        }
-      }
-      ]
     })
     $('.js-carousel4').slick({
       slidesToShow: 4,
@@ -254,6 +167,16 @@ export default {
       }
       ]
     })
+    $(window).scroll(function () {
+      $('header').removeClass('header_white')
+      var scrollVal = $(this).scrollTop()
+      if (scrollVal >= 50) {
+        $('header').addClass('header_white')
+      }
+    })
+  },
+  updated () {
+    this.carousels()
   }
 }
 </script>

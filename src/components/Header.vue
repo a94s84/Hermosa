@@ -1,5 +1,5 @@
 <template>
-<header>
+  <header>
     <!-- <img src="../assets/img/logo.png" alt=""> -->
     <div class="header_bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
@@ -9,11 +9,11 @@
     </div>
     <div class="header_inner wrap">
         <div class="header_pc_menu">
-            <a href="javascript: void(0);" class="header_menu"></a>
+            <a href="javascript: void(0);" class="header_menu" ref="headerMenu"></a>
         </div>
         <div class="header_logoWrap">
             <a href="default.html" class="header_logo">
-               <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
+            <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
             </a>
         </div>
         <div class="header_side_icon">
@@ -28,11 +28,115 @@
             </a>
         </div>
     </div>
-</header>
+  </header>
+  <div class="offcan" ref="offcanvas">
+        <div class="offcanvas_head">
+            <img src="../assets/img/logo_s.png" alt="" class="logo_in_menu">
+            <a href="javascript: void(0);" class="close_menu_btn">
+                <img src="../assets/img/close_black.svg" alt="">
+            </a>
+        </div>
+        <div class="offcanvas_body">
+            <ul class="js-menu">
+                <li>
+                    <a href="javascrip:(0)" class="submenuTitle ">NEW ARRIVAL
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="#">一排可以放九個字元</a>
+                        </li>
+                        <li>
+                            <a href="#">一排可以放九個字元</a>
+                        </li>
+                        <li>
+                            <a href="#">一排可以放九個字元</a>
+                        </li>
+                        <li>
+                            <a href="#">一排可以放九個字元</a>
+                        </li>
+                        <li>
+                            <a href="#">一排可以放九個字元</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">AFAD MADE</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="submenuTitle">WOMAN</a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="#">長褲</a>
+                        </li>
+                        <li>
+                            <a href="#">牛仔褲</a>
+                        </li>
+                        <li>
+                            <a href="#">短裙</a>
+                        </li>
+                        <li>
+                            <a href="#">長裙</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">ACCESSORIES</a>
+                </li>
+                <li>
+                    <a href="#">BRANDS</a>
+                </li>
+                <li>
+                    <a href="#">BRANDS</a>
+                </li>
+                <li>
+                    <a href="#">KIDS</a>
+                </li>
+                <li>
+                    <a href="#">SALE</a>
+                </li>
+            </ul>
+            <div class="offcanvas_searchWrap">
+                <input type="text">
+                <a href="javascript: void(0);" class="offcanvas_search">
+                    <img src="../assets/img/search.svg" alt="搜尋" title="搜尋">
+                </a>
+            </div>
+            <div class="offcanvas_social">
+                <a href="#">
+                    <img src="../assets/img/off_fb.svg" alt="">
+                </a>
+                <a href="#">
+                    <img src="../assets/img/off_ig.svg" alt="">
+                </a>
+                <a href="#">
+                    <img src="../assets/img/off_line.svg" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
+import $ from 'jquery'
+// import { offcanvas } from '../methods/offcanvas'
 export default {
-  name: 'Header'
+  name: 'Header',
+  mounted () {
+    $('.header_menu').click(function () {
+      $('.offcan').animate({
+        left: 0
+      }, 300)
+      $('.pageCover').addClass('active')
+    })
+    $('.close_menu_btn, .pageCover').click(function () {
+      $('.offcan').animate({
+        left: -800
+      }, 300)
+      $('.pageCover').removeClass('active')
+    })
+    $('.close_banner').click(function () {
+      $('body').removeClass('hasBannerBar')
+    })
+  }
 }
 </script>
