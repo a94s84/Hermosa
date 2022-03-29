@@ -12,14 +12,14 @@
             <a href="javascript: void(0);" class="header_menu" ref="headerMenu"></a>
         </div>
         <div class="header_logoWrap">
-            <a href="default.html" class="header_logo">
+            <a href="/" class="header_logo">
             <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
             </a>
         </div>
         <div class="header_side_icon">
-            <a href="login.html" class="header_login">
+            <router-link to="/login" class="header_login">
                 <img src="../assets/img/login.svg" alt="登入" title="登入">
-            </a>
+            </router-link>
             <a href="wishlist.html" class="header_favorite">
                 <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
             </a>
@@ -39,60 +39,26 @@
         <div class="offcanvas_body">
             <ul class="js-menu">
                 <li>
-                    <a href="javascrip:(0)" class="submenuTitle ">NEW ARRIVAL
+                    <a href="javascrip:(0)" type="button">ALL</a>
+                </li>
+                <li>
+                    <a href="javascrip:(0)" type="button">TOPS
                     </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#">一排可以放九個字元</a>
-                        </li>
-                        <li>
-                            <a href="#">一排可以放九個字元</a>
-                        </li>
-                        <li>
-                            <a href="#">一排可以放九個字元</a>
-                        </li>
-                        <li>
-                            <a href="#">一排可以放九個字元</a>
-                        </li>
-                        <li>
-                            <a href="#">一排可以放九個字元</a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
-                    <a href="#">AFAD MADE</a>
+                    <a href="javascrip:(0)" type="button">OUTER</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" class="submenuTitle">WOMAN</a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#">長褲</a>
-                        </li>
-                        <li>
-                            <a href="#">牛仔褲</a>
-                        </li>
-                        <li>
-                            <a href="#">短裙</a>
-                        </li>
-                        <li>
-                            <a href="#">長裙</a>
-                        </li>
-                    </ul>
+                    <a href="javascrip:(0)" type="button">DRESSES</a>
                 </li>
                 <li>
-                    <a href="#">ACCESSORIES</a>
+                    <a href="javascrip:(0)" type="button">PANTS</a>
                 </li>
                 <li>
-                    <a href="#">BRANDS</a>
+                    <a href="javascrip:(0)" type="button">SKIRTS</a>
                 </li>
                 <li>
-                    <a href="#">BRANDS</a>
-                </li>
-                <li>
-                    <a href="#">KIDS</a>
-                </li>
-                <li>
-                    <a href="#">SALE</a>
+                    <router-link to="/user" href="#">SALE</router-link>
                 </li>
             </ul>
             <div class="offcanvas_searchWrap">
@@ -136,6 +102,13 @@ export default {
     })
     $('.close_banner').click(function () {
       $('body').removeClass('hasBannerBar')
+    })
+    $(window).scroll(function () {
+      $('header').removeClass('header_white')
+      var scrollVal = $(this).scrollTop()
+      if (scrollVal >= 10) {
+        $('header').addClass('header_white')
+      }
     })
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <body class="hasBannerBar">
-    <Header/>@@include('./template/_offcanvas.html')
+    <Header/>
     <ToastList></ToastList>
     <div class="contentWrap">
       <router-view/>

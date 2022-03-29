@@ -97,9 +97,12 @@ ol {
     margin: 0;
 }
 
-a {
+a { 
     text-decoration: none;
     color: $main_color;
+    img{
+        max-width: 100%;
+    }
 }
 
 //以下為常用class
@@ -165,18 +168,6 @@ a {
            bottom: 5px;
            background-color: $main_color;
        }
-    }
-}
-
-.pagination_viewall {
-    display: inline-block;
-    height: 35px;
-    line-height: 35px;
-    font-size: 14px;
-    margin-right: 30px;
-    letter-spacing: 0.12rem;
-    &.is-hidden-desk{
-        margin-right: 0;
     }
 }
 
@@ -309,6 +300,7 @@ a {
         font-weight: bold;
         span {
             margin-left: 10px;
+            line-height: 16px;
             padding: 0 3px;
             letter-spacing: .5px;
             font-weight: normal;

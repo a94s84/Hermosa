@@ -41,15 +41,16 @@
                     </div>
                  </div>
               </section>
-              <!-- 第二則輪播  -->
-              <div class="homeSlide">
+              <!-- banner  -->
+              <div>
                   <a href="#">
-                      <picture>
-                          <source srcset="http://via.placeholder.com/1200x360" media="(min-width: 1007px)" width="100%">
-                          <img src="http://via.placeholder.com/770x1400" alt="" width="100%">
-                      </picture>
+                     <img src="https://pics.mercci22.tw/img/mainpage/2022SS/index/032822/c-02.gif">
+                      <!-- <picture>
+                          <source srcset="https://pics.mercci22.tw/img/mainpage/2022SS/index/032822/c-02.gif" media="(min-width: 1007px)" width="100%">
+                          <img src="https://pics.mercci22.tw/img/mainpage/2022SS/index/032822/c-02.gif" alt="" width="100%">
+                      </picture> -->
                   </a>
-              </div>
+               </div>
               <!-- instagram -->
               <section class="wrap lessMargin">
                   <h2 class="secTitle igTitle"><img src="Source/images/zh-cht/icons/footer_ig.svg">INSTAGRAM #Hermosa</h2>
@@ -124,6 +125,11 @@ export default {
       this.$router.push(`/user/product/${id}`)
     },
     carousels () {
+      $('.homeSlide').slick({
+        dots: true,
+        arrows: false,
+        autoplay: true
+      })
       $('.js-carousel3').slick({
         slidesToShow: 3,
         slidesToScroll: 1,
@@ -139,41 +145,26 @@ export default {
           }
         }]
       })
+      $('.js-carousel4').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: true,
+        autoplay: false,
+        dot: true,
+        autoplaySpeed: 1500,
+        responsive: [{
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            dots: true,
+            arrows: true
+          }
+        }]
+      })
     }
   },
   created () {
     this.getPdList()
-  },
-  mounted () {
-    $('.homeSlide').slick({
-      dots: true,
-      arrows: false,
-      autoplay: true
-    })
-    $('.js-carousel4').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      arrows: true,
-      autoplay: false,
-      dot: true,
-      autoplaySpeed: 1500,
-      responsive: [{
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          dots: true,
-          arrows: true
-        }
-      }
-      ]
-    })
-    $(window).scroll(function () {
-      $('header').removeClass('header_white')
-      var scrollVal = $(this).scrollTop()
-      if (scrollVal >= 50) {
-        $('header').addClass('header_white')
-      }
-    })
   },
   updated () {
     this.carousels()
