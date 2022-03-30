@@ -89,6 +89,7 @@
               </section>
           </div>
       </div>
+      <div class="pageCover"></div>
       <Footer/>
   </body>
 </template>

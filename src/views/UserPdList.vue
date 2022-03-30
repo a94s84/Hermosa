@@ -35,15 +35,6 @@
                             <a href="javascript:void(0)" class="pdlist_btn_col2 js_btn_col " data-col="col2"></a>
                             <a href="javascript:void(0)" class="pdlist_btn_col10 js_btn_col active" data-col="col10"></a>
                         </div>
-                        <ul class="pdlist_nav">
-                            <li><a href="#">Verdon透明手機殼</a></li>
-                            <li><a href="#">Verdon鏡面手機殼</a></li>
-                            <li><a href="#">Dolomites矽膠手機殼</a></li>
-                            <li><a href="#">針織</a></li>
-                            <li><a href="#">雪紡</a></li>
-                            <li><a href="#">麻質</a></li>
-                            <li><a href="#">單寧</a></li>
-                        </ul>
                     </div>
                     <!-- 商品列表 -->
                     <div class="pds">
@@ -65,10 +56,10 @@
                             </div> -->
                             <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
                                 <div class="pdbox">
-                                    <a href="product.html" class="pdbox_img">
+                                    <a type="button" class="pdbox_img" @click="getProduct(item.id)">
                                         <img :src="`${item.imageUrl}`">
                                     </a>
-                                    <a href="#">
+                                    <a type="button" @click="getProduct(item.id)">
                                         <p class="pdbox_name">{{item.title}}</p>
                                     </a>
                                    <div v-if="item.origin_price !== item.price">
@@ -92,6 +83,7 @@
                 </div>
             </div>
         </div>
+      <div class="pageCover"></div>
       <Footer/>
   </body>
 </template>

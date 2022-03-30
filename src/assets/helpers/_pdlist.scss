@@ -68,18 +68,6 @@
     display: flex;
     float: right;
 }
-.pdlist_nav{
-    float:right;
-    margin-right: 20px;
-    font-family:"Montserrat",'Noto Sans TC', sans-serif;
-    li{
-        display: inline-block;
-        margin-right: 5px;
-        a{
-            line-height: 21px;
-        }
-    }
-}
 .pdlist_btn_col2 {
     width: 31px;
     height: 18px;
@@ -192,15 +180,6 @@
     .pdlist_cnt .breadcrumb{
         order:1;
         width: calc(100% - 68px);
-    }
-    .pdlist_nav{
-        margin-right: initial;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid rgb(167, 167, 167);
-        order:0;
-        width: 100%;
-        float:initial;
     }
     .pdlist_changeCol{
         order:2;

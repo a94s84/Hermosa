@@ -12,9 +12,9 @@
             <a href="javascript: void(0);" class="header_menu" ref="headerMenu"></a>
         </div>
         <div class="header_logoWrap">
-            <a href="/" class="header_logo">
+            <router-link to="/#/" class="header_logo">
             <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
-            </a>
+            </router-link>
         </div>
         <div class="header_side_icon">
             <router-link to="/login" class="header_login">
@@ -39,7 +39,7 @@
         <div class="offcanvas_body">
             <ul class="js-menu">
                 <li>
-                    <a href="javascrip:(0)" type="button">ALL</a>
+                    <router-link to="/user/productlist" >ALL</router-link>
                 </li>
                 <li>
                     <a href="javascrip:(0)" type="button">TOPS
