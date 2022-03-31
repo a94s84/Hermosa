@@ -166,6 +166,7 @@ export default {
   },
   created () {
     this.getPdList()
+    this.carousels()
   },
   updated () {
     this.carousels()

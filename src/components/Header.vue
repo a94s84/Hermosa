@@ -12,7 +12,7 @@
             <a href="javascript: void(0);" class="header_menu" ref="headerMenu"></a>
         </div>
         <div class="header_logoWrap">
-            <router-link to="/#/" class="header_logo">
+            <router-link to="/" class="header_logo">
             <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
             </router-link>
         </div>

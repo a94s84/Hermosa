@@ -39,15 +39,6 @@
     }
 
 }
-.pdcnt_img_group {
-    display: none;
-    .slick-slider {
-        margin-bottom: 15px;
-    }
-    &.active {
-        display: block;
-    }
-}
 .pdcnt_img_group_main {
     margin: 0 0 15px;
     .slick-prev,
@@ -272,6 +263,9 @@
     margin-left: 5px;
     height: 16px;
     position: relative;
+    img{
+        width: 15px;
+    }
 }
 .pdcnt_btn_BuyPay{
     width: 80%;
@@ -279,20 +273,6 @@
     justify-content: flex-end;
     .btn, .btn_second{
         width: 40%;
-    }
-    &.empty{
-        .btn_notify{
-            display: inline-block;
-        }
-        .btn_pdsoldout{
-            display: inline-block;
-        }
-        .btn_topay{
-            display: none;
-        }
-        .btn_add{
-            display: none;
-        }
     }
 }
 
@@ -302,15 +282,6 @@
 .btn_topay{
     width: 40%;
     display: inline-block;
-}
-
-.btn_notify{
-    display: none;
-}
-
-.btn_pdsoldout{
-    display: none;
-    cursor: not-allowed;
 }
 
 .pdcnt_menu{

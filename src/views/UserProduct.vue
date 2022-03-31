@@ -1,5 +1,4 @@
 <template>
-    <Loading :active="isLoading"></Loading>
     <div class="wrap">
         <div class="pdcnt_wrap">
             <aside class="pdlist_aside">
@@ -15,7 +14,14 @@
             </aside>
             <div class="pdcnt">
                 <div class="pdcnt_imgpart">
-                    <div class="pdcnt_img"></div>
+                    <div class="pdcnt_img">
+                        <div class="pdcnt_img_group_main">
+                            <img v-for="img in product.imagesUrl" :key="img" :src="img">
+                        </div>
+                        <div class="pdcnt_img_group_thumb">
+                            <img v-for="img in product.imagesUrl" :key="img" :src="img">
+                        </div>
+                    </div>
                 </div>
                 <div class="pdcnt_info">
                     <!-- 商品名稱.價格.編號. -->
@@ -30,7 +36,7 @@
                             <p class="pdcnt_price_origin">NT${{product.origin_price}}</p>
                         </div>
                     </div>
-                    <!-- 商品顏色.尺寸.數量 -->
+                    <!-- 商品尺寸.數量 -->
                     <div class="pdcnt_CSN">
                         <table class="pdcnt_table">
                             <thead>
@@ -43,14 +49,9 @@
                                 <tr>
                                     <td class="pdcnt_info_size">F</td>
                                     <td class="pdcnt_info_number">
-                                        <div>
-                                            <select name="" id="">
-                                                <option value="">1
-                                                </option>
-                                                <option value="">2
-                                                </option>
-                                            </select>
-                                        </div>
+                                        <select ref="cartNum" @change="qtyChnage()">
+                                            <option v-for="num in 10" :key="num" :value="num">{{num}}</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </tbody>
@@ -70,18 +71,17 @@
                             結帳時請務必詳讀結帳頁面下方注意事項
                         </p>
                     </div>
-                    <!-- 收藏.加入購物清單.結帳 / soldout.貨到通知 -->
+                    <!-- 收藏.加入購物清單.結帳 -->
                     <div class="pdcnt_btn">
                         <div class="pdcnt_btn_wish">
                             <a href="javascript:void(0)" class="btn_wish">
-                                <img src="Source/images/zh-cht/icons/favicon.svg" alt="" width="15px">
+                                <img src="../assets/img/favicon.svg"> +
                             </a>
                         </div>
                         <div class="pdcnt_btn_BuyPay">
-                            <a href="#" class="btn_second btn_add">+&ensp;加入購物清單</a>
-                            <a href="shoppingcart.html" class="btn_black btn_topay">立即結帳&ensp;<img src="Source/images/zh-cht/icons/pdcnt_pay_arrow.svg" alt="" width="18px"></a>
-                            <a href="javascript:void(0)" class="btn_second btn_pdsoldout">SOLD OUT</a>
-                            <a href="#notify" class="btn btn_notify js-mfp-inline">貨到通知&ensp;<img src="Source/images/zh-cht/icons/pdcnt_pay_arrow.svg" alt="" width="18px"></a>
+                            <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
+                            </a>
+                            <a href="#" class="btn_black btn_topay">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" alt="" width="18px"></a>
                         </div>
                     </div>
                     <ul class="pdcnt_menu">
@@ -174,32 +174,32 @@
             <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
             <div class="js-carousel4 carousel">
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
                 <div class="alsoLike_box">
-                    <a href="product.html">
+                    <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
                 </div>
@@ -216,19 +216,87 @@ export default {
   data () {
     return {
       product: {},
-      id: ''
+      id: '',
+      qty: 1
     }
   },
+  inject: ['emitter'],
   methods: {
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
-      this.isLoading = true
       this.$http.get(api).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
           console.log(this.product)
         }
+      })
+    },
+    addCart (id, qty = 1) {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      const cart = {
+        product_id: id,
+        qty: qty
+      }
+      this.$http.post(url, { data: cart }).then((res) => {
+        this.$httpMessageState(res, '加入購物車')
+        console.log(res)
+      })
+    },
+    qtyChnage () {
+      const cartNum = this.$refs.cartNum.value
+      this.qty = cartNum
+    },
+    imgcarouse () {
+      $('.js-carousel4').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: true,
+        autoplay: false,
+        dot: true,
+        autoplaySpeed: 1500,
+        responsive: [{
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 2,
+            arrows: true
+          }
+        }]
+      })
+      $('.js-carousel5').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        responsive: [{
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 4
+          }
+        }, {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            arrows: true
+          }
+        }]
+      })
+      $('.pdcnt_img_group_main').slick({
+        autoplay: true,
+        autoplaySpeed: 2500,
+        speed: 2000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        asNavFor: $('.pdcnt_img_group_thumb')
+      })
+      $('.pdcnt_img_group_thumb').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: $('.pdcnt_img_group_main'),
+        arrows: false,
+        vertical: false,
+        focusOnSelect: true
       })
     }
   },
@@ -237,43 +305,10 @@ export default {
     this.getProduct()
   },
   mounted () {
-    $('.js-carousel4').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      arrows: true,
-      autoplay: false,
-      dot: true,
-      autoplaySpeed: 1500,
-      responsive: [{
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          arrows: true
-        }
-      }]
-    })
-    $('.js-carousel5').slick({
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      arrows: true,
-      responsive: [{
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4
-        }
-      }, {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          arrows: true
-        }
-      }]
-    })
+    // this.imgcarouse()
   },
   updated () {
-    // this.carousel4()
+    this.imgcarouse()
   }
 }
 </script>

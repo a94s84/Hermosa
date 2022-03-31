@@ -1,111 +1,100 @@
 <template>
-  <body class="hasBannerBar">
-      <Header/>
-        <div class="wrap">
-            <div class="pdlist_wrap">
-                <aside class="pdlist_aside">
-                    <ul class="pdlist_menu js-menu" >
-                        <li>
-                        <a type="button" @click="filter = 'ALL'">ALL</a>
-                        </li>
-                        <li v-for="item in categoryData" :key="item.id">
-                            <a type="button" @click="filter = item">{{item}}
-                            </a>
-                        </li>
-                    </ul>
-                </aside>
-                <div class="pdlist_cnt">
-                    <!-- 麵包屑及區快icon -->
-                    <div class="pdlist_NavPart">
-                        <ol class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
-                            <li property="itsemListElement" typeof="ListItem">
-                                <a href="#" title="HOME" property="item" typeof="WebPage">
-                                    <span property="name">HOME</span>
-                                </a>
-                                <meta property="position" content="1">
-                            </li>
-                            <li property="itemListElement" typeof="ListItem">
-                                <a type="button" title="ITEM" property="item">
-                                    <h1 property="name">{{ filter }}</h1>
-                                </a>
-                                <meta property="position" content="2">
-                            </li>
-                        </ol>
-                        <div class="pdlist_changeCol">
-                            <a href="javascript:void(0)" class="pdlist_btn_col2 js_btn_col " data-col="col2"></a>
-                            <a href="javascript:void(0)" class="pdlist_btn_col10 js_btn_col active" data-col="col10"></a>
-                        </div>
-                    </div>
-                    <!-- 商品列表 -->
-                    <div class="pds">
-                        <div class="pds_col col10">
-                            <!-- <div class="pds_item js_items">
-                                <div class="pdbox">
-                                    <a href="product.html" class="pdbox_img">
-                                        <img src="http://via.placeholder.com/552x736" alt="">
-                                        <span class="pdbox_soldout">SOLD OUT</span>
-                                    </a>
-                                    <a href="#">
-                                        <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                                    </a>
-                                    <div class="pdbox_pricebox">
-                                        <p class="pdbox_price-origin">NT$500</p>
-                                        <p class="pdbox_price-sale">NT$300<span>SALE</span></p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
-                                <div class="pdbox">
-                                    <a type="button" class="pdbox_img" @click="getProduct(item.id)">
-                                        <img :src="`${item.imageUrl}`">
-                                    </a>
-                                    <a type="button" @click="getProduct(item.id)">
-                                        <p class="pdbox_name">{{item.title}}</p>
-                                    </a>
-                                   <div v-if="item.origin_price !== item.price">
-                                    <p class="pdbox_price-origin">NT${{ item.origin_price}}</p>
-                                    <p class="pdbox_price-sale">NT${{ item.price}} <span>SALE</span></p>
-                                </div>
-                                  <p class="pdbox_price" v-else>NT${{ item.origin_price}}</p>
-                                </div>
-                            </div>
-                            <!-- end .pl_item -->
-                        </div>
-                    </div>
-                    <!-- 分頁頁碼 -->
-                    <div>
-                      <div class="pagination_box has-text-centered">
-                        <a type="button" class="pagination_prev" :class="{ 'disabled': currentPage == 1 }" @click.prevent="changePage(currentPage - 1)"></a>
-                        <a type="button" class="pagination_page" v-for="page in filterData.length" :key="page" :class="{ 'active': currentPage == page}" @click.prevent="currentPage = page">{{ page }}</a>
-                        <a type="button" class="pagination_next" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage == filterData.length }"></a>
+  <Loading :active="isLoading"></Loading>
+  <div class="wrap">
+      <div class="pdlist_wrap">
+          <aside class="pdlist_aside">
+              <ul class="pdlist_menu js-menu" >
+                  <li>
+                  <a type="button" @click="filter = 'ALL'">ALL</a>
+                  </li>
+                  <li v-for="item in categoryData" :key="item.id">
+                      <a type="button" @click="filter = item">{{item}}
+                      </a>
+                  </li>
+              </ul>
+          </aside>
+          <div class="pdlist_cnt">
+              <!-- 麵包屑及區快icon -->
+              <div class="pdlist_NavPart">
+                  <ol class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
+                      <li property="itsemListElement" typeof="ListItem">
+                          <a href="#" title="HOME" property="item" typeof="WebPage">
+                              <span property="name">HOME</span>
+                          </a>
+                          <meta property="position" content="1">
+                      </li>
+                      <li property="itemListElement" typeof="ListItem">
+                          <a type="button" title="ITEM" property="item">
+                              <h1 property="name">{{ filter }}</h1>
+                          </a>
+                          <meta property="position" content="2">
+                      </li>
+                  </ol>
+                  <div class="pdlist_changeCol">
+                      <a href="javascript:void(0)" class="pdlist_btn_col2 js_btn_col " data-col="col2"></a>
+                      <a href="javascript:void(0)" class="pdlist_btn_col10 js_btn_col active" data-col="col10"></a>
+                  </div>
+              </div>
+              <!-- 商品列表 -->
+              <div class="pds">
+                  <div class="pds_col col10">
+                      <!-- <div class="pds_item js_items">
+                          <div class="pdbox">
+                              <a href="product.html" class="pdbox_img">
+                                  <img src="http://via.placeholder.com/552x736" alt="">
+                                  <span class="pdbox_soldout">SOLD OUT</span>
+                              </a>
+                              <a href="#">
+                                  <p class="pdbox_name">內舖毛尼龍飛行帽</p>
+                              </a>
+                              <div class="pdbox_pricebox">
+                                  <p class="pdbox_price-origin">NT$500</p>
+                                  <p class="pdbox_price-sale">NT$300<span>SALE</span></p>
+                              </div>
+                          </div>
+                      </div> -->
+                      <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
+                          <div class="pdbox">
+                              <a type="button" class="pdbox_img" @click="getProduct(item.id)">
+                                  <img :src="`${item.imageUrl}`">
+                              </a>
+                              <a type="button" @click="getProduct(item.id)">
+                                  <p class="pdbox_name">{{item.title}}</p>
+                              </a>
+                              <div v-if="item.origin_price !== item.price">
+                              <p class="pdbox_price-origin">NT${{ item.origin_price}}</p>
+                              <p class="pdbox_price-sale">NT${{ item.price}} <span>SALE</span></p>
+                          </div>
+                            <p class="pdbox_price" v-else>NT${{ item.origin_price}}</p>
+                          </div>
                       </div>
-                    </div>
+                      <!-- end .pl_item -->
+                  </div>
+              </div>
+              <!-- 分頁頁碼 -->
+              <div>
+                <div class="pagination_box has-text-centered">
+                  <a type="button" class="pagination_prev" :class="{ 'disabled': currentPage == 1 }" @click.prevent="changePage(currentPage - 1)"></a>
+                  <a type="button" class="pagination_page" v-for="page in filterData.length" :key="page" :class="{ 'active': currentPage == page}" @click.prevent="currentPage = page">{{ page }}</a>
+                  <a type="button" class="pagination_next" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage == filterData.length }"></a>
                 </div>
-            </div>
-        </div>
-      <div class="pageCover"></div>
-      <Footer/>
-  </body>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="pageCover"></div>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
 // import $ from 'jquery'
 
 export default {
-  components: {
-    Header, Footer
-  },
   data () {
     return {
       products: [],
       product: {},
       currentPage: 1,
-      filter: 'ALL',
-      status: {
-        loadingItem: ''
-      }
+      filter: 'ALL'
     }
   },
   computed: {

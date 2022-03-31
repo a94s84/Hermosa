@@ -103,6 +103,9 @@ a {
     img{
         max-width: 100%;
     }
+    &:hover{
+        color:initial;
+    }
 }
 
 //以下為常用class
