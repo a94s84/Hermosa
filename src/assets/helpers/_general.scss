@@ -66,6 +66,11 @@ textarea {
     };
     font-family: "Montserrat",'Noto Sans TC', sans-serif;
 }
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
 
 input[type="checkbox"] {
     width: 15px;

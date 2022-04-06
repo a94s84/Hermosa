@@ -23,9 +23,9 @@
             <a href="wishlist.html" class="header_favorite">
                 <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
             </a>
-            <a href="shoppingcart.html" class="header_cart">
+            <router-link to="/user/cart" class="header_cart">
                 <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span>(0)</span>
-            </a>
+            </router-link>
         </div>
     </div>
   </header>

@@ -1,4 +1,5 @@
 <template>
+    <Loading :active="isLoading"></Loading>
     <div class="wrap">
         <div class="pdcnt_wrap">
             <aside class="pdlist_aside">
@@ -49,7 +50,7 @@
                                 <tr>
                                     <td class="pdcnt_info_size">F</td>
                                     <td class="pdcnt_info_number">
-                                        <select ref="cartNum" @change="qtyChnage()">
+                                        <select ref="pdQty" @change="qtyChnage()">
                                             <option v-for="num in 10" :key="num" :value="num">{{num}}</option>
                                         </select>
                                     </td>
@@ -79,9 +80,9 @@
                             </a>
                         </div>
                         <div class="pdcnt_btn_BuyPay">
-                            <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
+                            <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
                             </a>
-                            <a href="#" class="btn_black btn_topay">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" alt="" width="18px"></a>
+                            <a href="#" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
                         </div>
                     </div>
                     <ul class="pdcnt_menu">
@@ -217,34 +218,41 @@ export default {
     return {
       product: {},
       id: '',
-      qty: 1
+      loadingItem: '',
+      Loading: false
     }
   },
   inject: ['emitter'],
   methods: {
     getProduct () {
+      this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
       this.$http.get(api).then((res) => {
+        this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
-          console.log(this.product)
         }
       })
     },
     addCart (id, qty = 1) {
+      this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       const cart = {
         product_id: id,
-        qty: qty
+        qty
       }
       this.$http.post(url, { data: cart }).then((res) => {
+        this.isLaoding = false
         this.$httpMessageState(res, '加入購物車')
-        console.log(res)
       })
     },
+    gopay (id, qty = 1) {
+      this.addCart(id, qty)
+      this.$router.push('/user/cart')
+    },
     qtyChnage () {
-      const cartNum = this.$refs.cartNum.value
-      this.qty = cartNum
+      const pdQty = parseInt(this.$refs.pdQty.value)
+      this.product.qty = pdQty
     },
     imgcarouse () {
       $('.js-carousel4').slick({
@@ -303,9 +311,6 @@ export default {
   created () {
     this.id = this.$route.params.productId
     this.getProduct()
-  },
-  mounted () {
-    // this.imgcarouse()
   },
   updated () {
     this.imgcarouse()
