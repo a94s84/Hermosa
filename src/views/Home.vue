@@ -21,8 +21,8 @@
               <!-- NEW IN -->
               <section class="wrap lessMargin">
                   <h2 class="secTitle">NEW IN</h2>
-                  <div class="js-carousel3 carousel" ref="carousel3">
-                    <div class="pdbox" v-for="item in products.slice(0,6)" :key="item.id">
+                  <div class="js-carousel3 carousel">
+                    <div class="pdbox" v-for="item in products.slice(-6)" :key="item.id">
                         <a type="button" @click.prevent="getProduct(item.id)">
                             <img :src="`${item.imageUrl}`">
                         </a>
@@ -120,6 +120,7 @@ export default {
       this.$http.get(url).then((res) => {
         this.products = res.data.products
         this.isLoading = false
+        console.log(res.data.products)
       })
     },
     getProduct (id) {
@@ -166,9 +167,9 @@ export default {
   },
   created () {
     this.getPdList()
-    this.carousels()
   },
   updated () {
+    this.getPdList()
     this.carousels()
   }
 }

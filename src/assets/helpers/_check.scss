@@ -1,0 +1,781 @@
+/*------------------------------------*\
+  #ShoppingCheck
+\*------------------------------------*/
+.shopWrap{
+    width: calc( 100% - 200px);
+    h2{
+      text-align: right;
+      margin-bottom: 60px;
+      letter-spacing: .06rem;
+    }
+    h3{
+      font-size: 16px;
+      color:black;
+      letter-spacing: .06rem;
+    }
+    input{
+      height: 32px;
+    }
+  }
+  
+  .shopTitle{
+    padding-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid $main_color;
+  }
+  .recipientBox{
+    width: 70%;
+    margin: 0 auto;
+    >p{
+      line-height: 20px;
+      font-size: 13px;
+      letter-spacing: .05rem;
+    }
+    .shopinfoBox{
+      margin-bottom: 5px;
+    }
+    .selectwrap{
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 6.5px;
+        height: 9px;
+        background: url(./assets/img/arrow_open.svg) no-repeat center center/100% auto;
+        right: 10px;
+        top: 12px;
+        pointer-events: none;
+    }
+      select{
+        height: 32px;
+        appearance: none;
+      }
+    }
+  }
+  
+  .receipien_old{
+    width: 40%;
+    flex-direction: column;
+    label{
+      display: flex;
+      margin-bottom: 20px;
+      &:hover{
+        cursor: pointer;
+      }
+      >div{
+        margin-left: 10px;
+      }
+    }
+  }
+  
+  .shopinfoBox{
+    line-height: 32px;
+    input{
+      font-family: 'Noto Sans TC', sans-serif;
+      letter-spacing: .03rem;
+      font-size: 10px;
+    }
+    .selectwrap{
+      width:calc( (33.33% - 5px));
+    }
+    &.d-sp{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  
+  .shopinfoBox_name,.shopinfoBox_tel{
+    width: calc( (50% - 2.5px));
+  }
+  
+  
+  .shopinfoBox_addr{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    input{
+      width: 33%;
+    }
+    .road{
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  .shop_orderlist{
+    min-height: 250px;
+    padding-bottom: 80px;
+  }
+  .shopItem{
+    display: flex;
+    // justify-content: space-between;
+    text-align: center;
+    padding:10px 30px;
+    border-bottom: 1px solid gray;
+    color:$main_gray;
+    >div{
+      width: calc( 100% / 8);
+      letter-spacing: .06rem;
+      &.shopItem_name{
+        width: calc( 100%*2 /8 );
+        text-align: left;
+        p{
+          margin-top: 20px;
+        }
+      }
+      &.shopItem_price{
+        width: calc( 100%*2 /8 );
+        padding-left: 8%;
+        text-align: left;
+        span{
+          display: inline-block;
+        }
+        .pdbox_price-origin{
+          color: #A2A2A2;
+          text-decoration: line-through;
+        }
+        .pdbox_price-sale{
+          color:$price_sale;
+          padding-left:  5%;;
+        }
+      }
+      >p{
+        margin-top: 15px;
+        font-weight: bold;
+      }
+      >span{
+        display: block;
+        margin-top: 10px;
+        font-family: 'Noto Sans TC', sans-serif;
+      }
+    }
+    
+  }
+  
+  .shopItem_img{
+    a{
+      display: block;
+      max-width: 80px;
+      img{
+        width: 100%;     
+      }
+    }
+  }
+  
+  .shop_cost, .shop_invoice{
+    padding:0 0 35px;
+    h3{
+      padding-left: 45px;
+      margin-bottom: 30px;
+      letter-spacing: .06rem;
+    }
+  }
+  
+  .shop_costbox{
+    display: flex;
+  }
+  
+  .shop_discountbox{
+    padding:0 45px;
+    width: 46%;
+    border-right: 1px solid gray;
+    >div{
+      padding:20px 0;
+      font-size: 13px;
+    } 
+  }
+  .shop_discount_code{
+    display: flex;
+    flex-wrap: wrap;
+    input{
+      width: 40%;
+      margin:0 10px;
+    }
+    >p{
+      line-height: 34px;
+      letter-spacing: .06rem;
+    }
+    .btn_black{
+      width: 64px;
+      line-height: 30px;
+      &:hover, &:active{
+        color:white
+      }
+    }
+  }
+  .shop_note{
+    width: 80%;
+    text-align: justify;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    p{
+      font-size: 10px;
+      line-height: 14px;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    &.is-hidden-touch{
+      margin-top: 0;
+      padding-top: 15px;
+    }
+  }
+  .shop_count{
+    width: 54%;
+    padding-left: 60px;
+    font-size: 13px;
+    >div{
+      padding:0 20px;
+      >p{
+        color:black;
+        display: inline-block;
+        width: 30%;
+        line-height: 36px;
+        letter-spacing: .06rem;
+        font-family: 'Noto Sans TC', sans-serif;
+      }
+      >span{
+        color:black;
+        letter-spacing: .04rem;
+      }
+    }
+    .shop_minus{
+      position: relative;
+      letter-spacing: .04rem;
+      &::before{
+        position: absolute;
+        content:"-";
+        top:2px;
+        left: -10px;
+      }
+    }
+   
+    .shop_total{
+      padding:25px 20px;
+      margin-top: 25px;
+      border-top: 1px solid gray;
+      font-weight: bold;
+    }
+  }
+  .shop_invoice{
+    padding:55px 0;
+    font-size: 13px;
+    letter-spacing: .06rem;
+    border-top: 1px solid gray;
+    >div{
+      margin-bottom: 15px;
+      padding-left: 45px;
+      label{
+        display: inline-block;
+        margin-right: 15px;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+      select{
+        width: 150px;
+        letter-spacing: .06rem;
+      }
+      &:first-of-type{
+        display: flex;
+        align-items: center;
+      }
+    }
+    input{
+      height:auto;
+      margin-left: 0;
+    }
+    .selectwrap{
+      width: 150px;
+      p{
+       flex-shrink: 0;
+      }
+      &::after{
+        width: 10px;
+        top:10px;
+        background: url(./assets/img/arrow_down.svg) no-repeat center center/100% auto;
+      }
+    }
+  }
+  
+  .shop_invoiceType{
+    display: flex;
+    p{
+      flex-shrink: 0;
+      line-height: 32px;
+    }
+    input{
+      height:32px;
+      width: 200px;
+      margin-right: 10px;
+    }
+    span{
+      display: inline-block;
+      margin-top: 5px;
+      input{
+        margin-top: 3px;
+      }
+    }
+  }
+  
+.shop_sendinfo{
+  letter-spacing: .06rem;
+  padding:30px 0 60px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 13px;
+  label{
+    line-height: 32px;
+  }
+  .inputwrap{
+    display: flex;
+    width: 33%;
+    line-height: 32px;
+    margin-bottom: 20px;
+    label{
+      margin-right: 25px;
+    }
+  }
+  a{
+    line-height: 32px;
+    margin-left: 15px;
+  }
+}
+  @include tablet-width() {
+     .shopWrap{
+       width: 100%;
+       h2{
+         text-align: center;
+         margin-top: 40px;
+         margin-bottom: 0;
+         padding-bottom: 25px;
+         border-bottom: 1px solid $main_color;
+       }
+       h3{
+         font-size: 20px;
+       }
+     }
+    .shopItem_name{
+      padding-left: 10px;
+    }
+    .shop_discount_code{
+      flex-wrap: wrap;
+      p,input,.btn{
+        width: 100%;
+      }
+      input{
+        margin:15px 0;
+        height: 40px;
+      }
+      p{
+        line-height: 1rem;
+      }
+      .btn{
+        line-height: 40px;
+        font-size: 16px;
+      }
+    }
+    .shopItem{
+      >div{
+        &.shopItem_price{
+          .pdbox_price-sale{
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  @include phones-width() {
+    .shopinfoBox{
+      margin-bottom: 10px;
+      input{
+        font-size: 13px;
+      }
+      &.d-sp{
+        flex-wrap: wrap;
+      }
+    }
+    
+    .shopinfoBox_name,.shopinfoBox_tel{
+      width: 100%;
+    }
+    .shopinfoBox_name{
+      margin-bottom: 10px;
+    }
+    .shopItem{
+      position: relative;
+      flex-wrap: wrap;
+      // justify-content: space-between;
+      // text-align: center;
+      text-align: left;
+      padding:25px 15px 25px 110px;
+      // border-bottom: 1px solid gray;
+      >div{
+        display: block;
+        width: 80%;
+        p{
+            margin-top: 8px;
+            display: inline-block;
+        }
+        >span{
+          display: inline;
+        }
+        &.shopItem_name{
+          width:80%;
+          padding-left: 0;
+          p{
+            margin-top: 5px;
+          }
+        }
+        &.shopItem_img{
+          max-width: 80px;
+          position: absolute;
+          top:10px;
+          left: 15px;
+          a{
+            img{
+              max-height: 110px;
+            }
+          }
+        }
+        &.shopItem_price{
+          text-align: right;
+          width: 18%;
+          position: absolute;
+          top:18px;
+          right: 10px;
+          padding-left: 0;
+          span{
+            display: block;
+            font-weight: bold;
+          }
+          p{
+            &:first-of-type{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .shopTitle{
+      text-align: center;
+      margin-top: 30px;
+    } 
+    .recipientBox {
+      width: 100%;
+    }
+    .shop_orderlist{
+      padding-bottom: 40px;
+      >div{
+        &:last-of-type{
+          border-bottom: none;
+        }
+      }
+    }
+    .shop_cost,.shop_invoice{
+      h3{
+        padding-left: 0;
+      }
+    }
+    .shop_cost{
+      h3{
+        text-align: center;
+        padding-bottom: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid #565045;
+      }
+    }
+    .shop_costbox{
+      flex-wrap: wrap;
+    }
+    .shop_discountbox{
+      padding:0 20px;
+      width: 100%;
+      border-right: 0;
+      border-bottom: 1px solid gray;
+      >div{
+        font-size: 18px;
+      }
+    }
+    .shop_note{
+      width: 100%;
+    }
+    .shop_count{
+      width: 100%;
+      padding:25px 0 0;
+      >div{
+        padding:0 25px;
+        >p{
+          width: 70%;
+          font-size: 14px;
+          line-height: 35px;
+        }
+      }
+      .shop_total{
+        padding:25px 25px 0;
+        margin-top: 25px;
+      }
+    } 
+    .shop_invoice{
+      border-top: none;
+      padding:25px;
+      >div{
+        padding-left: 0;
+        line-height: 22px;
+      }
+      h3{
+        font-weight: bold;
+      }
+      .selectwrap{
+        width: 150px;
+      }
+    }
+    .shop_invoiceType{
+      p{
+        flex-shrink: 0;
+        line-height: initial;
+      }
+      input{
+        width: 100%;
+      }
+      div{
+        flex-wrap: wrap;
+      }
+    }
+  }
+  
+  /*------------------------------------*\
+    #Orderfinish
+  \*------------------------------------*/
+  
+  .orderfinishWrap{
+    // margin:0 auto;
+    // padding-right:100px;
+    padding: 55px 0;
+    width: calc( 100% - 200px);
+    color:black;
+    h2{
+      font-size: 45px;
+      text-align: center;
+    }
+    h3{
+      text-align: center;
+      font-size: 25px;
+      padding: 55px 0 100px;
+      border-bottom: 1px solid black;
+    }
+    h4{
+      font-size: 16px;
+      margin-bottom: 25px;
+      letter-spacing: .06rem;
+    }
+    .tb_member{
+      th,td{
+        text-align: center;
+        &:nth-of-type(2){
+          text-align: left;
+        }
+        &:last-of-type{
+          text-align: right;
+          padding: 10px 40px;
+        }
+      }
+    }
+  }
+  
+  .orderdetail_box,.orderinfo_box{
+    padding:20px 40px;
+    border-bottom: 1px solid black;
+    p, .address_block{
+      line-height: 24px;
+      letter-spacing: .04rem;
+      display: flex;
+      justify-content: space-between;
+      span{
+        display: inline-block;
+        flex-shrink: 0;
+        width: 150px;
+      }
+      .block-phone{
+        width: initial;
+      }
+    }
+    
+  }
+  
+  .orderlist_box{
+    margin: 55px 0 0;
+    padding:20px 0;
+    border-bottom: 1px solid black;
+    h4{
+      margin-left: 55px;
+    }
+  }
+  
+  .ordertotal_box{
+    padding:40px 40px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .ordertotal{
+    width: 300px;
+    p{
+      line-height: 28px;
+      letter-spacing: .04rem;
+      display: flex;
+      justify-content: space-between;
+      span{
+        // display: inline-block;
+        // width: 165px;  
+        color:#251714;
+      }
+    }
+  }
+  
+  .orderlistbtn{
+    padding:50px 0;
+    width: 42%;
+    // display: flex;
+    // justify-content: space-between;
+    .btn{
+      line-height: 32px ;
+    }
+  }
+  
+  .btn_brown{
+    background-color: #231815;
+    width: 46%;
+    text-align: left;
+    position: relative;
+    font-size: 13px;
+    &::after{
+      content: '';
+      width: 5px;
+      height: 7px;
+      position: absolute;
+      border-top: solid 1px white;
+      border-right: solid 1px white;
+      -ms-transform: rotate(45deg); /* IE 9 */
+      transform: rotate(45deg);
+      right:15px;
+      top:12px
+    }
+  }
+  
+  
+  @include tablet-width() {
+    .orderfinishWrap{
+      padding:40px 0;
+      width: 100%;
+      h2{
+        margin-top: 0;
+        font-size: 30px;
+      }
+      h3{
+        font-size: 13px;
+        padding: 30px 0 50px;
+      }
+    }
+      
+    .orderfinishBox{
+      margin:60px 0;
+      a{
+        width: 100%;
+        }
+    }
+  }
+  
+  
+  @include phones-width() {
+    .orderfinishWrap{
+      h4{
+        margin:10px 0 25px;
+      }
+      .tb_member{
+        th,td{
+          text-align: left;
+          &:last-of-type{
+            text-align: left;
+            padding: 5px 0;
+          }
+        }
+        tr{
+          border-bottom: none;
+          margin-bottom: 40px;
+        }
+        td {
+          &:before {
+            width: auto;
+          }
+        }
+        td[data-th="商品編號："],td[data-th="商品名稱："]{
+          &:before{
+            content: none;
+          }
+        }
+      }
+    }
+    
+    .ordertotal_box{
+      flex-direction: column;
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+      padding:25px 10px;
+      >div{
+        width: 100%;
+      }
+    }
+  
+    .orderdetail_box, .orderinfo_box{
+      padding:20px 10px;
+      p, .address_block{
+        span{
+          display: inline-block;
+          width: 125px;
+        }
+        .block-phone{
+          display: block;
+          text-align: end;
+        }
+      }
+      
+    }
+  
+    .orderlist_box{
+      margin: 0;
+      padding: 20px 10px 0;
+    }
+  
+    .orderlistbtn{
+      width: 100%;
+      padding:50px 20px;
+      .btn{
+        line-height: 40px;
+        padding: 0 20px;
+      }
+    }
+  
+    .ordertotal{
+      width: 100%;
+      p{
+        span{
+          display: inline-block;
+          width: 135px;  
+        }
+      }
+      .is-hidden-phone{
+        display: none;
+      }
+    }
+    
+    .btn_brown{
+      width: 100%;
+      font-size: 16px;
+      &::after{
+        content: '';
+        right:20px;
+        top:17px
+      }
+    }
+  }
+  

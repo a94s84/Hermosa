@@ -23,6 +23,9 @@ const routes = [
         path: 'cart',
         component: () => import('../views/UserCart.vue')
       }, {
+        path: 'check',
+        component: () => import('../views/UserCheck.vue')
+      }, {
         path: 'productlist',
         component: () => import('../views/UserPdList.vue')
       },
