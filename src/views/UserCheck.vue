@@ -161,7 +161,7 @@
         <!-- footerfixed結帳金額 -->
         <div class="footer_fixed">
             <div class="wrap d-sp">
-                <router-link to="/user/cart" class="btn_pre_white">
+                <router-link to="/cart" class="btn_pre_white">
                     <input type="button" value="上一步">
                 </router-link>
                 <div>

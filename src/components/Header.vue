@@ -23,7 +23,7 @@
             <a href="wishlist.html" class="header_favorite">
                 <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
             </a>
-            <router-link to="/user/cart" class="header_cart">
+            <router-link to="/cart" class="header_cart">
                 <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span>(0)</span>
             </router-link>
         </div>
@@ -39,26 +39,22 @@
         <div class="offcanvas_body">
             <ul class="js-menu">
                 <li>
-                    <router-link to="/user/productlist" >ALL</router-link>
+                    <router-link to="/productlist">ALL</router-link>
                 </li>
                 <li>
-                    <a href="javascrip:(0)" type="button">TOPS
-                    </a>
+                    <a href="#" @click.prevent="goCategory('TOPS')">TOPS</a>
                 </li>
                 <li>
-                    <a href="javascrip:(0)" type="button">OUTER</a>
+                    <a href="#" @click.prevent="goCategory('OUTER')">OUTER</a>
                 </li>
                 <li>
-                    <a href="javascrip:(0)" type="button">DRESSES</a>
+                    <a href="#" @click.prevent="goCategory('DRESSES')">DRESSES</a>
                 </li>
                 <li>
-                    <a href="javascrip:(0)" type="button">PANTS</a>
+                    <a href="#" @click.prevent="goCategory('PANTS')">PANTS</a>
                 </li>
                 <li>
-                    <a href="javascrip:(0)" type="button">SKIRTS</a>
-                </li>
-                <li>
-                    <router-link to="/user" href="#">SALE</router-link>
+                    <a href="#" @click.prevent="goCategory('SKIRTS')">SKIRTS</a>
                 </li>
             </ul>
             <div class="offcanvas_searchWrap">
@@ -87,6 +83,11 @@ import $ from 'jquery'
 // import { offcanvas } from '../methods/offcanvas'
 export default {
   name: 'Header',
+  methods: {
+    goCategory (category) {
+      this.$router.push({ name: 'productlist', query: { category } })
+    }
+  },
   mounted () {
     $('.header_menu').click(function () {
       $('.offcan').animate({

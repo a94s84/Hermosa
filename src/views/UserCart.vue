@@ -79,7 +79,7 @@
                     <h3>總計: <span>NT${{ $filters.currency(carts.final_total) }}</span> </h3>
                     <p>本次消費獲得點數：200 <span>(獲得點數是以商品出貨完成後生效。)</span></p>
                 </div>
-                <router-link to="/user/check" class="btn_next_white">
+                <router-link to="/check" class="btn_next_white">
                     <input type="button" value="下一步">
                 </router-link>
             </div>

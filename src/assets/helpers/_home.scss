@@ -1,32 +1,40 @@
 /*------------------------------------*\
   #Default
 \*------------------------------------*/
-
 .defaultWrap {
-    margin-top: -$desktop_header_height - 50px;
-    .carousel {
-        max-width: 1300px;
-        margin: 0 auto;
-        .slick-prev {
-            left: -5%;
-            z-index: 2;
-        }
-        .slick-next {
-            right: -5%;
-        }
-        .ootdBox {
-            padding: 0 12px;
-        }
+    margin-top: -$desktop_header_height - 50px;    
+    .swiper-pagination-bullet-active{
+        background: #333;
     }
-    .homeSlide {
-        img{
-            width: 100%;
+    .newsIn{
+        margin: 70px auto 20px;
+    }
+    .newinSlide{
+        padding:0 55px;
+        .swiper-wrapper{
+            padding-bottom: 50px;
         }
-        .slick-dots {
-            bottom: 30px;       
+        .swiper-button-prev {
+            display: block;
+            left: 0;
+            top: 20px;
+            width: 30px;
+            height: 100%;
+            background: url(./assets/img/arrow_pre_light.svg) no-repeat center center/100% auto white;
+            &:after {
+                content:'';
+            }
         }
-        &.slick-dotted.slick-slider {
-            margin-bottom: 0;
+        .swiper-button-next {
+            display: block;
+            right: 0;
+            top: 20px;
+            width: 30px;
+            height: 100%;
+            background: url(./assets/img/arrow_next_light.svg) no-repeat center center/100% auto white;
+            &:after {
+                content:'';
+            }
         }
     }
     .pdbox_color {
@@ -89,28 +97,9 @@
 }
 
 @include tablet-width() {
-    .defaultWrap {
-        .carousel {
-            padding:0 45px;
-            .slick-prev {
-                left: -10px;
-            }
-            .slick-next {
-                right: -10px;
-            }
-        }
-        .js-carousel3 {
-            padding-bottom: 40px;
-            .slick-dots{
-                left:0;
-            }
-        }
-    }
     .lessMargin {
         padding:65px 50px;
     }
-   
-
 }
 
 @include phones-width() {
@@ -135,44 +124,25 @@
 
     .defaultWrap {
         padding-bottom: 20px;
-        .carousel{
-            padding:0 0 30px;
-            .slick-prev {
-                width: 15px;
-                height: 40px;
-                left: 15px;
-                top: calc( 100% - 10px );
-            }
-            .slick-next {
-                width: 15px;
-                height: 40px;
-                right: 15px;
-                top: calc( 100% - 10px);
-            }
-            
+        .newsIn{
+            margin: 30px auto 20px;
         }
-       
-        .js-carousel3,.js-carousel4{
-            margin-bottom: 50px;
-            .slick-dots {
-                bottom:-20px;
+        .newinSlide{
+            padding:0;
+            .swiper-wrapper{
+                padding-bottom: 35px;
             }
-            .slick-prev {
-                top: calc( 100% + 15px );
+            .swiper-button-prev {
+                top: initial;
+                bottom:0;
+                width: 30px;
+                height: 25px;
             }
-            .slick-next {
-                top: calc( 100% + 15px);
-            }
-        }
-        .slick-dots {
-            li {
-                button:before {
-                    color: grey;
-                }
-                &.slick-active button:before {
-                    color: black;
-                    opacity: 1;
-                }
+            .swiper-button-next {
+                top: initial;
+                bottom:0;
+                width: 30px;
+                height: 25px;
             }
         }
         .pdinfo{
@@ -180,7 +150,7 @@
            justify-content: space-between;
         }
         .pdbox_price-sale{
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
         .pdbox_color {
             ul {

@@ -8,7 +8,7 @@
                   <a type="button" @click="filter = 'ALL'">ALL</a>
                   </li>
                   <li v-for="item in categoryData" :key="item.id">
-                      <a type="button" @click="filter = item">{{item}}
+                      <a type="button" @click="filter = item" >{{item}}
                       </a>
                   </li>
               </ul>
@@ -38,21 +38,6 @@
               <!-- 商品列表 -->
               <div class="pds">
                   <div class="pds_col col10">
-                      <!-- <div class="pds_item js_items">
-                          <div class="pdbox">
-                              <a href="product.html" class="pdbox_img">
-                                  <img src="http://via.placeholder.com/552x736" alt="">
-                                  <span class="pdbox_soldout">SOLD OUT</span>
-                              </a>
-                              <a href="#">
-                                  <p class="pdbox_name">內舖毛尼龍飛行帽</p>
-                              </a>
-                              <div class="pdbox_pricebox">
-                                  <p class="pdbox_price-origin">NT$500</p>
-                                  <p class="pdbox_price-sale">NT$300<span>SALE</span></p>
-                              </div>
-                          </div>
-                      </div> -->
                       <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
                           <div class="pdbox">
                               <a type="button" class="pdbox_img" @click="getProduct(item.id)">
@@ -93,8 +78,16 @@ export default {
     return {
       products: [],
       product: {},
+      selectCategory: '',
+      nowCategory: '',
       currentPage: 1,
-      filter: 'ALL'
+      filter: 'ALL',
+      isLoading: false
+    }
+  },
+  watch: {
+    $route () {
+      this.selectCategory = this.$route.query.category || ''
     }
   },
   computed: {
@@ -131,14 +124,17 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.products = res.data.products
-          this.pagination = res.data.pagination
         }
       })
     },
-    getProduct (id) {
-      this.$router.push(`/user/product/${id}`)
+    changeCategory (category) {
+      this.$router.push({ name: 'shop', query: { category } })
+      this.selectCategory = category
     },
-    changePage (page) {
+    getProduct (id) {
+      this.$router.push(`/product/${id}`)
+    },
+    changePage (page = 1) {
       this.currentPage = page
     }
   },

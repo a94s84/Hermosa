@@ -143,29 +143,38 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)" class="submenuTitle">建議搭配</a>
-                            <div class="pdcnt_suggest js-carousel5 carousel">
-                                <a href="#">
+                            <swiper :slides-per-view="2" :space-between="5" :navigation="true" :loop="true" :autoplay="{delay: 2000, pauseOnMouseEnter: true}" :breakpoints="{1200: {slidesPerView: 5, spaceBetween: 5},768: {slidesPerView: 4, spaceBetween: 5}}"  class="pdcnt_suggest">
+                                <swiper-slide>
+                                    <a href="#">
                                     <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-2" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-3" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485" alt="" width="100%">
-                                </a>
-                                <a href="#">
-                                    <img src="http://via.placeholder.com/340x485" alt="" width="100%">
-                                </a>
-                            </div>
+                                    </a>
+                                </swiper-slide>
+                                <swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide><swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide><swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide><swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide><swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide><swiper-slide>
+                                    <a href="#">
+                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                    </a>
+                                </swiper-slide>
+                            </swiper>
                         </li>
                     </ul>
                 </div>
@@ -173,46 +182,49 @@
         </div>
         <section class="wrap lessMargin pdcnt_carousel" id="carousel4">
             <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
-            <div class="js-carousel4 carousel">
-                <div class="alsoLike_box">
+            <swiper :slides-per-view="2" :space-between="26" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 4, spaceBetween: 26}}" class="pdlikeSlide">
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-                <div class="alsoLike_box">
+                </swiper-slide>
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-                <div class="alsoLike_box">
+                </swiper-slide>
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-                <div class="alsoLike_box">
+                </swiper-slide>
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-                <div class="alsoLike_box">
+                </swiper-slide>
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-                <div class="alsoLike_box">
+                </swiper-slide>
+                <swiper-slide class="alsoLike_box">
                     <a href="#">
                         <img src="http://via.placeholder.com/340x485" alt="">
                     </a>
-                </div>
-            </div>
+                </swiper-slide>
+            </swiper>
         </section>
     </div>
     <div class="pageCover"></div>
 </template>
 
 <script>
-import $ from 'jquery'
+import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper'
+import 'swiper/swiper-bundle.css'
 
+SwiperCore.use([Navigation, Pagination, Autoplay])
 export default {
   data () {
     return {
@@ -221,6 +233,9 @@ export default {
       loadingItem: '',
       Loading: false
     }
+  },
+  components: {
+    Swiper, SwiperSlide
   },
   inject: ['emitter'],
   methods: {
@@ -243,77 +258,78 @@ export default {
       }
       this.$http.post(url, { data: cart }).then((res) => {
         this.isLaoding = false
-        this.$httpMessageState(res, '加入購物車')
+        // this.$httpMessageState(res, '加入購物車')
       })
     },
     gopay (id, qty = 1) {
       this.addCart(id, qty)
-      this.$router.push('/user/cart')
+      this.$router.push('/cart')
     },
     qtyChnage () {
       const pdQty = parseInt(this.$refs.pdQty.value)
       this.product.qty = pdQty
-    },
-    imgcarouse () {
-      $('.js-carousel4').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        arrows: true,
-        autoplay: false,
-        dot: true,
-        autoplaySpeed: 1500,
-        responsive: [{
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 2,
-            arrows: true
-          }
-        }]
-      })
-      $('.js-carousel5').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        arrows: true,
-        responsive: [{
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 4
-          }
-        }, {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            arrows: true
-          }
-        }]
-      })
-      $('.pdcnt_img_group_main').slick({
-        autoplay: true,
-        autoplaySpeed: 2500,
-        speed: 2000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        asNavFor: $('.pdcnt_img_group_thumb')
-      })
-      $('.pdcnt_img_group_thumb').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        asNavFor: $('.pdcnt_img_group_main'),
-        arrows: false,
-        vertical: false,
-        focusOnSelect: true
-      })
     }
+    // imgcarouse () {
+    //   $('.js-carousel4').slick({
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //     arrows: true,
+    //     autoplay: false,
+    //     dot: true,
+    //     autoplaySpeed: 1500,
+    //     responsive: [{
+    //       breakpoint: 1200,
+    //       settings: {
+    //         slidesToShow: 2,
+    //         arrows: true
+    //       }
+    //     }]
+    //   })
+    //   $('.js-carousel5').slick({
+    //     slidesToShow: 5,
+    //     slidesToScroll: 1,
+    //     autoplay: true,
+    //     autoplaySpeed: 2000,
+    //     arrows: true,
+    //     responsive: [{
+    //       breakpoint: 1200,
+    //       settings: {
+    //         slidesToShow: 4
+    //       }
+    //     }, {
+    //       breakpoint: 768,
+    //       settings: {
+    //         slidesToShow: 2,
+    //         arrows: true
+    //       }
+    //     }]
+    //   })
+    //   $('.pdcnt_img_group_main').slick({
+    //     autoplay: true,
+    //     autoplaySpeed: 2500,
+    //     speed: 2000,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     arrows: true,
+    //     asNavFor: $('.pdcnt_img_group_thumb')
+    //   })
+    //   $('.pdcnt_img_group_thumb').slick({
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //     asNavFor: $('.pdcnt_img_group_main'),
+    //     arrows: false,
+    //     vertical: false,
+    //     focusOnSelect: true
+    //   })
+    // }
   },
   created () {
     this.id = this.$route.params.productId
     this.getProduct()
+    // this.imgcarouse()
   },
   updated () {
-    this.imgcarouse()
+    // this.imgcarouse()
   }
 }
 </script>

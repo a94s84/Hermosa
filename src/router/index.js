@@ -1,39 +1,40 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/login',
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/user',
+    name: 'Userboard',
     component: () => import('../views/Userboard.vue'),
     children: [
       {
+        path: '',
+        name: '',
+        component: () => import('../views/Home.vue')
+      },
+      {
         path: 'cart',
+        name: 'cart',
         component: () => import('../views/UserCart.vue')
       }, {
         path: 'check',
+        name: 'check',
         component: () => import('../views/UserCheck.vue')
       }, {
         path: 'productlist',
+        name: 'productlist',
         component: () => import('../views/UserPdList.vue')
       },
       {
         path: 'product/:productId',
+        name: 'product',
         component: () => import('../views/UserProduct.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/dashboard',
@@ -57,7 +58,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior () {
+    return { top: 0 }
+  }
 })
 
 export default router
