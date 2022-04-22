@@ -22,8 +22,7 @@
       <!-- NEW IN -->
       <section class="wrap newsIn">
           <h2 class="secTitle">NEW IN</h2>
-          <swiper :slides-per-view="1" :space-between="35" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 3,spaceBetween: 35}
-  }" class="newinSlide">
+          <swiper :slides-per-view="1" :space-between="35" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 3,spaceBetween: 35}}" class="newinSlide">
             <swiper-slide class="pdbox" v-for="item in products.slice(0,6)" :key="item.id">
                 <router-link :to="`/product/${item.id}`">
                     <img :src="`${item.imageUrl}`">

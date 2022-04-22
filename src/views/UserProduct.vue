@@ -16,12 +16,16 @@
             <div class="pdcnt">
                 <div class="pdcnt_imgpart">
                     <div class="pdcnt_img">
-                        <div class="pdcnt_img_group_main">
-                            <img v-for="img in product.imagesUrl" :key="img" :src="img">
-                        </div>
-                        <div class="pdcnt_img_group_thumb">
-                            <img v-for="img in product.imagesUrl" :key="img" :src="img">
-                        </div>
+                        <swiper :thumbs="{ swiper: thumbsSwiper }" :navigation="true"   :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true" class="pdcnt_img_group_main">
+                        <swiper-slide v-for="img in product.images" :key="img">
+                            <img :src="img">
+                        </swiper-slide>
+                        </swiper>
+                        <swiper @swiper="setThumbsSwiper" watch-slides-visibility watch-slides-progress :slides-per-view="4" :space-between="20" :navigation="true" :loop="true" :autoplay="{delay: 4000}" class="pdcnt_img_group_thumb">
+                            <swiper-slide v-for="img in product.images" :key="img">
+                                <img :src="img">
+                            </swiper-slide>
+                        </swiper>
                     </div>
                 </div>
                 <div class="pdcnt_info">
@@ -180,7 +184,7 @@
                 </div>
             </div>
         </div>
-        <section class="wrap lessMargin pdcnt_carousel" id="carousel4">
+        <section class="wrap lessMargin pdcnt_carousel">
             <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
             <swiper :slides-per-view="2" :space-between="26" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 4, spaceBetween: 26}}" class="pdlikeSlide">
                 <swiper-slide class="alsoLike_box">
@@ -221,17 +225,18 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper'
+import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
 
-SwiperCore.use([Navigation, Pagination, Autoplay])
+SwiperCore.use([Navigation, Pagination, Autoplay, Thumbs])
 export default {
   data () {
     return {
       product: {},
       id: '',
       loadingItem: '',
-      Loading: false
+      Loading: false,
+      thumbsSwiper: null
     }
   },
   components: {
@@ -239,6 +244,9 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    setThumbsSwiper (swiper) {
+      this.thumbsSwiper = swiper
+    },
     getProduct () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
@@ -246,6 +254,7 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
+          console.log(this.product)
         }
       })
     },
@@ -269,67 +278,12 @@ export default {
       const pdQty = parseInt(this.$refs.pdQty.value)
       this.product.qty = pdQty
     }
-    // imgcarouse () {
-    //   $('.js-carousel4').slick({
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     arrows: true,
-    //     autoplay: false,
-    //     dot: true,
-    //     autoplaySpeed: 1500,
-    //     responsive: [{
-    //       breakpoint: 1200,
-    //       settings: {
-    //         slidesToShow: 2,
-    //         arrows: true
-    //       }
-    //     }]
-    //   })
-    //   $('.js-carousel5').slick({
-    //     slidesToShow: 5,
-    //     slidesToScroll: 1,
-    //     autoplay: true,
-    //     autoplaySpeed: 2000,
-    //     arrows: true,
-    //     responsive: [{
-    //       breakpoint: 1200,
-    //       settings: {
-    //         slidesToShow: 4
-    //       }
-    //     }, {
-    //       breakpoint: 768,
-    //       settings: {
-    //         slidesToShow: 2,
-    //         arrows: true
-    //       }
-    //     }]
-    //   })
-    //   $('.pdcnt_img_group_main').slick({
-    //     autoplay: true,
-    //     autoplaySpeed: 2500,
-    //     speed: 2000,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     arrows: true,
-    //     asNavFor: $('.pdcnt_img_group_thumb')
-    //   })
-    //   $('.pdcnt_img_group_thumb').slick({
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     asNavFor: $('.pdcnt_img_group_main'),
-    //     arrows: false,
-    //     vertical: false,
-    //     focusOnSelect: true
-    //   })
-    // }
   },
   created () {
     this.id = this.$route.params.productId
     this.getProduct()
-    // this.imgcarouse()
   },
-  updated () {
-    // this.imgcarouse()
+  mounted () {
   }
 }
 </script>
