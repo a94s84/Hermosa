@@ -1,5 +1,5 @@
 <template>
-  <body class="hasBannerBar">
+  <body class="hasBannerBar" ref="mainbody">
     <Header/>
     <ToastList></ToastList>
     <div class="contentWrap">
@@ -18,6 +18,11 @@ import Footer from '../components/Footer.vue'
 export default {
   components: {
     Header, Footer, ToastList
+  },
+  methods: {
+    closeTopBanner () {
+      this.$refs.mainbody.classList.remove('hasBannerBar')
+    }
   },
   provide () {
     return {

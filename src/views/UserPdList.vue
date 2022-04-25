@@ -5,10 +5,10 @@
           <aside class="pdlist_aside">
               <ul class="pdlist_menu js-menu" >
                   <li>
-                  <a type="button" @click="filter = 'ALL'">ALL</a>
+                  <a type="button" @click="changeCategory('ALL')">ALL</a>
                   </li>
-                  <li v-for="item in categoryData" :key="item.id">
-                      <a type="button" @click="filter = item" >{{item}}
+                  <li v-for="item in productsCategory" :key="item">
+                      <a type="button" @click="changeCategory (item)" >{{item}}
                       </a>
                   </li>
               </ul>
@@ -25,7 +25,7 @@
                       </li>
                       <li property="itemListElement" typeof="ListItem">
                           <a type="button" title="ITEM" property="item">
-                              <h1 property="name">{{ filter }}</h1>
+                              <h1 property="name">{{ selectCategory }}</h1>
                           </a>
                           <meta property="position" content="2">
                       </li>
@@ -40,9 +40,9 @@
                   <div class="pds_col col10">
                       <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
                           <div class="pdbox">
-                              <a type="button" class="pdbox_img" @click="getProduct(item.id)">
+                              <router-link class="pdbox_img" :to="`/product/${item.id}`">
                                   <img :src="`${item.imageUrl}`">
-                              </a>
+                              </router-link>
                               <a type="button" @click="getProduct(item.id)">
                                   <p class="pdbox_name">{{item.title}}</p>
                               </a>
@@ -67,7 +67,6 @@
           </div>
       </div>
   </div>
-  <div class="pageCover"></div>
 </template>
 
 <script>
@@ -77,11 +76,9 @@ export default {
   data () {
     return {
       products: [],
-      product: {},
-      selectCategory: '',
-      nowCategory: '',
+      productsCategory: [],
+      selectCategory: 'ALL',
       currentPage: 1,
-      filter: 'ALL',
       isLoading: false
     }
   },
@@ -91,21 +88,14 @@ export default {
     }
   },
   computed: {
-    categoryData () {
-      const category = this.products.map(item => Object.values(item)[0]
-      )
-      return category.filter(function (el, index, arr) {
-        return arr.indexOf(el) === index
-      })
-    },
     filterData () {
       let tempData = []
       const filterProducts = []
       // 依照分類按鈕篩選所有商品
       tempData = this.products.filter((item) => {
-        if (this.filter === 'ALL') {
+        if (this.selectCategory === 'ALL') {
           return this.products
-        } else if (this.filter === item.category) {
+        } else if (this.selectCategory === item.category) {
           return item
         }
       })
@@ -124,15 +114,18 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.products = res.data.products
+          // 篩選分類項目
+          this.products.forEach((product) => {
+            if (!this.productsCategory.includes(product.category)) {
+              this.productsCategory.push(product.category)
+            }
+          })
         }
       })
     },
     changeCategory (category) {
-      this.$router.push({ name: 'shop', query: { category } })
+      this.$router.push({ name: 'productlist', query: { category } })
       this.selectCategory = category
-    },
-    getProduct (id) {
-      this.$router.push(`/product/${id}`)
     },
     changePage (page = 1) {
       this.currentPage = page

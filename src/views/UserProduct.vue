@@ -220,7 +220,6 @@
             </swiper>
         </section>
     </div>
-    <div class="pageCover"></div>
 </template>
 
 <script>

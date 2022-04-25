@@ -1,15 +1,15 @@
 <template>
-  <header>
+  <header ref="mainHeader">
     <!-- <img src="../assets/img/logo.png" alt=""> -->
     <div class="header_bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
-        <a href="javascrip:(0)" class="close_banner">
+        <a href="#" class="close_banner" @click.prevent="closeTopBanner">
             <img src="../assets/img/close_white.svg" alt="">
         </a>
     </div>
     <div class="header_inner wrap">
         <div class="header_pc_menu">
-            <a href="javascript: void(0);" class="header_menu" ref="headerMenu"></a>
+            <a href="#" class="header_menu" @click.prevent="openMenu"></a>
         </div>
         <div class="header_logoWrap">
             <router-link to="/" class="header_logo">
@@ -29,17 +29,17 @@
         </div>
     </div>
   </header>
-  <div class="offcan" ref="offcanvas">
+  <div class="offcan" ref="offcan">
         <div class="offcanvas_head">
             <img src="../assets/img/logo_s.png" alt="" class="logo_in_menu">
-            <a href="javascript: void(0);" class="close_menu_btn">
+            <a href="#" class="close_menu_btn" @click.prevent="closeMenu">
                 <img src="../assets/img/close_black.svg" alt="">
             </a>
         </div>
         <div class="offcanvas_body">
             <ul class="js-menu">
                 <li>
-                    <router-link to="/productlist">ALL</router-link>
+                    <a href="#"  @click.prevent="goCategory('ALL')">ALL</a>
                 </li>
                 <li>
                     <a href="#" @click.prevent="goCategory('TOPS')">TOPS</a>
@@ -47,9 +47,9 @@
                 <li>
                     <a href="#" @click.prevent="goCategory('OUTER')">OUTER</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" @click.prevent="goCategory('DRESSES')">DRESSES</a>
-                </li>
+                </li> -->
                 <li>
                     <a href="#" @click.prevent="goCategory('PANTS')">PANTS</a>
                 </li>
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div>
+    <div class="pageCover" ref="pageCover" @click="closeMenu"></div>
 </template>
 
 <script>
@@ -86,31 +87,28 @@ export default {
   methods: {
     goCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
+      this.closeMenu()
+    },
+    openMenu () {
+      this.$refs.offcan.classList.add('open')
+      this.$refs.pageCover.classList.add('active')
+    },
+    closeMenu () {
+      this.$refs.offcan.classList.remove('open')
+      this.$refs.pageCover.classList.remove('active')
+    },
+    windowScroll () {
+      this.$refs.mainHeader.classList.remove('header_white')
+      if (window.scrollY > 10) {
+        this.$refs.mainHeader.classList.add('header_white')
+      }
     }
   },
   mounted () {
-    $('.header_menu').click(function () {
-      $('.offcan').animate({
-        left: 0
-      }, 300)
-      $('.pageCover').addClass('active')
-    })
-    $('.close_menu_btn, .pageCover').click(function () {
-      $('.offcan').animate({
-        left: -800
-      }, 300)
-      $('.pageCover').removeClass('active')
-    })
     $('.close_banner').click(function () {
       $('body').removeClass('hasBannerBar')
     })
-    $(window).scroll(function () {
-      $('header').removeClass('header_white')
-      var scrollVal = $(this).scrollTop()
-      if (scrollVal >= 10) {
-        $('header').addClass('header_white')
-      }
-    })
+    window.addEventListener('scroll', this.windowScroll)
   }
 }
 </script>

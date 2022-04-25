@@ -89,22 +89,9 @@
     width: calc( (50% - 2.5px));
   }
   
-  
-  .shopinfoBox_addr{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    input{
-      width: 33%;
-    }
-    .road{
-      width: 100%;
-      margin-top: 10px;
-    }
-  }
   .shop_orderlist{
     min-height: 250px;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
   }
   .shopItem{
     display: flex;
@@ -162,7 +149,7 @@
     }
   }
   
-  .shop_cost, .shop_invoice{
+  .shop_cost{
     padding:0 0 35px;
     h3{
       padding-left: 45px;
@@ -255,67 +242,6 @@
       font-weight: bold;
     }
   }
-  .shop_invoice{
-    padding:55px 0;
-    font-size: 13px;
-    letter-spacing: .06rem;
-    border-top: 1px solid gray;
-    >div{
-      margin-bottom: 15px;
-      padding-left: 45px;
-      label{
-        display: inline-block;
-        margin-right: 15px;
-        &:hover{
-          cursor: pointer;
-        }
-      }
-      select{
-        width: 150px;
-        letter-spacing: .06rem;
-      }
-      &:first-of-type{
-        display: flex;
-        align-items: center;
-      }
-    }
-    input{
-      height:auto;
-      margin-left: 0;
-    }
-    .selectwrap{
-      width: 150px;
-      p{
-       flex-shrink: 0;
-      }
-      &::after{
-        width: 10px;
-        top:10px;
-        background: url(./assets/img/arrow_down.svg) no-repeat center center/100% auto;
-      }
-    }
-  }
-  
-  .shop_invoiceType{
-    display: flex;
-    p{
-      flex-shrink: 0;
-      line-height: 32px;
-    }
-    input{
-      height:32px;
-      width: 200px;
-      margin-right: 10px;
-    }
-    span{
-      display: inline-block;
-      margin-top: 5px;
-      input{
-        margin-top: 3px;
-      }
-    }
-  }
-  
 .shop_sendinfo{
   letter-spacing: .06rem;
   padding:30px 0 60px;
@@ -394,7 +320,9 @@
         flex-wrap: wrap;
       }
     }
-    
+    .shop_sendinfo{
+      padding:30px 0;
+    }
     .shopinfoBox_name,.shopinfoBox_tel{
       width: 100%;
     }
@@ -420,7 +348,7 @@
           display: inline;
         }
         &.shopItem_name{
-          width:80%;
+          width:75%;
           padding-left: 0;
           p{
             margin-top: 5px;
@@ -438,21 +366,22 @@
           }
         }
         &.shopItem_price{
-          text-align: right;
-          width: 18%;
-          position: absolute;
-          top:18px;
-          right: 10px;
-          padding-left: 0;
-          span{
-            display: block;
-            font-weight: bold;
-          }
-          p{
-            &:first-of-type{
-              display: none;
-            }
-          }
+          display: none;
+          // text-align: right;
+          // width: 23%;
+          // position: absolute;
+          // top:18px;
+          // right: 0;
+          // padding-left: 0;
+          // span{
+          //   display: block;
+          //   font-weight: bold;
+          // }
+          // p{
+          //   &:first-of-type{
+          //     display: none;
+          //   }
+          // }
         }
       }
     }
@@ -471,7 +400,7 @@
         }
       }
     }
-    .shop_cost,.shop_invoice{
+    .shop_cost{
       h3{
         padding-left: 0;
       }
@@ -515,32 +444,6 @@
         margin-top: 25px;
       }
     } 
-    .shop_invoice{
-      border-top: none;
-      padding:25px;
-      >div{
-        padding-left: 0;
-        line-height: 22px;
-      }
-      h3{
-        font-weight: bold;
-      }
-      .selectwrap{
-        width: 150px;
-      }
-    }
-    .shop_invoiceType{
-      p{
-        flex-shrink: 0;
-        line-height: initial;
-      }
-      input{
-        width: 100%;
-      }
-      div{
-        flex-wrap: wrap;
-      }
-    }
   }
   
   /*------------------------------------*\

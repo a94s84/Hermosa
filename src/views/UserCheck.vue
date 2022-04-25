@@ -2,7 +2,8 @@
       <div class="wrap cartWrap d-sp">
              <ul class="cart_menu">
                     <li>購物清單</li>
-                    <li class="active">填寫運送資料</li>
+                    <li class="active">填寫資料</li>
+                    <li>確認訂單</li>
                     <li>完成購物</li>
                 </ul>
             <div class="shopWrap">
@@ -101,20 +102,7 @@
                         <!-- 地址 -->
                         <div class="shopinfoBox">
                             <p>地址</p>
-                            <div class="shopinfoBox_addr">
-                                <div class="selectwrap">
-                                    <select class="js-city" name="" id="">
-                                        <option value="">縣市</option>
-                                    </select>
-                                </div>
-                                <div class="selectwrap">
-                                    <select class="js-area" name="" id="">
-                                        <option value="">區域</option>
-                                    </select>
-                                </div>
-                                <input type="text" class="js-zipCode" placeholder="區碼" readonly>
-                                <input type="text" class="road" placeholder="請輸入鄉鎮街道、門牌號碼樓層">
-                            </div>
+                             <input type="text" class="road" placeholder="請輸入鄉鎮街道、門牌號碼樓層">
                             <!-- <span class="error">請選擇</span> -->
                         </div>
                         <div class="shopinfoBox">
@@ -125,35 +113,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- 發票資訊 -->
-                <div class="shop_invoice">
-                    <h3>發票資訊</h3>
-                    <div>
-                        <label>
-                            <input type="radio" name="invoice">二聯式
-                        </label>
-                        <label>
-                            <input type="radio" name="invoice">三聯式
-                        </label>
-                    </div>
-                    <div class="shop_invoiceType">
-                        <div class="d-flex" id="vat0">
-                            <p>發票載具：</p>
-                            <div class="selectwrap">
-                                <select name="" id="">
-                                    <option value="">AFAD會員專戶</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="d-flex active" id="vat">
-                            <p>統編：</p>
-                            <input type="text">
-                            <p>抬頭：</p>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div>
-                        ※依統一發票使用辦法:個人戶(二聯式)發票一經開立,不得任意更改為公司戶(三聯式)
+                <!-- 注意事項 -->
+                <h3 class="shopTitle ">購物須知</h3>
+                <div class="cart_note">
+                    <p>※ 商品加入購物車但未完成結帳前並無保留商品庫存功能，商品庫存分配將以結帳順序為依據。</p>
+                    <p>※ 選擇門市取貨付款，包裹送達後隔日下午會簡訊通知領取。</p>
+                    <p>※ 當包裹出貨完成未被領取或拒收退回(出貨後7日計算)，該訂購帳號若達三次將無法使用此配送方式。</p>
+                    <p>※ 國內配送時間約2-3個工作天，若您遲遲未收到商品，請盡速與客服連絡。</p>
+                    <p>※ 提醒您，若您無故或惡意違反制定訂購與退貨相關規則，本公司有權暫停您的帳號並拒絕您使用本服務，同時列為交易黑名單，請您留意。</p>
+                    <div class="form-check">
+                        <input class="form-check-input" id="flexCheckChecked" type="checkbox" checked name="check">
+                        <label class="form-check-label ml-6" for="flexCheckChecked"> 我已閱讀並同意網站的 條款與條件 <sup>*</sup></label>
                     </div>
                 </div>
             </div>
@@ -166,7 +136,6 @@
                 </router-link>
                 <div>
                     <h3>總計: <span>NT$ {{ $filters.currency(carts.final_total)}}</span> </h3>
-                    <p>本次消費獲得點數：200 <span>(獲得點數是以商品出貨完成後生效。)</span></p>
                 </div>
                 <div class="btn_next_white">
                     <input type="button" value="下一步">

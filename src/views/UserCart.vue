@@ -5,7 +5,8 @@
             <div class="cart_top">
                 <ul class="cart_menu">
                     <li class="active">購物清單</li>
-                    <li>填寫運送資料</li>
+                    <li>填寫資料</li>
+                    <li>確認訂單</li>
                     <li>完成購物</li>
                 </ul>
                  <div>
@@ -58,16 +59,6 @@
                 <div class="cart_nothing" v-else>您的購物車目前是空的！</div>
                 <DelModal ref="delModal" @del-Product="delITem" :delItem="tempProduct"></DelModal>
             </div>
-            <div class="cart_bottom">
-                <div class="cart_note">
-                    <h3 class="cart_title">注意事項</h3>
-                    <p>※ 商品加入購物車但未完成結帳前並無保留商品庫存功能，商品庫存分配將以結帳順序為依據。</p>
-                    <p>※ 選擇門市取貨付款，包裹送達後隔日下午會簡訊通知領取。</p>
-                    <p>※ 當包裹出貨完成未被領取或拒收退回(出貨後7日計算)，該訂購帳號若達三次將無法使用此配送方式。</p>
-                    <p>※ 國內配送時間約2-3個工作天，若您遲遲未收到商品，請盡速與客服連絡。</p>
-                    <p>※ 提醒您，若您無故或惡意違反制定訂購與退貨相關規則，本公司有權暫停您的帳號並拒絕您使用本服務，同時列為交易黑名單，請您留意。</p>
-                </div>
-            </div>
         </div>
         <!-- footerfixed結帳金額 -->
         <div class="footer_fixed">
@@ -84,7 +75,6 @@
                 </router-link>
             </div>
         </div>
-    <div class="pageCover"></div>
 </template>
 
 <script>

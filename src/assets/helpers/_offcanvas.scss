@@ -9,11 +9,15 @@
     width: 500px;
     height: 100vh;
     font-weight: lighter;
-    transition: max-height .5s ease-out;
+    transition: all .3s ease-out;
     background-color: #F4F5F5;
     padding: 50px 50px 50px 70px;
     form{
         height: initial;
+    }
+    &.open{
+        left:0;
+        transition: all .3s ease-out;
     }
 }
 
