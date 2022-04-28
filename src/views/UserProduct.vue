@@ -1,228 +1,232 @@
 <template>
     <Loading :active="isLoading"></Loading>
-    <div class="wrap">
-        <div class="pdcnt_wrap">
-            <aside class="pdlist_aside">
-                <!-- <ul class="pdlist_menu js-menu" >
-                    <li>
-                    <a type="button" @click="filter = 'ALL'">ALL</a>
-                    </li>
-                    <li v-for="item in categoryData" :key="item.id">
-                        <a type="button" @click="filter = item">{{item}}
-                        </a>
-                    </li>
-                </ul> -->
-            </aside>
-            <div class="pdcnt">
-                <div class="pdcnt_imgpart">
-                    <div class="pdcnt_img">
-                        <swiper :thumbs="{ swiper: thumbsSwiper }" :navigation="true"   :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true" class="pdcnt_img_group_main">
-                        <swiper-slide v-for="img in product.images" :key="img">
-                            <img :src="img">
-                        </swiper-slide>
-                        </swiper>
-                        <swiper @swiper="setThumbsSwiper" watch-slides-visibility watch-slides-progress :slides-per-view="4" :space-between="20" :navigation="true" :loop="true" :autoplay="{delay: 4000}" class="pdcnt_img_group_thumb">
+    <div class="contentWrap">
+        <div class="wrap">
+            <div class="pdcnt_wrap">
+                <aside class="pdlist_aside">
+                    <!-- <ul class="pdlist_menu js-menu" >
+                        <li>
+                        <a type="button" @click="filter = 'ALL'">ALL</a>
+                        </li>
+                        <li v-for="item in categoryData" :key="item.id">
+                            <a type="button" @click="filter = item">{{item}}
+                            </a>
+                        </li>
+                    </ul> -->
+                </aside>
+                <div class="pdcnt">
+                    <div class="pdcnt_imgpart">
+                        <div class="pdcnt_img">
+                            <swiper :thumbs="{ swiper: thumbsSwiper }" :navigation="true"   :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true" class="pdcnt_img_group_main">
                             <swiper-slide v-for="img in product.images" :key="img">
                                 <img :src="img">
                             </swiper-slide>
-                        </swiper>
-                    </div>
-                </div>
-                <div class="pdcnt_info">
-                    <!-- 商品名稱.價格.編號. -->
-                    <div class="pdcnt_inner">
-                        <div class="pdcnt_inner_left">
-                            <h1 class="pdname">{{product.title}}</h1>
-                            <p class="stockstatus" v-if="product.num > 0">尚有庫存</p>
-                        </div>
-                        <div class="pdcnt_inner_right d-col">
-                            <p class="pdcnt_price_sale" v-if="product.origin_price == product.price"><span>NT$</span>{{product.price}}</p>
-                            <p class="pdcnt_price_onsale" v-else><span>NT$</span>{{product.price}}</p>
-                            <p class="pdcnt_price_origin">NT${{product.origin_price}}</p>
-                        </div>
-                    </div>
-                    <!-- 商品尺寸.數量 -->
-                    <div class="pdcnt_CSN">
-                        <table class="pdcnt_table">
-                            <thead>
-                                <tr>
-                                    <th>SIZE</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="pdcnt_info_size">F</td>
-                                    <td class="pdcnt_info_number">
-                                        <select ref="pdQty" @change="qtyChnage()">
-                                            <option v-for="num in 10" :key="num" :value="num">{{num}}</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- 商品材質.產地 -->
-                    <div class="pdcnt_MP">
-                        <p>產地 <span class="font-M">TAIWAN</span></p>
-                        <p>細節 <span class="font-N">{{product.description}}</span></p>
-                    </div>
-                    <!-- 注意事項 -->
-                    <div class="pdcnt_note">
-                        <p>
-                            部份商品不列入折扣 活動期間特價商品不接受退換貨
-                        </p>
-                        <p>
-                            結帳時請務必詳讀結帳頁面下方注意事項
-                        </p>
-                    </div>
-                    <!-- 收藏.加入購物清單.結帳 -->
-                    <div class="pdcnt_btn">
-                        <div class="pdcnt_btn_wish">
-                            <a href="javascript:void(0)" class="btn_wish">
-                                <img src="../assets/img/favicon.svg"> +
-                            </a>
-                        </div>
-                        <div class="pdcnt_btn_BuyPay">
-                            <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
-                            </a>
-                            <a href="#" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
-                        </div>
-                    </div>
-                    <ul class="pdcnt_menu">
-                        <li>
-                            <a href="javascript:void(0)" class="submenuTitle active"><span>商品尺寸表 | SIZE CHART</span></a>
-                            <div class="submenu">
-                                <center>
-                                    <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="1" cellpadding="1">
-                                        <tbody>
-                                        <tr align="center" bgcolor="#FFFFFF">
-                                            <td width="132" height="30"><font color="#5b5b5b" size="2">尺寸(±2公分)</font>
-                                            </td><td width="39" height="30"><font color="#5b5b5b" size="2">全長</font>
-                                            </td><td width="41" height="30"><font color="#5b5b5b" size="2">胸寬</font>
-                                            </td><td width="51"><font color="#5b5b5b" size="2">肩寬</font>
-                                            </td><td width="50"><font color="#5b5b5b" size="2">袖口寬</font>
-                                            </td><td width="46"><font color="#5b5b5b" size="2">袖長</font>
-                                            </td><td width="46"><font color="#5b5b5b" size="2">腰圍</font>
-                                            </td><td width="51"><font color="#5b5b5b" size="2">下擺寬</font>
-                                            </td>
-                                        </tr>
-                                        <tr align="center" bgcolor="#FFFFFF">
-                                            <td height="30"><font color="#666666" size="2">F</font>
-                                            </td><td><font color="#737373" size="2">60</font>
-                                            </td><td><font color="#5b5b5b" size="2">66</font>
-                                            </td><td><font color="#5b5b5b" size="2">X</font>
-                                            </td><td><font color="#5b5b5b" size="2">9</font>
-                                            </td><td><font color="#5b5b5b" size="2">73</font>
-                                            </td><td><font color="#5b5b5b" size="2">X</font>
-                                            </td><td><font color="#5b5b5b" size="2">42</font>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                    <div style="line-height: 20px;">
-                                        <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
-                                    </div>
-                                </center>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="submenuTitle active"><span>模特兒參考 | MODEL INFO</span></a>
-                            <div class="submenu d-none">
-                                <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">    <tbody>      <tr align="center" bgcolor="#FFFFFF">        <td width="367" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">MODEL</font>
-                                </td><td width="400" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">身高</font>
-                                </td><td width="399" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">體重</font>
-                                </td><td width="389" align="center" valign="middle"><font color="#5b5b5b" size="1">尺寸</font></td></tr><tr align="center" bgcolor="#FFFFFF">          <td height="30" align="center" valign="middle"><font color="#666666" size="1">Anzi</font></td>
-                                <td align="center" valign="middle"><font color="#737373" size="1">164 cm</font></td><td align="center" valign="middle"><font color="#5b5b5b" size="1">47 kg</font>
-                                    </td><td align="center" valign="middle"><font color="#5b5b5b" size="1">S</font>
-                                    </td></tr></tbody>  </table>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="submenuTitle active"><span>注意事項</span></a>
-                            <div class="submenu d-none">
-                                {{product.content}}
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" class="submenuTitle">建議搭配</a>
-                            <swiper :slides-per-view="2" :space-between="5" :navigation="true" :loop="true" :autoplay="{delay: 2000, pauseOnMouseEnter: true}" :breakpoints="{1200: {slidesPerView: 5, spaceBetween: 5},768: {slidesPerView: 4, spaceBetween: 5}}"  class="pdcnt_suggest">
-                                <swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide>
-                                <swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide><swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide><swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide><swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide><swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
-                                </swiper-slide><swiper-slide>
-                                    <a href="#">
-                                    <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                    </a>
+                            </swiper>
+                            <swiper @swiper="setThumbsSwiper" watch-slides-visibility watch-slides-progress :slides-per-view="4" :space-between="20" :navigation="true" :loop="true" :autoplay="{delay: 4000}" class="pdcnt_img_group_thumb">
+                                <swiper-slide v-for="img in product.images" :key="img">
+                                    <img :src="img">
                                 </swiper-slide>
                             </swiper>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+                    <div class="pdcnt_info">
+                        <!-- 商品名稱.價格.編號. -->
+                        <div class="pdcnt_inner">
+                            <div class="pdcnt_inner_left">
+                                <h1 class="pdname">{{product.title}}</h1>
+                                <p class="stockstatus" v-if="product.num > 0">尚有庫存</p>
+                            </div>
+                            <div class="pdcnt_inner_right d-col">
+                                <p class="pdcnt_price_sale" v-if="product.origin_price == product.price"><span>NT$</span>{{product.price}}</p>
+                                <p class="pdcnt_price_onsale" v-else><span>NT$</span>{{product.price}}</p>
+                                <p class="pdcnt_price_origin">NT${{product.origin_price}}</p>
+                            </div>
+                        </div>
+                        <!-- 商品尺寸.數量 -->
+                        <div class="pdcnt_CSN">
+                            <table class="pdcnt_table">
+                                <thead>
+                                    <tr>
+                                        <th>SIZE</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="pdcnt_info_size">F</td>
+                                        <td class="pdcnt_info_number">
+                                            <select ref="pdQty" @change="qtyChnage()">
+                                                <option v-for="num in 10" :key="num" :value="num">{{num}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 商品材質.產地 -->
+                        <div class="pdcnt_MP">
+                            <p>產地 <span class="font-M">TAIWAN</span></p>
+                            <p>細節 <span class="font-N">{{product.description}}</span></p>
+                        </div>
+                        <!-- 注意事項 -->
+                        <div class="pdcnt_note">
+                            <p>
+                                部份商品不列入折扣 活動期間特價商品不接受退換貨
+                            </p>
+                            <p>
+                                結帳時請務必詳讀結帳頁面下方注意事項
+                            </p>
+                        </div>
+                        <!-- 收藏.加入購物清單.結帳 -->
+                        <div class="pdcnt_btn">
+                            <div class="pdcnt_btn_wish">
+                                <a href="javascript:void(0)" class="btn_wish">
+                                    <img src="../assets/img/favicon.svg"> +
+                                </a>
+                            </div>
+                            <div class="pdcnt_btn_BuyPay">
+                                <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
+                                </a>
+                                <a href="#" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
+                            </div>
+                        </div>
+                        <ul class="pdcnt_menu">
+                            <li>
+                                <a href="javascript:void(0)" class="submenuTitle active"><span>商品尺寸表 | SIZE CHART</span></a>
+                                <div class="submenu">
+                                    <center>
+                                        <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="1" cellpadding="1">
+                                            <tbody>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td width="132" height="30"><font color="#5b5b5b" size="2">尺寸(±2公分)</font>
+                                                </td><td width="39" height="30"><font color="#5b5b5b" size="2">全長</font>
+                                                </td><td width="41" height="30"><font color="#5b5b5b" size="2">胸寬</font>
+                                                </td><td width="51"><font color="#5b5b5b" size="2">肩寬</font>
+                                                </td><td width="50"><font color="#5b5b5b" size="2">袖口寬</font>
+                                                </td><td width="46"><font color="#5b5b5b" size="2">袖長</font>
+                                                </td><td width="46"><font color="#5b5b5b" size="2">腰圍</font>
+                                                </td><td width="51"><font color="#5b5b5b" size="2">下擺寬</font>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td height="30"><font color="#666666" size="2">F</font>
+                                                </td><td><font color="#737373" size="2">60</font>
+                                                </td><td><font color="#5b5b5b" size="2">66</font>
+                                                </td><td><font color="#5b5b5b" size="2">X</font>
+                                                </td><td><font color="#5b5b5b" size="2">9</font>
+                                                </td><td><font color="#5b5b5b" size="2">73</font>
+                                                </td><td><font color="#5b5b5b" size="2">X</font>
+                                                </td><td><font color="#5b5b5b" size="2">42</font>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <br>
+                                        <div style="line-height: 20px;">
+                                            <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
+                                        </div>
+                                    </center>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="submenuTitle active"><span>模特兒參考 | MODEL INFO</span></a>
+                                <div class="submenu d-none">
+                                    <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">    <tbody>      <tr align="center" bgcolor="#FFFFFF">        <td width="367" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">MODEL</font>
+                                    </td><td width="400" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">身高</font>
+                                    </td><td width="399" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">體重</font>
+                                    </td><td width="389" align="center" valign="middle"><font color="#5b5b5b" size="1">尺寸</font></td></tr><tr align="center" bgcolor="#FFFFFF">          <td height="30" align="center" valign="middle"><font color="#666666" size="1">Anzi</font></td>
+                                    <td align="center" valign="middle"><font color="#737373" size="1">164 cm</font></td><td align="center" valign="middle"><font color="#5b5b5b" size="1">47 kg</font>
+                                        </td><td align="center" valign="middle"><font color="#5b5b5b" size="1">S</font>
+                                        </td></tr></tbody>  </table>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="submenuTitle active"><span>注意事項</span></a>
+                                <div class="submenu d-none">
+                                    {{product.content}}
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="submenuTitle">建議搭配</a>
+                                <swiper :slides-per-view="2" :space-between="5" :navigation="true" :loop="true" :autoplay="{delay: 2000, pauseOnMouseEnter: true}" :breakpoints="{1200: {slidesPerView: 5, spaceBetween: 5},768: {slidesPerView: 4, spaceBetween: 5}}"  class="pdcnt_suggest">
+                                    <swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide>
+                                    <swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide><swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide><swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide><swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide><swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide><swiper-slide>
+                                        <a href="#">
+                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
+                                        </a>
+                                    </swiper-slide>
+                                </swiper>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <section class="wrap lessMargin pdcnt_carousel">
+                <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
+                <swiper :slides-per-view="2" :space-between="26" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 4, spaceBetween: 26}}" class="pdlikeSlide">
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                    <swiper-slide class="alsoLike_box">
+                        <a href="#">
+                            <img src="http://via.placeholder.com/340x485" alt="">
+                        </a>
+                    </swiper-slide>
+                </swiper>
+            </section>
         </div>
-        <section class="wrap lessMargin pdcnt_carousel">
-            <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
-            <swiper :slides-per-view="2" :space-between="26" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 4, spaceBetween: 26}}" class="pdlikeSlide">
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-                <swiper-slide class="alsoLike_box">
-                    <a href="#">
-                        <img src="http://via.placeholder.com/340x485" alt="">
-                    </a>
-                </swiper-slide>
-            </swiper>
-        </section>
     </div>
+    <Footer/>
 </template>
 
 <script>
+import Footer from '../components/Footer.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
@@ -239,7 +243,7 @@ export default {
     }
   },
   components: {
-    Swiper, SwiperSlide
+    Footer, Swiper, SwiperSlide
   },
   inject: ['emitter'],
   methods: {

@@ -354,6 +354,11 @@ a {
     align-items: center;
 }
 
+.d-center{
+    display:flex;
+    justify-content: center;
+}
+
 .d-sp {
     display: flex;
    justify-content: space-between;
@@ -490,7 +495,7 @@ a {
         padding-top: $phone_header_height;
     }
     .wrap {
-        padding: 0 10px;
+        padding: 0 12px;
     }
     .is-hidden-touch{
         display: none;
@@ -502,6 +507,9 @@ a {
 }
 
 @include phones-width() {
+    .pagination_box{
+        padding-top: 10px;
+    }
     .pageCover {
         &.active {
             display: none;

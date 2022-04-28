@@ -1,20 +1,9 @@
 /*------------------------------------*\
   #ShoppingCart
 \*------------------------------------*/
-body{
-  &.hasfooterfixed{
-    .cartWrap{
-      padding-bottom: 110px;
-    }
-    footer{
-      display: none;
-    }
-  }
-}
-
 .cartWrap{
   font-family: "Montserrat","Noto Sans TC", sans-serif;
-  padding-top: 80px;
+  padding: 80px 20px;
   h2{
     font-size: 30px;
     font-weight: bold;
@@ -33,6 +22,11 @@ body{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  .btn{
+    margin-top: 50px;
+    width: 100%;
+    font-size: 14px;
+  }
 }
 .cart_nothing{
   height: 150px;
@@ -82,8 +76,7 @@ body{
     // border-bottom:1px solid $light_gray;
     display: flex;
     flex-wrap: wrap;
-  }
- 
+  } 
 }
 
 .cart_pdbox{
@@ -122,6 +115,7 @@ body{
   }
   .pdcnt_trash{
     width: 12px;
+    margin-right: 3%;
   }
   .pdcnt_price{
     letter-spacing: .06rem;
@@ -186,9 +180,11 @@ body{
     font-size: 14px;
     color:rgb(223, 23, 23);
   }
+  .form-check{
+    padding-left: 0;
+  }
 }
-label sup{
-  
+sup{  
   color:rgb(223, 23, 23);
 }
 .footer_fixed{
@@ -221,7 +217,6 @@ label sup{
   .btn_pre_white{
     display: flex;
     align-items: center;
-    padding-left: 25px;
     margin-left: 10%;
     cursor: pointer;
     &::before{
@@ -234,7 +229,6 @@ label sup{
   .btn_next_white{
     display: flex;
     align-items: center;
-    padding-right: 25px;
     margin-right: 10%;
     cursor: pointer;
     &::after{
@@ -303,26 +297,29 @@ label sup{
   }
   
   .cartWrap{
-    padding-top: 40px;
+    padding: 40px 10px;
     flex-wrap: wrap;
     h2{
-      margin-top: 45px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
+      display: none;
+      // margin-top: 45px;
+      // font-size: 20px;
+      // font-weight: bold;
+      // text-align: center;
+    }
+  }
+  
+  .cart_top{
+    justify-content: flex-end;
+    .btn{
+      width: initial;
+      margin-top: 20px;
+      font-size: 12px;
+      margin-right: 30px;
     }
   }
 }
 
 @include phones-width() { 
-  body{
-    &.hasfooterfixed{
-      .cartWrap{
-        padding-bottom: 0;
-      }
-    }
-  }
-
   .cart_menu{
     list-style-type: none;
     li{
@@ -345,20 +342,22 @@ label sup{
   }
   
   .cart_nothing{
-    height: 100px;
-    font-size: 35px;
+    font-size: 25px;
+    padding:50px 0;
   }
 
 
   .cart_buyinglist{
     border-top: none;
     margin-top: 0;
+    form{
+      margin:20px 0;
+    }
   }
 
   .footer_fixed{
     height: 60px;
     padding:20px 0px 18px;
-    position: static;
     a{
       font-size: 15px;
       line-height: 16px;
@@ -375,42 +374,29 @@ label sup{
       margin-top: 5px;
     }
     .btn_pre_white{
-      // display: none;
       margin-left: 0;
-      padding-left: 10px;
       position: relative;
-      align-items: flex-start;
+      align-items: center;
       &::before{
         width: 12px;
         height: 12px;
-        top:4px;
-        left: 0;
-        position: absolute;
       }
     }
     .btn_next_white{
-      padding-right: 10px;
       margin-right: 0;
       position: relative;
-      align-items: flex-start;
+      align-items:center;
       &::after{
         width: 12px;
         height: 12px;
-        position: absolute;
-        top:4px;
-        right: 0;
       }
     }
-    input[type="button"]{
+    input[type="button"],
+    input[type="submit"]{
       font-size: 12px;
     }
   }
   
-  .cart_top{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
   .cart_pdbox{
     width: 100%;
     margin:20px 0;

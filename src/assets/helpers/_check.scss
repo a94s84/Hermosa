@@ -32,7 +32,7 @@
       letter-spacing: .05rem;
     }
     .shopinfoBox{
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
     .selectwrap{
       position: relative;
@@ -75,6 +75,12 @@
       font-family: 'Noto Sans TC', sans-serif;
       letter-spacing: .03rem;
       font-size: 10px;
+    }    
+    .is-invalid{
+      border:1px solid #dc3545;
+    }
+    .invalid-feedback{
+      line-height: 0.875rem;
     }
     .selectwrap{
       width:calc( (33.33% - 5px));
@@ -90,12 +96,10 @@
   }
   
   .shop_orderlist{
-    min-height: 250px;
     padding-bottom: 50px;
   }
   .shopItem{
     display: flex;
-    // justify-content: space-between;
     text-align: center;
     padding:10px 30px;
     border-bottom: 1px solid gray;
@@ -142,10 +146,10 @@
   .shopItem_img{
     a{
       display: block;
+    }
+    img{
       max-width: 80px;
-      img{
-        width: 100%;     
-      }
+      width: 100%;     
     }
   }
   
@@ -284,19 +288,21 @@
     }
     .shop_discount_code{
       flex-wrap: wrap;
-      p,input,.btn{
-        width: 100%;
-      }
-      input{
-        margin:15px 0;
-        height: 40px;
-      }
+      align-items: center;
       p{
+        width: 100%;
         line-height: 1rem;
       }
-      .btn{
-        line-height: 40px;
-        font-size: 16px;
+      input{
+        width: calc( 100% - 71px);
+        margin:15px 10px 15px 0;
+        height: 32px;
+      }
+      .btn_black{
+        width: 60px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
       }
     }
     .shopItem{
@@ -332,11 +338,8 @@
     .shopItem{
       position: relative;
       flex-wrap: wrap;
-      // justify-content: space-between;
-      // text-align: center;
       text-align: left;
       padding:25px 15px 25px 110px;
-      // border-bottom: 1px solid gray;
       >div{
         display: block;
         width: 80%;
@@ -348,7 +351,7 @@
           display: inline;
         }
         &.shopItem_name{
-          width:75%;
+          width:100%;
           padding-left: 0;
           p{
             margin-top: 5px;
@@ -357,31 +360,14 @@
         &.shopItem_img{
           max-width: 80px;
           position: absolute;
-          top:10px;
+          top:17px;
           left: 15px;
-          a{
-            img{
-              max-height: 110px;
-            }
+          img{
+            max-height: 110px;
           }
         }
         &.shopItem_price{
           display: none;
-          // text-align: right;
-          // width: 23%;
-          // position: absolute;
-          // top:18px;
-          // right: 0;
-          // padding-left: 0;
-          // span{
-          //   display: block;
-          //   font-weight: bold;
-          // }
-          // p{
-          //   &:first-of-type{
-          //     display: none;
-          //   }
-          // }
         }
       }
     }
@@ -408,7 +394,7 @@
     .shop_cost{
       h3{
         text-align: center;
-        padding-bottom: 20px;
+        padding-bottom: 15px;
         font-weight: bold;
         border-bottom: 1px solid #565045;
       }
@@ -417,268 +403,37 @@
       flex-wrap: wrap;
     }
     .shop_discountbox{
-      padding:0 20px;
+      padding:0 15px;
       width: 100%;
       border-right: 0;
       border-bottom: 1px solid gray;
-      >div{
-        font-size: 18px;
-      }
     }
     .shop_note{
       width: 100%;
+      margin:initial;
     }
     .shop_count{
       width: 100%;
-      padding:25px 0 0;
+      padding:15px 0 0;
       >div{
-        padding:0 25px;
+        padding:0 5px;
         >p{
           width: 70%;
           font-size: 14px;
-          line-height: 35px;
+          line-height: 25px;
         }
       }
       .shop_total{
-        padding:25px 25px 0;
-        margin-top: 25px;
+        padding:15px 5px 0;
+        margin-top: 15px;
+        span{
+          &:nth-of-type(2){
+            display: block;
+            text-align: right;
+            font-weight: normal;
+          }
+        }
       }
     } 
-  }
-  
-  /*------------------------------------*\
-    #Orderfinish
-  \*------------------------------------*/
-  
-  .orderfinishWrap{
-    // margin:0 auto;
-    // padding-right:100px;
-    padding: 55px 0;
-    width: calc( 100% - 200px);
-    color:black;
-    h2{
-      font-size: 45px;
-      text-align: center;
-    }
-    h3{
-      text-align: center;
-      font-size: 25px;
-      padding: 55px 0 100px;
-      border-bottom: 1px solid black;
-    }
-    h4{
-      font-size: 16px;
-      margin-bottom: 25px;
-      letter-spacing: .06rem;
-    }
-    .tb_member{
-      th,td{
-        text-align: center;
-        &:nth-of-type(2){
-          text-align: left;
-        }
-        &:last-of-type{
-          text-align: right;
-          padding: 10px 40px;
-        }
-      }
-    }
-  }
-  
-  .orderdetail_box,.orderinfo_box{
-    padding:20px 40px;
-    border-bottom: 1px solid black;
-    p, .address_block{
-      line-height: 24px;
-      letter-spacing: .04rem;
-      display: flex;
-      justify-content: space-between;
-      span{
-        display: inline-block;
-        flex-shrink: 0;
-        width: 150px;
-      }
-      .block-phone{
-        width: initial;
-      }
-    }
-    
-  }
-  
-  .orderlist_box{
-    margin: 55px 0 0;
-    padding:20px 0;
-    border-bottom: 1px solid black;
-    h4{
-      margin-left: 55px;
-    }
-  }
-  
-  .ordertotal_box{
-    padding:40px 40px 20px 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .ordertotal{
-    width: 300px;
-    p{
-      line-height: 28px;
-      letter-spacing: .04rem;
-      display: flex;
-      justify-content: space-between;
-      span{
-        // display: inline-block;
-        // width: 165px;  
-        color:#251714;
-      }
-    }
-  }
-  
-  .orderlistbtn{
-    padding:50px 0;
-    width: 42%;
-    // display: flex;
-    // justify-content: space-between;
-    .btn{
-      line-height: 32px ;
-    }
-  }
-  
-  .btn_brown{
-    background-color: #231815;
-    width: 46%;
-    text-align: left;
-    position: relative;
-    font-size: 13px;
-    &::after{
-      content: '';
-      width: 5px;
-      height: 7px;
-      position: absolute;
-      border-top: solid 1px white;
-      border-right: solid 1px white;
-      -ms-transform: rotate(45deg); /* IE 9 */
-      transform: rotate(45deg);
-      right:15px;
-      top:12px
-    }
-  }
-  
-  
-  @include tablet-width() {
-    .orderfinishWrap{
-      padding:40px 0;
-      width: 100%;
-      h2{
-        margin-top: 0;
-        font-size: 30px;
-      }
-      h3{
-        font-size: 13px;
-        padding: 30px 0 50px;
-      }
-    }
-      
-    .orderfinishBox{
-      margin:60px 0;
-      a{
-        width: 100%;
-        }
-    }
-  }
-  
-  
-  @include phones-width() {
-    .orderfinishWrap{
-      h4{
-        margin:10px 0 25px;
-      }
-      .tb_member{
-        th,td{
-          text-align: left;
-          &:last-of-type{
-            text-align: left;
-            padding: 5px 0;
-          }
-        }
-        tr{
-          border-bottom: none;
-          margin-bottom: 40px;
-        }
-        td {
-          &:before {
-            width: auto;
-          }
-        }
-        td[data-th="商品編號："],td[data-th="商品名稱："]{
-          &:before{
-            content: none;
-          }
-        }
-      }
-    }
-    
-    .ordertotal_box{
-      flex-direction: column;
-      flex-wrap: wrap;
-      flex-direction: column-reverse;
-      padding:25px 10px;
-      >div{
-        width: 100%;
-      }
-    }
-  
-    .orderdetail_box, .orderinfo_box{
-      padding:20px 10px;
-      p, .address_block{
-        span{
-          display: inline-block;
-          width: 125px;
-        }
-        .block-phone{
-          display: block;
-          text-align: end;
-        }
-      }
-      
-    }
-  
-    .orderlist_box{
-      margin: 0;
-      padding: 20px 10px 0;
-    }
-  
-    .orderlistbtn{
-      width: 100%;
-      padding:50px 20px;
-      .btn{
-        line-height: 40px;
-        padding: 0 20px;
-      }
-    }
-  
-    .ordertotal{
-      width: 100%;
-      p{
-        span{
-          display: inline-block;
-          width: 135px;  
-        }
-      }
-      .is-hidden-phone{
-        display: none;
-      }
-    }
-    
-    .btn_brown{
-      width: 100%;
-      font-size: 16px;
-      &::after{
-        content: '';
-        right:20px;
-        top:17px
-      }
-    }
   }
   

@@ -1,0 +1,239 @@
+/*------------------------------------*\
+  #ShoppingCheckOut
+\*------------------------------------*/
+  .orderfinishWrap{
+    padding: 0 10%;
+    margin-bottom:55px;
+    width: calc( 100% - 200px);
+    color:black;
+    h2{
+      font-size: 45px;
+      text-align: center;
+    }
+    h3{
+      text-align: center;
+      font-size: 25px;
+      padding: 55px 0 100px;
+      border-bottom: 1px solid black;
+    }
+    h4{
+      font-size: 16px;
+      margin-bottom: 25px;
+      letter-spacing: .06rem;
+    }
+    .tb_member{
+      th,td{
+        text-align: center;
+        &:nth-of-type(2){
+          text-align: left;
+        }
+        &:last-of-type{
+          text-align: right;
+          padding: 10px 40px;
+        }
+      }
+    }
+  }
+  
+  .orderdetail_box{
+    width:66.66%;
+    margin:0 16.66%;
+    padding:55px 0;
+    border-bottom: 1px solid black;
+    >div{
+    padding:0 16px 12px;
+    margin-bottom:15px;
+    letter-spacing: .04rem;
+    font-size:14px;
+    border-bottom:1px dashed gray;
+    display: flex;
+    p{
+        width: calc( 100% - 155px);
+    }
+      span{
+        display: inline-block;
+        flex-shrink: 0;
+        width: 150px;
+      }
+    }
+    
+  }
+  
+  .orderlist_box{
+    margin: 55px 0 0;
+    padding:20px 0;
+    border-bottom: 1px solid black;
+    h4{
+      margin-left: 55px;
+    }
+  }
+  
+  .ordertotal_box{
+    padding:40px 40px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .ordertotal{
+    width: 300px;
+    p{
+      line-height: 28px;
+      letter-spacing: .04rem;
+      display: flex;
+      justify-content: space-between;
+      span{
+        // display: inline-block;
+        // width: 165px;  
+        color:#251714;
+      }
+    }
+  }
+  
+  .orderlistbtn{
+    padding:50px 0;
+    width: 42%;
+    // display: flex;
+    // justify-content: space-between;
+    .btn{
+      line-height: 32px ;
+    }
+  }
+  
+  .btn_brown{
+    background-color: #231815;
+    width: 46%;
+    text-align: left;
+    position: relative;
+    font-size: 13px;
+    &::after{
+      content: '';
+      width: 5px;
+      height: 7px;
+      position: absolute;
+      border-top: solid 1px white;
+      border-right: solid 1px white;
+      -ms-transform: rotate(45deg); /* IE 9 */
+      transform: rotate(45deg);
+      right:15px;
+      top:12px
+    }
+  }
+  
+  
+  @include tablet-width() {
+    .orderfinishWrap{
+      padding:40px 0;
+      width: 100%;
+      h2{
+        margin-top: 0;
+        font-size: 30px;
+      }
+      h3{
+        font-size: 13px;
+        padding: 30px 0 50px;
+      }
+    }
+      
+    .orderfinishBox{
+      margin:60px 0;
+      a{
+        width: 100%;
+        }
+    }
+  }
+  
+  
+  @include phones-width() {
+    .orderfinishWrap{
+      h4{
+        margin:10px 0 25px;
+      }
+      .tb_member{
+        th,td{
+          text-align: left;
+          &:last-of-type{
+            text-align: left;
+            padding: 5px 0;
+          }
+        }
+        tr{
+          border-bottom: none;
+          margin-bottom: 40px;
+        }
+        td {
+          &:before {
+            width: auto;
+          }
+        }
+        td[data-th="商品編號："],td[data-th="商品名稱："]{
+          &:before{
+            content: none;
+          }
+        }
+      }
+    }
+    
+    .ordertotal_box{
+      flex-direction: column;
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+      padding:25px 10px;
+      >div{
+        width: 100%;
+      }
+    }
+  
+    .orderdetail_box{
+      width: 100%;
+      margin: initial;
+      padding:20px 10px;
+      >div{
+        p{
+            width: calc( 100% - 100px);
+        }
+        span{
+          display: inline-block;
+          width: 96px;
+        }
+      }
+      
+    }
+  
+    .orderlist_box{
+      margin: 0;
+      padding: 20px 10px 0;
+    }
+  
+    .orderlistbtn{
+      width: 100%;
+      padding:50px 20px;
+      .btn{
+        line-height: 40px;
+        padding: 0 20px;
+      }
+    }
+  
+    .ordertotal{
+      width: 100%;
+      p{
+        span{
+          display: inline-block;
+          width: 135px;  
+        }
+      }
+      .is-hidden-phone{
+        display: none;
+      }
+    }
+    
+    .btn_brown{
+      width: 100%;
+      font-size: 16px;
+      &::after{
+        content: '';
+        right:20px;
+        top:17px
+      }
+    }
+  }
+  

@@ -1,4 +1,5 @@
 <template>
+  <div class="contentWrap">
    <div class="defaultWrap">
       <!-- 首頁大圖輪播 -->
       <swiper :slides-per-view="1" :space-between="50" :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true"  :pagination="true" class="homeSlide">
@@ -89,13 +90,16 @@
           </div>
       </section>
     </div>
-  <div class="pageCover"></div>
+  </div>
+  <Footer/>
 </template>
 
 <script>
 // @ is an alias to /src
+import Footer from '../components/Footer.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper'
+import SwiperCore, { Navigation, Pagination, Autoplay }
+from 'swiper'
 import 'swiper/swiper-bundle.css'
 
 SwiperCore.use([Navigation, Pagination, Autoplay])
@@ -111,7 +115,7 @@ export default {
     }
   },
   components: {
-    Swiper, SwiperSlide
+    Footer, Swiper, SwiperSlide
   },
   methods: {
     getPdList () {
@@ -122,9 +126,6 @@ export default {
         this.isLoading = false
         // console.log(res.data.products)
       })
-    },
-    getProduct (id) {
-      this.$router.push(`/product/${id}`)
     }
   },
   created () {

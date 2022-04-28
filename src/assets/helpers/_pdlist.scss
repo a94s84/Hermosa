@@ -68,27 +68,6 @@
     display: flex;
     float: right;
 }
-.pdlist_btn_col2 {
-    width: 31px;
-    height: 18px;
-    display: inline-block;
-    margin: 0 8px;
-    background: url('assets/img/col2.svg') no-repeat center center;
-    &.active {
-        background: url('assets/img/col2_active.svg') no-repeat center center;
-    }
-}
-
-.pdlist_btn_col10 {
-    width: 41px;
-    height: 18px;
-    display: inline-block;
-    margin: 0;
-    background: url('assets/img/col10.svg') no-repeat center center;
-    &.active {
-        background: url('assets/img/col10_active.svg') no-repeat center center;
-    }
-}
 
 //pds商品列表
 .pds {
@@ -101,26 +80,10 @@
     flex-wrap: wrap;
     .pds_item {
         margin-bottom: 50px;
-    }
-    &.col10 {
-        .pds_item {
-            width: calc( (100% - (8px*4)) / 5);
-            margin-left: 8px;
-            &:nth-child(5n+1) {
-                margin-left: 0;
-            }
-        }
-    }
-    &.col2 {
-        .pds_item {
-            width: calc( (100% - 40px) / 2);
-            margin-left: 40px;
-            &:nth-child(5n+1) {
-                margin-left: 40px;
-            }
-            &:nth-child(2n+1) {
-                margin-left: 0;
-            }
+        width: calc( (100% - (8px*4)) / 5);
+        margin-left: 8px;
+        &:nth-child(5n+1) {
+            margin-left: 0;
         }
     }
     .pdbox {
@@ -140,42 +103,15 @@
     .pdlist_cnt {
         width: 100%;
     }
-    .pds_col {
-        &.col2 {
-            .pds_item {
-                width: calc( (100% - 20px) / 2);
-                margin-left: 20px;
-                &:nth-child(5n+1) {
-                    margin-left: 20px;
-                }
-                &:nth-child(2n+1) {
-                    margin-left: 0;
-                }
-            }
-        }
-    }
 }
 
 @include phones-width() {
-    .pdlist_btn_col2 {
-        width: 18px;
-        height: 18px;
-        background: url('assets/img/col1.svg') no-repeat center center;
-        &.active {
-            background: url('assets/img/col1_active.svg') no-repeat center center;
-        }
-    }
-    .pdlist_btn_col10 {
-        width: 31px;
-        height: 18px;
-        background: url('assets/img/col2.svg') no-repeat center center;
-        &.active {
-            background: url('assets/img/col2_active.svg') no-repeat center center;
-        }
+    .pdlist_wrap{
+        padding-bottom: 30px;
     }
     .pdlist_NavPart{
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: wrap;    
     } 
     .pdlist_cnt .breadcrumb{
         order:1;
@@ -185,19 +121,16 @@
         order:2;
     }
     .pds_col {
-        &.col10 .pds_item {
+        .pds_item {
             width: calc( (100% - 8px) / 2);
             margin-left: 8px;
+            margin-bottom: 30px;
             &:nth-child(5n+1) {
                 margin-left: 8px;
             }
             &:nth-child(2n+1) {
                 margin-left: 0;
             }
-        }
-        &.col2 .pds_item {
-            width: 100%;
-            margin-left: 0;
         }
         .pdbox a {
             width: 100%;
