@@ -80,8 +80,7 @@
 </template>
 
 <script>
-import $ from 'jquery'
-// import { offcanvas } from '../methods/offcanvas'
+// import $ from 'jquery'
 export default {
   name: 'Header',
   methods: {
@@ -105,9 +104,9 @@ export default {
     }
   },
   mounted () {
-    $('.close_banner').click(function () {
-      $('body').removeClass('hasBannerBar')
-    })
+    // $('.close_banner').click(function () {
+    //   $('body').removeClass('hasBannerBar')
+    // })
     window.addEventListener('scroll', this.windowScroll)
   }
 }

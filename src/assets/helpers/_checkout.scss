@@ -1,35 +1,68 @@
 /*------------------------------------*\
   #ShoppingCheckOut
 \*------------------------------------*/
-  .orderfinishWrap{
+  .checkoutWrap{
     padding: 0 10%;
     margin-bottom:55px;
     width: calc( 100% - 200px);
-    color:black;
+    color:#333;
     h2{
       font-size: 45px;
       text-align: center;
     }
     h3{
       text-align: center;
-      font-size: 25px;
-      padding: 55px 0 100px;
-      border-bottom: 1px solid black;
+      font-size: 18px;
+      padding: 55px 0;
     }
     h4{
       font-size: 16px;
       margin-bottom: 25px;
       letter-spacing: .06rem;
     }
-    .tb_member{
-      th,td{
-        text-align: center;
-        &:nth-of-type(2){
-          text-align: left;
+    .btn_more{
+      display: inline-block;
+      border:1px solid gray;
+      border-radius: 50%;
+      padding:2px;
+      width: 20px;
+      height:20px;
+      &::after{
+        content:''; 
+        display: block;
+        width: 15px;
+        height: 15px;
+        background: url(assets/img/arrow_down.svg) no-repeat center center/60%;
+      }
+      &.active{
+        &::after{
+          background: url(assets/img/arrow_up.svg) no-repeat center center/60%;
         }
-        &:last-of-type{
-          text-align: right;
-          padding: 10px 40px;
+      }
+    }
+  }
+  
+  .orderfinishWrap{
+    padding: 5%;
+    margin:0 10% 55px;
+    width: calc( 80% - 200px);
+    color:#333;
+    border:1px dashed rgb(212, 114, 58);
+    h2{
+      font-size: 45px;
+      text-align: center;
+    }
+    h3{
+      text-align: center;
+      font-size: 18px;
+      padding: 55px 0;
+    }
+    .orderList{
+      display: none;
+      &.active{
+        display: block;
+        .orderlist_box{
+          display: block;
         }
       }
     }
@@ -38,8 +71,8 @@
   .orderdetail_box{
     width:66.66%;
     margin:0 16.66%;
-    padding:55px 0;
-    border-bottom: 1px solid black;
+    padding:55px 0 0;
+    // border-bottom: 1px solid black;
     >div{
     padding:0 16px 12px;
     margin-bottom:15px;
@@ -47,6 +80,7 @@
     font-size:14px;
     border-bottom:1px dashed gray;
     display: flex;
+    align-items: center;
     p{
         width: calc( 100% - 155px);
     }
@@ -56,15 +90,32 @@
         width: 150px;
       }
     }
-    
   }
   
   .orderlist_box{
-    margin: 55px 0 0;
-    padding:20px 0;
-    border-bottom: 1px solid black;
-    h4{
-      margin-left: 55px;
+    display: none;
+    width:66.66%;
+    margin:0 16.66%;
+    padding-bottom: 55px;
+    &.active{
+      display: block;
+    }
+    >span{
+      display: block;
+      padding:0 16px 12px;
+      font-size: 14px;
+    }
+    .shopItem{
+      padding:10px;
+    }
+    .shopItem>div{
+      width: calc( 100% / 5);
+      p{
+        width: 100%;
+      }
+    }
+    .shopItem > div.shopItem_name{
+      width: calc( 100%*2 /5);
     }
   }
   
@@ -82,8 +133,6 @@
       display: flex;
       justify-content: space-between;
       span{
-        // display: inline-block;
-        // width: 165px;  
         color:#251714;
       }
     }
@@ -92,8 +141,6 @@
   .orderlistbtn{
     padding:50px 0;
     width: 42%;
-    // display: flex;
-    // justify-content: space-between;
     .btn{
       line-height: 32px ;
     }
@@ -119,9 +166,8 @@
     }
   }
   
-  
   @include tablet-width() {
-    .orderfinishWrap{
+    .checkoutWrap{
       padding:40px 0;
       width: 100%;
       h2{
@@ -134,6 +180,33 @@
       }
     }
       
+  .orderfinishWrap{
+    width: 100%;
+    .pdcnt_btn_BuyPay{
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    h2{
+      display: block;
+    }
+    h3{
+      padding: 35px 0;
+    }
+    .orderList{
+      .orderdetail_box, .orderlist_box{
+        width: 100%;
+        margin:0 auto;
+      }
+    }
+    .shopItem > div p{
+      text-align: center;
+    }
+    .shopItem > div.shopItem_img{
+      position:initial;
+    }
+  }
+  
     .orderfinishBox{
       margin:60px 0;
       a{
@@ -144,7 +217,7 @@
   
   
   @include phones-width() {
-    .orderfinishWrap{
+    .checkoutWrap{
       h4{
         margin:10px 0 25px;
       }
@@ -173,6 +246,33 @@
       }
     }
     
+  .orderfinishWrap{
+    margin: 30px 10%;
+    h2{
+      font-size: 30px;
+    }
+    h3{
+      font-size: 14px;
+      padding: 20px 0;
+    }
+    .orderList{
+      .orderdetail_box, .orderlist_box{
+        padding:0;
+      }
+      .orderdetail_box > div {
+        padding:0 5px 10px;
+        span{
+          width: 80px;
+        }
+      }
+      .orderlist_box > span{
+        padding:0 5px 10px;
+      }
+    }
+    .pdcnt_btn_BuyPay{
+      margin:20px 0;
+    }
+  }
     .ordertotal_box{
       flex-direction: column;
       flex-wrap: wrap;

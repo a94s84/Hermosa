@@ -64,15 +64,13 @@
         <!-- footerfixed結帳金額 -->
         <div class="footer_fixed">
           <div class="wrap d-sp">
-             <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" class="btn_pre_white">
-                <input type="button" value="繼續購物">
-            </router-link>
+             <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" class="btn_pre_white">繼續購物</router-link>
             <div>
                 <h3>總計: <span>NT${{ $filters.currency(carts.final_total) }}</span> </h3>
             </div>
-            <router-link to="/check" class="btn_next_white">
-                <input type="button" value="下一步">
-            </router-link>
+            <div>
+              <router-link to="/check" class="btn_next_white" v-if="carts.total > 0">下一步</router-link>
+            </div>
           </div>
       </div>
   </div>

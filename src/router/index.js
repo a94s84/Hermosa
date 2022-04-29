@@ -25,6 +25,10 @@ const routes = [
         name: 'checkout',
         component: () => import('../views/UserCheckout.vue')
       }, {
+        path: 'orderfinish/:orderId',
+        name: 'orderfinish',
+        component: () => import('../views/UserOrderFinish.vue')
+      }, {
         path: 'productlist',
         name: 'productlist',
         component: () => import('../views/UserPdList.vue')
