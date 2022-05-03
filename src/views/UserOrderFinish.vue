@@ -43,7 +43,7 @@
             </div>
             <div class="pdcnt_btn_BuyPay">
                 <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}"  class="btn_second btn_add">繼續購物 </router-link>
-                <a href="#" class="btn_black btn_topay" @click.prevent="seeOrder">查看訂單<img src="/img/pdcnt_pay_arrow.9e498a28.svg" width="0"></a>
+                <a href="#" class="btn_black btn_topay" @click.prevent="seeOrder">查看訂單</a>
             </div>
         </div>
       </div>

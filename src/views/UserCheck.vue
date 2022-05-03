@@ -184,9 +184,20 @@ export default {
       }
       this.$http.post(url, { data: coupon }).then((res) => {
         this.isLoading = false
-        this.couponCode = ''
-        console.log(res)
-        this.getCartList()
+        if (res.data.success) {
+          this.couponCode = ''
+          this.getCartList()
+          this.emitter.emit('push-message', {
+            type: 'success',
+            message: res.data.message
+          })
+        } else {
+          this.couponCode = ''
+          this.emitter.emit('push-message', {
+            type: 'danger',
+            message: res.data.message
+          })
+        }
       })
     },
     isPhoneNumber (value) {

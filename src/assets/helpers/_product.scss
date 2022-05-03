@@ -172,6 +172,7 @@
 .pdcnt_info_number{
     >div{
         position: relative;
+        width:80px;
         &:after {
           content: '';
           display: block;
@@ -440,7 +441,7 @@
         tr {
             th,
             td {
-                padding:10px 0;
+                padding:10px;
             }
            
         }

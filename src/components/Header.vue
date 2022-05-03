@@ -24,7 +24,7 @@
                 <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
             </a>
             <router-link to="/cart" class="header_cart">
-                <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span>(0)</span>
+                <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span  v-if="carts.length" >{{ carts.length }}</span>
             </router-link>
         </div>
     </div>
@@ -80,9 +80,13 @@
 </template>
 
 <script>
-// import $ from 'jquery'
+import $ from 'jquery'
 export default {
-  name: 'Header',
+  data () {
+    return {
+      carts: []
+    }
+  },
   methods: {
     goCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
@@ -101,12 +105,26 @@ export default {
       if (window.scrollY > 10) {
         this.$refs.mainHeader.classList.add('header_white')
       }
+    },
+    getCart () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.get(url).then((res) => {
+        if (res.data.success) {
+          this.carts = res.data.data.carts
+        }
+      }).catch(() => {
+        this.emitter.emit('push-message', {
+          type: 'danger',
+          message: '發生錯誤，請重新整理頁面'
+        })
+      })
     }
   },
   mounted () {
-    // $('.close_banner').click(function () {
-    //   $('body').removeClass('hasBannerBar')
-    // })
+    $('.close_banner').click(function () {
+      $('body').removeClass('hasBannerBar')
+    })
+    this.getCart()
     window.addEventListener('scroll', this.windowScroll)
   }
 }

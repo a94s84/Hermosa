@@ -55,9 +55,11 @@
                                     <tr>
                                         <td class="pdcnt_info_size">F</td>
                                         <td class="pdcnt_info_number">
+                                          <div>
                                             <select ref="pdQty" @change="qtyChnage()">
                                                 <option v-for="num in 10" :key="num" :value="num">{{num}}</option>
                                             </select>
+                                          </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,59 +87,54 @@
                                 </a>
                             </div>
                             <div class="pdcnt_btn_BuyPay">
-                                <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" :disabled="this.loadingItem === product.id">+&ensp;加入購物車
+                                <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" >+&ensp;加入購物車
                                 </a>
-                                <a href="#" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
+                                <a type="button" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
                             </div>
                         </div>
                         <ul class="pdcnt_menu">
                             <li>
                                 <a href="javascript:void(0)" class="submenuTitle active"><span>商品尺寸表 | SIZE CHART</span></a>
                                 <div class="submenu">
-                                    <center>
-                                        <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="1" cellpadding="1">
-                                            <tbody>
-                                            <tr align="center" bgcolor="#FFFFFF">
-                                                <td width="132" height="30"><font color="#5b5b5b" size="2">尺寸(±2公分)</font>
-                                                </td><td width="39" height="30"><font color="#5b5b5b" size="2">全長</font>
-                                                </td><td width="41" height="30"><font color="#5b5b5b" size="2">胸寬</font>
-                                                </td><td width="51"><font color="#5b5b5b" size="2">肩寬</font>
-                                                </td><td width="50"><font color="#5b5b5b" size="2">袖口寬</font>
-                                                </td><td width="46"><font color="#5b5b5b" size="2">袖長</font>
-                                                </td><td width="46"><font color="#5b5b5b" size="2">腰圍</font>
-                                                </td><td width="51"><font color="#5b5b5b" size="2">下擺寬</font>
-                                                </td>
-                                            </tr>
-                                            <tr align="center" bgcolor="#FFFFFF">
-                                                <td height="30"><font color="#666666" size="2">F</font>
-                                                </td><td><font color="#737373" size="2">60</font>
-                                                </td><td><font color="#5b5b5b" size="2">66</font>
-                                                </td><td><font color="#5b5b5b" size="2">X</font>
-                                                </td><td><font color="#5b5b5b" size="2">9</font>
-                                                </td><td><font color="#5b5b5b" size="2">73</font>
-                                                </td><td><font color="#5b5b5b" size="2">X</font>
-                                                </td><td><font color="#5b5b5b" size="2">42</font>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <br>
-                                        <div style="line-height: 20px;">
-                                            <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
-                                        </div>
-                                    </center>
+                                    <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="1" cellpadding="1">
+                                        <tbody>
+                                        <tr align="center" bgcolor="#FFFFFF">
+                                            <td width="132" height="30">尺寸(±2公分)
+                                            </td><td width="39" height="30">全長</td><td width="41" height="30">胸寬
+                                            </td><td width="51">肩寬
+                                            </td><td width="50">袖口
+                                            </td><td width="46">袖長
+                                            </td><td width="46">腰圍
+                                            </td><td width="51">下擺
+                                            </td>
+                                        </tr>
+                                        <tr align="center" bgcolor="#FFFFFF">
+                                            <td height="30">F
+                                            </td><td>60
+                                            </td><td>66
+                                            </td><td>X
+                                            </td><td>9
+                                            </td><td>73
+                                            </td><td>X
+                                            </td><td>42
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div style="line-height: 20px;">
+                                        <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
+                                    </div>
                                 </div>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="submenuTitle active"><span>模特兒參考 | MODEL INFO</span></a>
                                 <div class="submenu d-none">
-                                    <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">    <tbody>      <tr align="center" bgcolor="#FFFFFF">        <td width="367" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">MODEL</font>
-                                    </td><td width="400" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">身高</font>
-                                    </td><td width="399" height="30" align="center" valign="middle"><font color="#5b5b5b" size="1">體重</font>
-                                    </td><td width="389" align="center" valign="middle"><font color="#5b5b5b" size="1">尺寸</font></td></tr><tr align="center" bgcolor="#FFFFFF">          <td height="30" align="center" valign="middle"><font color="#666666" size="1">Anzi</font></td>
-                                    <td align="center" valign="middle"><font color="#737373" size="1">164 cm</font></td><td align="center" valign="middle"><font color="#5b5b5b" size="1">47 kg</font>
-                                        </td><td align="center" valign="middle"><font color="#5b5b5b" size="1">S</font>
-                                        </td></tr></tbody>  </table>
+                                    <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">    <tbody>      <tr align="center" bgcolor="#FFFFFF">        <td width="367" height="30" align="center" valign="middle">MODEL
+                                    </td><td width="400" height="30" align="center" valign="middle">身高
+                                    </td><td width="399" height="30" align="center" valign="middle">體重
+                                    </td><td width="389" align="center" valign="middle">尺寸</td></tr><tr align="center" bgcolor="#FFFFFF">          <td height="30" align="center" valign="middle">Anzi</td>
+                                    <td align="center" valign="middle">164 cm</td><td align="center" valign="middle">47 kg</td><td align="center" valign="middle">S</td></tr></tbody>  </table>
                                 </div>
                             </li>
                             <li>
@@ -257,7 +254,7 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
-          console.log(this.product)
+        //   console.log(this.product)
         }
       })
     },
@@ -270,7 +267,9 @@ export default {
       }
       this.$http.post(url, { data: cart }).then((res) => {
         this.isLaoding = false
-        // this.$httpMessageState(res, '加入購物車')
+        if (res.data.success) {
+          this.$httpMessageState(res, res.data.message)
+        }
       })
     },
     gopay (id, qty = 1) {

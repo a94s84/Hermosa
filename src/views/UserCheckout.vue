@@ -36,7 +36,7 @@
                       </div>
                       <div class="shopItem_total">
                           <p>小計</p>
-                          <p>NT$ {{ $filters.currency(item.final_total) }}</p>
+                          <p>{{ $filters.currency(item.final_total) }}</p>
                       </div>
                     </div>
                 </div>
