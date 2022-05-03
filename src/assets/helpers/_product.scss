@@ -336,35 +336,6 @@
        
     }
 }
-.pdcnt_suggest{
-    a{
-        img{
-            width: 100%;
-        }
-    }
-    .swiper-button-prev {
-        display: block;
-        left: 0;
-        top: 20px;
-        width: 25px;
-        height: 100%;
-        background: url(./assets/img/arrow_pre_light.svg) no-repeat center center/60% auto rgba(255, 255, 255, 0.3) ;
-        &:after {
-            content:'';
-        }
-    }
-    .swiper-button-next {
-        display: block;
-        right: 0;
-        top: 20px;
-        width: 25px;
-        height: 100%;
-        background: url(./assets/img/arrow_next_light.svg) no-repeat center center/60% auto rgba(255, 255, 255, 0.3) ;
-        &:after {
-            content:'';
-        }
-    }
-}
 
 .pdcnt_carousel_title{
     text-align: center;
@@ -414,7 +385,10 @@
     }
     .pdlikeSlide{    
         padding:0 50px;
-    }    
+    }
+    a{
+        display: block;
+    }
 }
 
 #notify{
@@ -448,33 +422,6 @@
     }
     .pdcnt_carousel{
         padding:55px 70px;
-    }
-    .pdcnt_suggest{
-        &.swiper{
-            padding-top: 60px;
-        }
-        .swiper-button-prev {
-            display: block;
-            left: 30%;
-            top: 30px;       
-            width: 30px;
-            height: 25px;
-            background: url(./assets/img/arrow_pre_light.svg) no-repeat center center/100% auto;
-            &:after {
-                content:'';
-            }
-        }
-        .swiper-button-next {
-            display: block;
-            right: 30%;
-            top: 35px;
-            width: 30px;
-            height: 25px;
-            background: url(./assets/img/arrow_next_light.svg) no-repeat center center/100% auto;
-            &:after {
-                content:'';
-            }
-        }
     }
     .pdcnt_btn_BuyPay{
         width: calc( 100% - 35px);

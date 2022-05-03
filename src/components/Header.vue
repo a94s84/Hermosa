@@ -3,7 +3,7 @@
     <!-- <img src="../assets/img/logo.png" alt=""> -->
     <div class="header_bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
-        <a href="#" class="close_banner" @click.prevent="closeTopBanner">
+        <a href="#" class="close_banner" @click.prevent="$emit('close-banner')">
             <img src="../assets/img/close_white.svg" alt="">
         </a>
     </div>
@@ -20,11 +20,11 @@
             <router-link to="/login" class="header_login">
                 <img src="../assets/img/login.svg" alt="登入" title="登入">
             </router-link>
-            <a href="wishlist.html" class="header_favorite">
+            <router-link to="/wishlist" class="header_favorite">
                 <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
-            </a>
+            </router-link>
             <router-link to="/cart" class="header_cart">
-                <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span  v-if="carts.length" >{{ carts.length }}</span>
+                <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span  v-if="carts.length" >{{ cartsNum }}</span>
             </router-link>
         </div>
     </div>
@@ -80,11 +80,21 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import emitter from '@/methods/emitter'
 export default {
   data () {
     return {
       carts: []
+    }
+  },
+  emits: ['close-banner'],
+  computed: {
+    cartsNum () {
+      let cartNum = 0
+      this.carts.forEach(function (e) {
+        cartNum += e.qty
+      })
+      return cartNum
     }
   },
   methods: {
@@ -111,6 +121,7 @@ export default {
       this.$http.get(url).then((res) => {
         if (res.data.success) {
           this.carts = res.data.data.carts
+          // console.log(this.carts)
         }
       }).catch(() => {
         this.emitter.emit('push-message', {
@@ -120,10 +131,12 @@ export default {
       })
     }
   },
-  mounted () {
-    $('.close_banner').click(function () {
-      $('body').removeClass('hasBannerBar')
+  created () {
+    emitter.on('updateCart', () => {
+      this.getCart()
     })
+  },
+  mounted () {
     this.getCart()
     window.addEventListener('scroll', this.windowScroll)
   }

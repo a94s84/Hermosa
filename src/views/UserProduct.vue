@@ -143,41 +143,6 @@
                                     {{product.content}}
                                 </div>
                             </li>
-                            <li>
-                                <a href="javascript:void(0)" class="submenuTitle">建議搭配</a>
-                                <swiper :slides-per-view="2" :space-between="5" :navigation="true" :loop="true" :autoplay="{delay: 2000, pauseOnMouseEnter: true}" :breakpoints="{1200: {slidesPerView: 5, spaceBetween: 5},768: {slidesPerView: 4, spaceBetween: 5}}"  class="pdcnt_suggest">
-                                    <swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide>
-                                    <swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide><swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide><swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide><swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide><swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide><swiper-slide>
-                                        <a href="#">
-                                        <img src="http://via.placeholder.com/340x485?text=1-1" alt="" width="100%">
-                                        </a>
-                                    </swiper-slide>
-                                </swiper>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -185,34 +150,9 @@
             <section class="wrap lessMargin pdcnt_carousel">
                 <h2 class="pdcnt_carousel_title EN_title">You Might Also Like</h2>
                 <swiper :slides-per-view="2" :space-between="26" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 4, spaceBetween: 26}}" class="pdlikeSlide">
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="alsoLike_box">
-                        <a href="#">
-                            <img src="http://via.placeholder.com/340x485" alt="">
+                    <swiper-slide v-for="item in relativeProduct" :key="item.id" class="alsoLike_box">
+                        <a href="#" @click.prevent="changeId(item.id)">
+                            <img :src="`${item.imageUrl}`">
                         </a>
                     </swiper-slide>
                 </swiper>
@@ -224,6 +164,7 @@
 
 <script>
 import Footer from '../components/Footer.vue'
+import emitter from '@/methods/emitter'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
@@ -232,9 +173,10 @@ SwiperCore.use([Navigation, Pagination, Autoplay, Thumbs])
 export default {
   data () {
     return {
-      product: {},
       id: '',
-      loadingItem: '',
+      products: [],
+      product: {},
+      relativeProduct: [],
       Loading: false,
       thumbsSwiper: null
     }
@@ -254,9 +196,27 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
-        //   console.log(this.product)
+          this.getAll()
         }
       })
+    },
+    getAll () {
+      this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`).then((res) => {
+        if (res.data.success) {
+          this.products = res.data.products
+          const category = this.product.category
+          const id = this.product.id
+          this.relativeProduct = this.products.filter(
+            (item) => item.category === category && item.id !== id
+          )
+        }
+      })
+        .catch(() => {
+          this.emitter.emit('push-message', {
+            type: 'error',
+            message: '發生錯誤，請重新整理頁面'
+          })
+        })
     },
     addCart (id, qty = 1) {
       this.isLoading = true
@@ -268,6 +228,7 @@ export default {
       this.$http.post(url, { data: cart }).then((res) => {
         this.isLaoding = false
         if (res.data.success) {
+          emitter.emit('updateCart')
           this.$httpMessageState(res, res.data.message)
         }
       })
@@ -279,13 +240,16 @@ export default {
     qtyChnage () {
       const pdQty = parseInt(this.$refs.pdQty.value)
       this.product.qty = pdQty
+    },
+    changeId (id) {
+      this.$router.push(`/product/${id}`)
+      this.id = id
+      this.getProduct()
     }
   },
   created () {
     this.id = this.$route.params.productId
     this.getProduct()
-  },
-  mounted () {
   }
 }
 </script>

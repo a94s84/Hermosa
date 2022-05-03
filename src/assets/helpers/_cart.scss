@@ -11,6 +11,7 @@
   }
   .pdcnt_info_number{
     >div{
+      width: initial;
       &:after{
         content: none;
       }

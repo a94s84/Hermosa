@@ -1,8 +1,8 @@
 <template>
-  <body class="hasBannerBar" ref="mainbody">
-    <Header/>
+  <body class="hasBannerBar" ref="mainbody" >
+    <Header @close-banner="removeBanner"></Header>
     <ToastList></ToastList>
-    <router-view/>
+    <router-view />
   </body>
 </template>
 
@@ -16,7 +16,7 @@ export default {
     Header, ToastList
   },
   methods: {
-    closeTopBanner () {
+    removeBanner () {
       this.$refs.mainbody.classList.remove('hasBannerBar')
     }
   },

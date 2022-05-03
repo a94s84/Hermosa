@@ -37,6 +37,11 @@ const routes = [
         path: 'product/:productId',
         name: 'product',
         component: () => import('../views/UserProduct.vue')
+      },
+      {
+        path: 'wishlist',
+        name: 'wishlist',
+        component: () => import('../views/UserWishList.vue')
       }
     ]
   },
