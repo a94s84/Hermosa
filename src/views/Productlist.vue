@@ -96,19 +96,6 @@ export default {
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         productComponet.hideModal()
         this.$httpMessageState(res, '更新成功')
-        // if (res.data.success) {
-        //   this.getProducts()
-        //   this.emitter.emit('push-message', {
-        //     style: 'success',
-        //     title: '更新成功'
-        //   })
-        // } else {
-        //   this.emitter.emit('push-message', {
-        //     style: 'danger',
-        //     title: '更新失敗',
-        //     content: res.data.message.join('、')
-        //   })
-        // }
       })
     },
     openDelModal (item) {

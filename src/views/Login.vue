@@ -51,7 +51,8 @@ export default {
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
             this.$router.push('/dashboard/productlist')
           } else {
-            alert('登入失敗，請輸入正確的帳號密碼')
+            // alert('登入失敗，請輸入正確的帳號密碼')
+            this.$httpMessageState(res, '登入失敗，請輸入正確的帳號密碼')
             this.user.username = ''
             this.user.password = ''
           }

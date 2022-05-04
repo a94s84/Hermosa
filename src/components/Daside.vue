@@ -28,10 +28,18 @@
           </div>
         </router-link>
       </div>
-        <!-- 3. 登出按鈕 -->
-        <div>
+      <div class="mt-3">
+         <router-link to="/" class="sidebar-link">
+          <div class="px-4">
+            <i class="bi bi-house-door"></i>
+            前往前台
+          </div>
+        </router-link>
+      </div>
+      <div>
         <a href="#" class="mt-auto sidebar-link" @click.prevent="logout">
           <div class="px-4">
+            <i class="bi bi-box-arrow-right"></i>
             登出
           </div>
         </a>

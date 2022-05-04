@@ -9,7 +9,7 @@
     >
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
-        <div class="modal-header bg-dark text-white">
+        <div class="modal-header bg-secondary text-white">
           <h5 class="modal-title fs-6 lh-1" id="exampleModalLabel">
             <span>產品</span>
           </h5>
@@ -124,6 +124,13 @@ export default {
       default () { return {} }
     }
   },
+  data () {
+    return {
+      modal: {},
+      innerTempProduct: {}
+    }
+  },
+  mixins: [modalMixin],  
   watch: {
     modalProduct () {
       this.innerTempProduct = this.modalProduct
@@ -132,13 +139,6 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      modal: {},
-      innerTempProduct: {}
-    }
-  },
-  mixins: [modalMixin],
   methods: {
     uploadFile () {
       const uploadedFile = this.$refs.fileInput.files[0]

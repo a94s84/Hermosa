@@ -6,7 +6,7 @@
         <div class="modal-header text-dark py-3 border-0">
           <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body"><p class="text-dark text-center fs-6 mb-3"> 確定要移除商品嗎？</p><p class="text-sm text-gray-400 text-center">(刪除後將無法恢復)</p>
+        <div class="modal-body"><p class="text-dark text-center fs-6 mb-3"> 確定要刪除嗎？</p><p class="text-sm text-gray-400 text-center">(刪除後將無法恢復)</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal"> 取消 </button>
