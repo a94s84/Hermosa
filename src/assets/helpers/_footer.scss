@@ -99,35 +99,6 @@ footer {
            
         }
     }
-    .submenuTitle {
-        position: relative;
-        vertical-align: middle;
-        
-    }
-    .submenu {
-        display: none;
-        // &.active {
-        //     display: block;
-        // }
-        li {
-            margin-bottom: 10px;
-            &:first-child {
-                margin-top: 15px;
-            }
-            a {
-                line-height: 18px;
-                letter-spacing: .1rem;
-            }
-            &:hover{
-                .name_eng{
-                 display: none;   
-                }
-                .name_ch{
-                 display:block;
-                }
-            }
-        }
-    }
 }
 
 

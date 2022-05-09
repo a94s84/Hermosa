@@ -1,20 +1,17 @@
 <template>
 <body>
-   <div class="d-flex">
-        <Daside></Daside>
-        <main class="main">
-          <div class="bg-white w-100 border-bottom sticky-top d-flex">
-            <a href="#" class="d-inline-block py-3 px-4 border-end" id="toggle-btn">
-              <i class="bi bi-arrows-angle-expand"></i>
-            </a>
-                <p class="py-3 px-4">Hermosa-後台管理</p>
-          </div>
-          <div class="p-4">
-            <router-view/>
-          </div>
-        </main>
-        <ToastList></ToastList>
-    </div>
+  <ToastList></ToastList>
+  <div class="d-flex">
+    <Daside></Daside>
+    <main class="main">
+      <div class="bg-white w-100 border-bottom sticky-top d-flex">
+        <p class="py-3 px-4">Hermosa-後台管理</p>
+      </div>
+      <div class="p-4">
+        <router-view/>
+      </div>
+    </main>
+  </div>
 </body>
 </template>
 

@@ -19,12 +19,12 @@
       <div class="cart_buyinglist">
           <form v-if="carts.total !== 0">
               <div class="cart_pdbox pdbox" v-for="item in carts.carts" :key="item.id">
-                  <a href="product.html">
+                  <router-link :to="`/product/${item.product.id}`">
                       <img :src="`${item.product.imageUrl}`">
-                  </a>
-                  <a href="#">
+                  </router-link>
+                  <router-link :to="`/product/${item.product.id}`">
                       <p class="pdbox_name">{{item.product.title}}</p>
-                  </a>
+                 </router-link>
                   <table class="pdcnt_table">
                       <thead>
                           <tr>
@@ -77,8 +77,8 @@
 </template>
 
 <script>
-// import $ from 'jquery'
 import DelModal from '@/components/DelModal.vue'
+import emitter from '@/methods/emitter'
 
 export default {
   data () {
@@ -101,8 +101,6 @@ export default {
         if (res.data.success) {
           this.carts = res.data.data
         }
-        console.log(this.carts)
-        console.log(res)
       })
     },
     updateCart (item, qty) {
@@ -114,6 +112,8 @@ export default {
       }
       this.$http.put(url, { data: cart }).then((res) => {
         this.isLoading = false
+        emitter.emit('updateCart')
+        this.$httpMessageState(res, res.data.message)
         this.getCartList()
       })
     },
@@ -133,17 +133,14 @@ export default {
         this.isLoading = false
         const delComponet = this.$refs.delModal
         delComponet.hideModal()
-        this.$httpMessageState(res, '移除購物車品項')
+        emitter.emit('updateCart')
+        this.$httpMessageState(res, res.data.message)
         this.getCartList()
       })
     }
   },
   created () {
     this.getCartList()
-  },
-  mounted () {
-  },
-  updated () {
   }
 }
 </script>

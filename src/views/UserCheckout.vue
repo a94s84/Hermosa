@@ -55,6 +55,7 @@
 </template>
 
 <script>
+// import emitter from '@/methods/emitter'
 export default {
   data () {
     return {

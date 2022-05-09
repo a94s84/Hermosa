@@ -187,16 +187,10 @@ export default {
         if (res.data.success) {
           this.couponCode = ''
           this.getCartList()
-          this.emitter.emit('push-message', {
-            type: 'success',
-            message: res.data.message
-          })
+          this.$httpMessageState(res, res.data.message)
         } else {
           this.couponCode = ''
-          this.emitter.emit('push-message', {
-            type: 'danger',
-            message: res.data.message
-          })
+          this.$httpMessageState(res, res.data.message)
         }
       })
     },
@@ -218,17 +212,11 @@ export default {
           this.isLoading = false
           console.log(res.data)
           if (res.data.success) {
-            this.emitter.emit('push-message', {
-              type: 'success',
-              message: res.data.message
-            })
+            this.$httpMessageState(res, res.data.message)
             // this.$refs.form.resetForm()
             this.$router.push({ name: 'checkout', params: { orderId: res.data.orderId } })
           } else {
-            this.emitter.emit('push-message', {
-              type: 'danger',
-              message: res.data.message
-            })
+            this.$httpMessageState(res, res.data.message)
           }
         })
         .catch(() => {

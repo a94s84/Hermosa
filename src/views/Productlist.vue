@@ -1,49 +1,56 @@
 <template>
-     <Loading :active="isLoading"></Loading>
-     <div class="p-4">
-      <div class="text-end mt-3">
-        <button class="btn btn-warning btn-sm" type="button" @click="openModal(true)">增加產品</button>
-      </div>
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th width="10%">分類</th>
-            <th width="35%">產品名稱</th>
-            <th width="12%">原價</th>
-            <th width="12%">售價</th>
-            <th width="10%">是否啟用</th>
-            <th width="19%" class="text-center">編輯</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td>{{item.category}}</td>
-            <td>{{item.title}}</td>
-            <td class="text-right">{{ $filters.currency(item.origin_price) }}</td>
-            <td class="text-right">{{ $filters.currency(item.price) }}</td>
-            <td>
-              <span class="text-success" v-if="item.is_enabled">啟用</span>
-              <span class="text-muted" v-else>未啟用</span>
-            </td>
-            <td class="text-center">
-              <div class="btn-group">
-              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-              <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <Pagination :pages="pagination" @emitPages="getProducts"></Pagination>
-      <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
-      <DelModal ref="delModal" @del-Product="delProduct" :delItem="tempProduct"></DelModal>
-    </div>
+  <Loading :active="isLoading"></Loading>
+  <div class="text-end mt-3">
+    <button class="btn btn-warning btn-sm" type="button" @click="openModal(true)">增加產品</button>
+  </div>
+  <div v-if="this.products.length == 0" class="text-center mt-5 p-5 fs-1">目前沒有產品</div>
+  <table v-else class="table mt-4">
+    <thead>
+      <tr>
+        <th width="10%">產品圖片</th>
+        <th width="25%">產品名稱</th>
+        <th width="10%">分類</th>
+        <th width="12%">原價</th>
+        <th width="12%">售價</th>
+        <th width="10%">是否上架</th>
+        <th width="19%" class="text-center">編輯</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in products" :key="item.id">
+        <td><img class="w-100 small-size" :src="item.imageUrl" :alt="item.title"/></td>
+        <td>{{item.title}}</td>
+        <td>{{item.category}}</td>
+        <td class="text-right">{{ $filters.currency(item.origin_price) }}</td>
+        <td class="text-right">{{ $filters.currency(item.price) }}</td>
+        <td>
+          <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" :id="`launchedSwitch${item.id}`" v-model="item.is_enabled" :true-value="1" :false-value="0">
+              <label class="form-check-label" :for="`launchedSwitch${item.id}`">
+                <span class="text-success" v-if="item.is_enabled">上架</span>
+                <span class="text-muted" v-else>未上架</span>
+              </label>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="btn-group">
+          <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
+          <button class="btn btn-outline-danger btn-sm" @click="openDelModal('normal', item)">刪除</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <Pagination v-if="this.products.length !== 0" :pages="pagination" @emitPages="getProducts"></Pagination>
+  <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
+  <DelModal ref="delModal" @del-Product="delProduct" :delItem="tempProduct" :type="'normal'"></DelModal>
 </template>
 
 <script>
 import ProductModal from '@/components/ProductModal.vue'
 import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
+import emitter from '@/methods/emitter'
 
 export default {
   data () {
@@ -53,6 +60,11 @@ export default {
       tempProduct: {},
       isNew: false,
       isLoading: false
+    }
+  },
+  provide () {
+    return {
+      emitter
     }
   },
   components: {
@@ -84,10 +96,8 @@ export default {
     },
     updateProduct (item) {
       this.tempProduct = item
-      // 更新
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`
       let httpMethod = 'post'
-      // 編輯
       if (!this.isNew) {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`
         httpMethod = 'put'
@@ -95,10 +105,11 @@ export default {
       const productComponet = this.$refs.productModal
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         productComponet.hideModal()
-        this.$httpMessageState(res, '更新成功')
+        this.$httpMessageState(res, '更新商品')
+        this.getProducts()
       })
     },
-    openDelModal (item) {
+    openDelModal (type, item) {
       this.tempProduct = { ...item }
       this.$refs.delModal.showModal()
     },

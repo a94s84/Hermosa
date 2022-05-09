@@ -4,20 +4,19 @@
         <div class="wrap">
             <div class="pdcnt_wrap">
                 <aside class="pdlist_aside">
-                    <!-- <ul class="pdlist_menu js-menu" >
+                    <ul class="pdlist_menu js-menu" >
                         <li>
-                        <a type="button" @click="filter = 'ALL'">ALL</a>
+                        <router-link :to="{name:'productlist', query: { category: 'ALL' }}">ALL</router-link>
                         </li>
-                        <li v-for="item in categoryData" :key="item.id">
-                            <a type="button" @click="filter = item">{{item}}
-                            </a>
+                        <li v-for="item in productsCategory" :key="item">
+                            <router-link :to="{name:'productlist', query: { category: item }}">{{item}}</router-link>
                         </li>
-                    </ul> -->
+                    </ul>
                 </aside>
                 <div class="pdcnt">
                     <div class="pdcnt_imgpart">
                         <div class="pdcnt_img">
-                            <swiper :thumbs="{ swiper: thumbsSwiper }" :navigation="true"   :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true" class="pdcnt_img_group_main">
+                            <swiper :thumbs="{ swiper: thumbsSwiper }" :navigation="true"   :autoplay="{delay: 2500, pauseOnMouseEnter: true}" :loop="true" class="pdcnt_img_group_main">
                             <swiper-slide v-for="img in product.images" :key="img">
                                 <img :src="img">
                             </swiper-slide>
@@ -176,6 +175,7 @@ export default {
       id: '',
       products: [],
       product: {},
+      productsCategory: [],
       relativeProduct: [],
       Loading: false,
       thumbsSwiper: null
@@ -206,17 +206,18 @@ export default {
           this.products = res.data.products
           const category = this.product.category
           const id = this.product.id
+          // 相關商品
           this.relativeProduct = this.products.filter(
             (item) => item.category === category && item.id !== id
           )
+          // 商品分類
+          this.products.forEach((product) => {
+            if (!this.productsCategory.includes(product.category)) {
+              this.productsCategory.push(product.category)
+            }
+          })
         }
       })
-        .catch(() => {
-          this.emitter.emit('push-message', {
-            type: 'error',
-            message: '發生錯誤，請重新整理頁面'
-          })
-        })
     },
     addCart (id, qty = 1) {
       this.isLoading = true

@@ -53,6 +53,8 @@
 
 <script>
 import Footer from '../components/Footer.vue'
+import emitter from '@/methods/emitter'
+
 export default {
   data () {
     return {
@@ -76,6 +78,7 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.order = res.data.order
+          emitter.emit('updateCart')
           console.log(this.order)
         }
       })
@@ -88,18 +91,5 @@ export default {
     this.orderId = this.$route.params.orderId
     this.getOrder()
   }
-//   methods: {
-//     getOrder () {
-//       this.isLoading = true
-//       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
-//       this.$http.get(url).then((res) => {
-//         this.isLoading = false
-//       })
-//     }
-//   },
-//   created () {
-//     this.orderId = this.$route.params.orderId
-//     this.getOrder()
-//   }
 }
 </script>

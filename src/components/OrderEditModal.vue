@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
+  <div class="modal fade" id="orderEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-secondary text-white">
@@ -10,6 +10,7 @@
                   data-bs-dismiss="modal" aria-label="Close">
           </button>
         </div>
+        <Form v-slot="{ errors }" ref="editForm">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
@@ -18,19 +19,31 @@
                 <tbody v-if="tempOrder.user">
                   <tr>
                     <th style="width:60px" class="fw-bold">姓名</th>
-                    <td>{{ tempOrder.user.name }}</td>
+                    <td>
+                        <Field type="text" class="form-control" name="姓名" rules="required" :class="{'is-invalid': errors['姓名'] }" v-model="tempOrder.user.name"></Field>
+                        <error-message name="姓名" class="invalid-feedback" />
+                    </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">Email</th>
-                    <td>{{ tempOrder.user.email }}</td>
+                    <td>
+                        <Field type="email" class="form-control" name="Email" rules="required" :class="{ 'is-invalid': errors['Email'] }" v-model="tempOrder.user.email"></Field>
+                        <error-message name="Email" class="invalid-feedback" />
+                    </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">電話</th>
-                    <td>{{ tempOrder.user.tel }}</td>
+                    <td>
+                        <Field type="tel" class="form-control" name="電話" :rules="isPhone" :class="{ 'is-invalid': errors['電話'] }" v-model="tempOrder.user.tel"></Field>
+                        <error-message name="電話" class="invalid-feedback" />
+                    </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">地址</th>
-                    <td>{{ tempOrder.user.address }}</td>
+                    <td>
+                        <Field type="text" class="form-control" name="地址" rules="required" :class="{ 'is-invalid': errors['地址'] }" v-model="tempOrder.user.address"></Field>
+                        <error-message name="地址" class="invalid-feedback" />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -59,15 +72,13 @@
                   <tr>
                     <th class="fw-bold">付款狀態</th>
                     <td>
-                    <strong v-if="tempOrder.is_paid" class="text-success">已付款</strong>
-                    <span v-else class="text-muted">尚未付款</span>
-                    <!-- <div class="form-check form-switch">
+                    <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" :id="`paidSwitch${tempOrder.id}`" v-model="tempOrder.is_paid">
                         <label class="form-check-label" :for="`paidSwitch${tempOrder.id}`">
                             <span class="align-middle" v-if="tempOrder.is_paid">已付款</span>
                             <span class="align-middle" v-else>未付款</span>
                         </label>
-                    </div> -->
+                    </div>
                     </td>
                   </tr>
                   <tr>
@@ -110,8 +121,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" @click="$emit('update-order')">確認</button>
+          <button type="submit" class="btn btn-primary" @click="$emit('update-order', tempOrder)">確認</button>
         </div>
+        </Form>
       </div>
     </div>
   </div>
@@ -120,7 +132,7 @@
 <script>
 import modalMixin from '@/mixins/modalMixin'
 export default {
-  name: 'orderModal',
+  name: 'orderEditModal',
   props: {
     order: {
       type: Object,
@@ -129,10 +141,8 @@ export default {
   },
   data () {
     return {
-      //   status: {},
       modal: '',
-      tempOrder: {},
-      isPaid: false
+      tempOrder: {}
     }
   },
   emits: ['update-order'],
@@ -141,7 +151,13 @@ export default {
   watch: {
     order () {
       this.tempOrder = this.order
-      this.isPaid = this.tempOrder.is_paid
+      // this.isPaid = this.tempOrder.is_paid
+    }
+  },
+  methods: {
+    isPhone (value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '請輸入正確的電話號碼'
     }
   }
 }

@@ -47,6 +47,10 @@ table{
     font-family: 'Noto Sans TC', sans-serif;
 }
 
+td, th {
+    vertical-align: middle;
+}
+
 input[type="text"],
 input[type="tel"],
 input[type="email"],
@@ -54,11 +58,8 @@ input[type="password"],
 input[type="address"],
 input[type="submit"] ,
 textarea {
-    // border: 1px solid #949292;
-    // border-radius: 0;
-    // -webkit-appearance: none;
     width: 100%;
-    padding: 3px 10px;
+    // padding: 3px 10px;
     &::placeholder{
         color: #9C9D9D;
     };

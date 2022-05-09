@@ -2,29 +2,29 @@
   <div class="contentWrap">
    <div class="defaultWrap">
       <!-- 首頁大圖輪播 -->
-      <swiper :slides-per-view="1" :space-between="50" :autoplay="{delay: 4000, pauseOnMouseEnter: true}" :loop="true"  :pagination="true" class="homeSlide">
+      <swiper :slides-per-view="1" :space-between="50" :autoplay="{delay: 4000}" :loop="true"  :pagination="true" class="homeSlide">
         <swiper-slide>
-          <a href="#">
+          <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" >
               <picture>
-                  <source srcset="https://pic.mouggan.com/mouggan/IndexWidget/4ba9de3a-a94e-42ea-966f-fa6ecfe17833.jpg" media="(min-width: 1007px)">
-                  <img src="https://pic.mouggan.com/mouggan/IndexWidget/9c586d5f-6a65-480b-bc23-1aa5a3c836ab.jpg" alt="">
+                  <source srcset="../assets/img/banner1.png" media="(min-width: 1007px)">
+                  <img src="../assets/img/banner_m1.png" alt="">
               </picture>
-          </a>
+          </router-link>
         </swiper-slide>
         <swiper-slide>
-          <a href="#">
+          <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" >
               <picture>
-                  <source srcset="https://pic.mouggan.com/mouggan/IndexWidget/44077feb-0fa6-479e-90a5-9bd8fd9fc09f.jpg" media="(min-width: 1007px)">
-                  <img src="https://pic.mouggan.com/mouggan/IndexWidget/76f7de6c-c27d-442a-b1b8-5098f0d1403d.jpg" alt="">
+                  <source srcset="../assets/img/banner2.png" media="(min-width: 1007px)">
+                  <img src="../assets/img/banner_m2.png" alt="">
               </picture>
-          </a>
+          </router-link>
         </swiper-slide>
       </swiper>
       <!-- NEW IN -->
       <section class="wrap newsIn">
           <h2 class="secTitle">NEW IN</h2>
           <swiper :slides-per-view="1" :space-between="35" :navigation="true" :pagination="true" :loop="true"  :breakpoints="{768: {slidesPerView: 3,spaceBetween: 35}}" class="newinSlide">
-            <swiper-slide class="pdbox" v-for="item in products.slice(0,6)" :key="item.id">
+            <swiper-slide class="pdbox" v-for="item in products.slice(-6)" :key="item.id">
                 <router-link :to="`/product/${item.id}`">
                     <img :src="`${item.imageUrl}`">
                 </router-link>
