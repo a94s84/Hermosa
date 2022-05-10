@@ -16,7 +16,7 @@
 }
 
 .wishlist{
-    >p{
+    .wishlistTitle {
         padding-bottom:20px;
         padding-left: 12px;
         border-bottom: 1px solid $main_color;
@@ -27,7 +27,7 @@
 }
 .wishbox{
     display: flex;
-    padding:30px 20px 30px 12px;
+    padding:15px 20px;
     border-bottom: 1px solid $main_color;
     .btn_close{
         width: 36px;
@@ -38,17 +38,29 @@
 .wishbox_img{
     display: inline-block;
     margin-right: 12px;
-    width: 22%;
-    height: 22%;
+    width: 18%;
     img{
         width: 100%;
+        height: 150px;
         vertical-align: middle;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
+.btnWrap{
+    width: 50%;
+    margin:0 auto;
+    a{
+        width: calc( 50% - 5px);
+    }
+    .btn_black{
+        margin-right: 10px;
+    }
+}
 .wishbox_cnt{
     width: calc( 78% - 35px);
-    padding:0 12px 8px;
+    padding:5px 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,7 +76,7 @@
 
 .wishbox_info{
     display: flex;
-    font-size: 12px;
+    font-size: 14px;
     p{
         margin-right: 50px;
         color:$main_gray;
@@ -77,19 +89,31 @@
         }
     }
 }
-.wishbox_color{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    img{
-        width: 100%;
-        border-radius: 50%;
-    }
-}
 .wishbox_price{
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-size: 20px;
     letter-spacing: .04rem;
+    .price_sale {
+        font-weight: bold;
+        color: black;
+        span {
+            font-size: 12px;
+        }
+    }
+    .price_onsale {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: bold;
+        color: #AF4B34;
+        span {
+            font-size: 12px;
+        }
+    }
+    .price_origin {
+        display: inline-block;
+        color: $light_gray;
+        text-decoration: line-through;
+    }
 }
 
 @include tablet-width() {
@@ -133,7 +157,6 @@
     }
     .wishbox{
         flex-wrap: wrap;
-        padding:50px 20px;
         &:first-of-type{
             padding-top: 0;
         }
@@ -145,11 +168,18 @@
             height: 24px;
         }
     }
+        
+    .btnWrap{
+        width: 100%;
+        padding: 0 30px 150px;
+    }
     .wishbox_img{
         width: 100%;
-        height: auto;
         margin-right: 0;
         margin-bottom: 20px;
+        img{
+            height: initial;
+        }
     }
     .wishbox_cnt{
         padding: 0 10px 0 0 ;
@@ -163,7 +193,7 @@
     .wishbox_info{
         display: block;
         p{
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             &:first-of-type{
                 font-size: 18px;
             }

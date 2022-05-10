@@ -2,17 +2,23 @@
   #Default
 \*------------------------------------*/
 .defaultWrap {
-    margin-top: -$desktop_header_height - 50px;    
+    margin-top: -$desktop_header_height - 50px;
     .swiper-pagination-bullet-active{
         background: #333;
     }
     .newsIn{
-        margin: 70px auto 20px;
+        margin: 100px auto 20px;
+        padding:0;
+        h2{
+            padding: 0 70px 35px; 
+            font-size: $title_font_size_pc;
+            padding-bottom: 35px;
+        }
     }
     .newinSlide{
-        padding:0 55px;
+        padding:0 50px;
         .swiper-wrapper{
-            padding-bottom: 50px;
+            padding-bottom: 40px;
         }
         .swiper-button-prev {
             display: block;
@@ -52,34 +58,17 @@
         }
     }
 }
-.js-carousel3 {
-    padding-bottom: 40px;
-    .ootdBox {
-        padding: 0 12px;
-    }
-    .pdbox{
-        padding:0 2.5px;
-    }
-}
-.js-carousel4 {
-    .igBox {
-        padding: 0 2.5px;
+.seeMore{
+    display: block;
+    padding:0 0 80px;
+    i{
+        font-size: 30px;
+        color:#a1622b;
     }
 }
+
 .lessMargin {
     padding: 55px 140px;
-}
-.secTitle {
-    font-size: $title_font_size_pc;
-    padding-bottom: 35px;
-    &.txt-center {
-        text-align: center;
-    }
-    img {
-        width: 30px;
-        margin-right: 20px;
-        vertical-align: middle;
-    }
 }
 
 #startAd {
@@ -110,16 +99,6 @@
         font-size: 27px;
         text-align: center;
         padding-bottom: 35px;
-        &.igTitle{
-            font-size: 18px;
-            padding: 45px 0 35px;
-            position: relative;
-            img{
-             position: absolute;
-             top:0;
-             left:47%;
-            }
-        }
     }
 
     .defaultWrap {

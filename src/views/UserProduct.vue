@@ -81,8 +81,8 @@
                         <!-- 收藏.加入購物清單.結帳 -->
                         <div class="pdcnt_btn">
                             <div class="pdcnt_btn_wish">
-                                <a href="javascript:void(0)" class="btn_wish">
-                                    <img src="../assets/img/favicon.svg"> +
+                                <a type="button" class="btn_wish" @click.prevent="addFavorite(product.id)">
+                                   <i class="bi bi-heart-fill" v-if="favoriteItems.includes(product.id)"></i><i class="bi bi-heart" v-else></i> +
                                 </a>
                             </div>
                             <div class="pdcnt_btn_BuyPay">
@@ -95,33 +95,30 @@
                             <li>
                                 <a href="javascript:void(0)" class="submenuTitle active"><span>商品尺寸表 | SIZE CHART</span></a>
                                 <div class="submenu">
-                                    <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="1" cellpadding="1">
+                                    <table width="100%" border="0" cellspacing="1" cellpadding="1">
                                         <tbody>
-                                        <tr align="center" bgcolor="#FFFFFF">
-                                            <td width="132" height="30">尺寸(±2公分)
-                                            </td><td width="39" height="30">全長</td><td width="41" height="30">胸寬
-                                            </td><td width="51">肩寬
-                                            </td><td width="50">袖口
-                                            </td><td width="46">袖長
-                                            </td><td width="46">腰圍
-                                            </td><td width="51">下擺
-                                            </td>
+                                        <tr align="center">
+                                            <td width="132" height="30">尺寸(±2公分)</td>
+                                            <td width="39" height="30">全長</td><td width="41" height="30">胸寬</td>
+                                            <td width="51">肩寬</td>
+                                            <td width="50">袖口</td>
+                                            <td width="46">袖長</td>
+                                            <td width="46">腰圍</td>
+                                            <td width="51">下擺</td>
                                         </tr>
                                         <tr align="center" bgcolor="#FFFFFF">
-                                            <td height="30">F
-                                            </td><td>60
-                                            </td><td>66
-                                            </td><td>X
-                                            </td><td>9
-                                            </td><td>73
-                                            </td><td>X
-                                            </td><td>42
-                                            </td>
+                                            <td height="30">F</td>
+                                            <td>60</td>
+                                            <td>66</td>
+                                            <td>X</td>
+                                            <td>9</td>
+                                            <td>73</td>
+                                            <td>X</td>
+                                            <td>42</td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <br>
-                                    <div style="line-height: 20px;">
+                                    <div class="text-center">
                                         <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
                                     </div>
                                 </div>
@@ -129,11 +126,21 @@
                             <li>
                                 <a href="javascript:void(0)" class="submenuTitle active"><span>模特兒參考 | MODEL INFO</span></a>
                                 <div class="submenu d-none">
-                                    <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">    <tbody>      <tr align="center" bgcolor="#FFFFFF">        <td width="367" height="30" align="center" valign="middle">MODEL
-                                    </td><td width="400" height="30" align="center" valign="middle">身高
-                                    </td><td width="399" height="30" align="center" valign="middle">體重
-                                    </td><td width="389" align="center" valign="middle">尺寸</td></tr><tr align="center" bgcolor="#FFFFFF">          <td height="30" align="center" valign="middle">Anzi</td>
-                                    <td align="center" valign="middle">164 cm</td><td align="center" valign="middle">47 kg</td><td align="center" valign="middle">S</td></tr></tbody>  </table>
+                                  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">
+                                    <tbody>
+                                      <tr align="center" bgcolor="#FFFFFF">
+                                        <td width="367" height="30" align="center" valign="middle">MODEL</td>
+                                        <td width="400" height="30" align="center" valign="middle">身高</td>
+                                        <td width="399" height="30" align="center" valign="middle">體重</td>
+                                        <td width="389" align="center" valign="middle">尺寸</td>
+                                      </tr>
+                                      <tr align="center" bgcolor="#FFFFFF">
+                                        <td height="30" align="center" valign="middle">Anzi</td>
+                                        <td align="center" valign="middle">164 cm</td><td align="center" valign="middle">47 kg</td>
+                                        <td align="center" valign="middle">S</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
                             </li>
                             <li>
@@ -164,6 +171,7 @@
 <script>
 import Footer from '../components/Footer.vue'
 import emitter from '@/methods/emitter'
+import localStorage from '@/mixins/localStorage'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
@@ -175,6 +183,7 @@ export default {
       id: '',
       products: [],
       product: {},
+      favoriteItems: this.getLocalStorage() || [],
       productsCategory: [],
       relativeProduct: [],
       Loading: false,
@@ -184,6 +193,7 @@ export default {
   components: {
     Footer, Swiper, SwiperSlide
   },
+  mixins: [localStorage],
   inject: ['emitter'],
   methods: {
     setThumbsSwiper (swiper) {

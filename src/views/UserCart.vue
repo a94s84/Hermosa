@@ -125,8 +125,7 @@ export default {
     delITem () {
       this.isLoading = true
       let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`
-      console.log(url)
-      if (this.tempProduct.length > 0) {
+      if (this.tempProduct.id) {
         url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${this.tempProduct.id}`
       }
       this.$http.delete(url).then((res) => {

@@ -4,6 +4,7 @@
 
 footer {
     background-color: #F4F5F5;
+    // border-top: 1px solid #565045;
     min-height: $desktop_footer_height;
     font-family: "Montserrat",'Noto Sans TC', sans-serif;
     div{
@@ -70,7 +71,6 @@ footer {
             width:calc( (100% - 80px) /3);
             border-bottom: solid 1px black;
             margin-right: 35px;
-            background:#F4F5F5;
             position: relative;
             z-index: 2;
             &:last-of-type{

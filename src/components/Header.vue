@@ -13,18 +13,19 @@
         </div>
         <div class="header_logoWrap">
             <router-link to="/" class="header_logo">
-            <img src="../assets/img/logo.png" alt="Hermosa" title="Hermosa">
+            <img src="../assets/img/logo.png" title="Hermosa">
             </router-link>
         </div>
         <div class="header_side_icon">
             <router-link to="/login" class="header_login">
-                <img src="../assets/img/login.svg" alt="登入" title="登入">
+                <img src="../assets/img/login.svg" title="登入">
             </router-link>
             <router-link to="/wishlist" class="header_favorite">
-                <img src="../assets/img//favicon.svg" alt="收藏" title="收藏">
+                <img src="../assets/img//favicon.svg" title="收藏">
+                <span  v-if=" favoriteNum.length" >{{ favoriteNum.length }}</span>
             </router-link>
             <router-link to="/cart" class="header_cart">
-                <img src="../assets/img/cart.svg" alt="購物車" title="購物車"><span  v-if="carts.length" >{{ cartsNum }}</span>
+                <img src="../assets/img/cart.svg" title="購物車"><span v-if="carts.length" >{{ cartsNum }}</span>
             </router-link>
         </div>
     </div>
@@ -47,9 +48,6 @@
                 <li>
                     <a href="#" @click.prevent="goCategory('OUTER')">OUTER</a>
                 </li>
-                <!-- <li>
-                    <a href="#" @click.prevent="goCategory('DRESSES')">DRESSES</a>
-                </li> -->
                 <li>
                     <a href="#" @click.prevent="goCategory('PANTS')">PANTS</a>
                 </li>
@@ -81,13 +79,14 @@
 
 <script>
 import emitter from '@/methods/emitter'
+import localStorage from '@/mixins/localStorage'
 export default {
   data () {
     return {
-      carts: []
+      carts: [],
+      favoriteNum: this.getLocalStorage() || []
     }
   },
-  emits: ['close-banner'],
   computed: {
     cartsNum () {
       let cartNum = 0
@@ -97,6 +96,8 @@ export default {
       return cartNum
     }
   },
+  mixins: [localStorage],
+  emits: ['close-banner'],
   methods: {
     goCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
@@ -121,19 +122,16 @@ export default {
       this.$http.get(url).then((res) => {
         if (res.data.success) {
           this.carts = res.data.data.carts
-          // console.log(this.carts)
         }
-      }).catch(() => {
-        this.emitter.emit('push-message', {
-          type: 'danger',
-          message: '發生錯誤，請重新整理頁面'
-        })
       })
     }
   },
   created () {
     emitter.on('updateCart', () => {
       this.getCart()
+    })
+    emitter.on('update-favorite', () => {
+      this.favoriteNum = this.getLocalStorage()
     })
   },
   mounted () {

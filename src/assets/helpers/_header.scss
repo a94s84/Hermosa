@@ -108,17 +108,13 @@ header {
         //     margin-right: 0;
         // }
     }
-    .header_favorite {
-        width: 16px;
-        height: 16px;
-    }
 }
 .header_login{
     img{
         width: 100%;
     }
 }
-.header_cart {
+.header_cart, .header_favorite {
     @include flex;
     position: relative;
     align-items: center;
@@ -135,9 +131,10 @@ header {
         line-height: 15px;
         text-align: center;
     }
-    img {
-        width: 71%;
-    }
+}
+
+.header_cart img{
+    width: 71%;
 }
 
 @include tablet-width() {
