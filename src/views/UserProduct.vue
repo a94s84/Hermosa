@@ -80,11 +80,9 @@
                         </div>
                         <!-- 收藏.加入購物清單.結帳 -->
                         <div class="pdcnt_btn">
-                            <div class="pdcnt_btn_wish">
-                                <a type="button" class="btn_wish" @click.prevent="addFavorite(product.id)">
-                                   <i class="bi bi-heart-fill" v-if="favoriteItems.includes(product.id)"></i><i class="bi bi-heart" v-else></i> +
-                                </a>
-                            </div>
+                            <a type="button" class="btn_wish" @click.prevent="addFavorite(product.id)">
+                                <i class="bi bi-heart-fill" v-if="favoriteItems.includes(product.id)"></i><i class="bi bi-heart" v-else></i>
+                            </a>
                             <div class="pdcnt_btn_BuyPay">
                                 <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" >+&ensp;加入購物車
                                 </a>
