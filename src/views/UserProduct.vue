@@ -236,9 +236,7 @@ export default {
       })
     },
     getAll () {
-      this.isLoading = true
       this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
           this.products = res.data.products
           const category = this.product.category
