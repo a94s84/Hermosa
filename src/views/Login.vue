@@ -1,34 +1,33 @@
 <template>
     <Loading :active="isLoading"></Loading>
     <Header></Header>
+    <ToastList></ToastList>
      <div class="contentWrap">
-        <form class="login_tabCnt loginWrap" @submit.prevent="signIn">
+        <form class="loginWrap" @submit.prevent="signIn">
             <p class="login_Nav">LOGIN</p>
             <div>
                 <input type="email" placeholder="E-mail" v-model="user.username" required>
                 <div class="pw_switch">
-                    <input type="password" placeholder="密碼" v-model="user.password" required>
-                    <span class="pw_see"></span>
+                    <input :type="passwordType" placeholder="密碼" v-model="user.password" required>
+                    <span class="pw_see" @click="switchPassword"></span>
                 </div>
                 <button class="btn_black">登入</button>
-                <div class="d-flex d-sp">
-                    <label>
-                        <input type="checkbox">記住我
-                    </label>
-                    <a class="forgetPW" href="forget.html">忘記密碼？</a>
-                </div>
             </div>
         </form>
     </div>
+    <Footer/>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import Footer from '../components/Footer.vue'
+import ToastList from '@/components/ToastList.vue'
+import emitter from '@/methods/emitter'
 
 export default {
   name: 'Login',
   components: {
-    Header
+    Header, Footer, ToastList
   },
   data () {
     return {
@@ -36,7 +35,13 @@ export default {
         username: '',
         password: ''
       },
+      passwordType: 'password',
       isLoading: false
+    }
+  },
+  provide () {
+    return {
+      emitter
     }
   },
   methods: {
@@ -51,13 +56,30 @@ export default {
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
             this.$router.push('/dashboard/productlist')
           } else {
-            // alert('登入失敗，請輸入正確的帳號密碼')
             this.$httpMessageState(res, '登入失敗，請輸入正確的帳號密碼')
             this.user.username = ''
             this.user.password = ''
           }
         })
+    },
+    checkUser () {
+      this.isLoading = true
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
+      this.$http.defaults.headers.common.Authorization = token
+      const api = `${process.env.VUE_APP_API}api/user/check`
+      this.$http.post(api).then((res) => {
+        this.isLoading = false
+        if (res.data.success) {
+          this.$router.push('/dashboard/productlist')
+        }
+      })
+    },
+    switchPassword () {
+      this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
     }
+  },
+  mounted () {
+    this.checkUser()
   }
 }
 </script>

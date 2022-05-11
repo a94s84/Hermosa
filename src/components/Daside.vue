@@ -3,7 +3,7 @@
     <!-- 1. 後台名稱 -->
     <a href="#" class="w-50"><img class="w-100" src="../assets/img/logo.png" alt="Hermosa" title="HermosaPlat"></a>
     <!-- 2. 選單 -->
-    <div class="overflow-auto mt-3 w-100" id="nav">
+    <div class="overflow-auto mt-3 w-100">
       <div>
         <router-link to="/dashboard/productlist" class="sidebar-link">
           <div class="px-4">

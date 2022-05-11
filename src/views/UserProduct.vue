@@ -91,10 +91,11 @@
                                 <a type="button" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
                             </div>
                         </div>
-                        <ul class="pdcnt_menu">
-                            <li>
-                                <a href="javascript:void(0)" class="submenuTitle active"><span>商品尺寸表 | SIZE CHART</span></a>
-                                <div class="submenu">
+                        <!-- 商品尺吋表等按鈕 -->
+                        <ul class="pdcnt_menu" ref="productCollapse">
+                            <li >
+                                <a href="#collapseSize" role="button" data-bs-toggle="collapse" class="submenuTitle"><span>商品尺寸表 | SIZE CHART</span></a>
+                                <div class="submenu collapse show" id="collapseSize">
                                     <table width="100%" border="0" cellspacing="1" cellpadding="1">
                                         <tbody>
                                         <tr align="center">
@@ -119,33 +120,34 @@
                                         </tbody>
                                     </table>
                                     <div class="text-center">
-                                        <img src="https://photo.afad.com.tw/PDImg/SIZETOP2.jpg" height="250">
+                                        <img :src="sizeImg" alt="sizeImage">
                                     </div>
                                 </div>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="submenuTitle active"><span>模特兒參考 | MODEL INFO</span></a>
-                                <div class="submenu d-none">
-                                  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">
+                                <a href="#collapseModel" role="button" data-bs-toggle="collapse" class="submenuTitle collapsed"><span>模特兒參考 | MODEL INFO</span></a>
+                                <div class="submenu collapse" id="collapseModel">
+                                  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1">
                                     <tbody>
-                                      <tr align="center" bgcolor="#FFFFFF">
-                                        <td width="367" height="30" align="center" valign="middle">MODEL</td>
-                                        <td width="400" height="30" align="center" valign="middle">身高</td>
-                                        <td width="399" height="30" align="center" valign="middle">體重</td>
-                                        <td width="389" align="center" valign="middle">尺寸</td>
+                                      <tr align="center">
+                                        <td height="30">MODEL</td>
+                                        <td>身高</td>
+                                        <td>體重</td>
+                                        <td>尺寸</td>
                                       </tr>
-                                      <tr align="center" bgcolor="#FFFFFF">
-                                        <td height="30" align="center" valign="middle">Anzi</td>
-                                        <td align="center" valign="middle">164 cm</td><td align="center" valign="middle">47 kg</td>
-                                        <td align="center" valign="middle">S</td>
+                                      <tr align="center">
+                                        <td>Anzi</td>
+                                        <td>164 cm</td>
+                                        <td>47 kg</td>
+                                        <td>F</td>
                                       </tr>
                                     </tbody>
                                   </table>
                                 </div>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="submenuTitle active"><span>注意事項</span></a>
-                                <div class="submenu d-none">
+                                <a href="#collapseNote" role="button" data-bs-toggle="collapse" class="submenuTitle collapsed"><span>注意事項</span></a>
+                                <div class="submenu collapse" id="collapseNote">
                                     {{product.content}}
                                 </div>
                             </li>
@@ -175,6 +177,7 @@ import localStorage from '@/mixins/localStorage'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
+import Collapse from 'bootstrap/js/dist/collapse'
 
 SwiperCore.use([Navigation, Pagination, Autoplay, Thumbs])
 export default {
@@ -195,6 +198,28 @@ export default {
   },
   mixins: [localStorage],
   inject: ['emitter'],
+  computed: {
+    sizeImg () {
+      let img = ''
+      switch (this.product.category) {
+        case ('TOPS'):
+          img = require('../assets/img/SizeTop.jpg')
+          break
+        case ('PANTS'):
+          img = require('../assets/img/SizePants.jpg')
+          break
+        case ('SKIRTS'):
+          img = require('../assets/img/SizeSkirts.jpg')
+          break
+        case ('OUTER'):
+          img = require('../assets/img/SizeOuter.jpg')
+          break
+        default:
+          break
+      }
+      return img
+    }
+  },
   methods: {
     setThumbsSwiper (swiper) {
       this.thumbsSwiper = swiper
@@ -211,7 +236,9 @@ export default {
       })
     },
     getAll () {
+      this.isLoading = true
       this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`).then((res) => {
+        this.isLoading = false
         if (res.data.success) {
           this.products = res.data.products
           const category = this.product.category
@@ -261,6 +288,9 @@ export default {
   created () {
     this.id = this.$route.params.productId
     this.getProduct()
+  },
+  mounted () {
+    this.collapse = new Collapse(this.$refs.productCollapse)
   }
 }
 </script>

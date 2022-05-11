@@ -10,22 +10,20 @@
     margin-bottom:20px;
 }
 
-.login_tabCnt{
- max-width: 970px;
- width: 100%;
- margin:30px auto;
- letter-spacing: .08rem;
-  .btn_black{
-    width: 100%;
-    margin:25px 0 15px;
-    letter-spacing: 0.2rem;
-  }
-}
 .loginWrap{
   padding:0 5%;
   color:black;
   min-height: 300px;
   letter-spacing: .06rem;
+  max-width: 970px;
+  width: 100%;
+  margin:30px auto;
+  letter-spacing: .08rem;
+    .btn_black{
+      width: 100%;
+      margin:25px 0 15px;
+      letter-spacing: 0.2rem;
+    }
   >div{
     width: 50%;
     margin:0 auto;
@@ -38,24 +36,12 @@
     height: 32px;
   }
   input{
-    margin-top: 15px;
-  }
-  input[type="checkbox"]{
-    margin: 0 5px 0 0;
-    height: 12px;
-    color:black;
+    margin-top: 15px;    
+    padding:3px 10px;
+    font-size: 14px;
   }
   p{
     line-height: 32px;
-    >img{
-      width: 15px;
-      vertical-align: middle;
-    }
-  }
-  .forgetPW{
-    line-height: 14px;
-    color:$main_color;
-    font-family: 'Noto Sans TC', sans-serif;
   }
  
 }

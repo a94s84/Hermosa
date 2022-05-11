@@ -306,7 +306,7 @@
                     line-height: 16px;
                 }
             }
-            &.active{
+            &.collapsed{
                 span{
                     &:after{
                         content: '+';
@@ -327,6 +327,12 @@
         }
     }
 }  
+
+#collapseNote{
+   white-space: break-spaces;
+   padding:0 15px;
+   line-height: 14px;
+}
 .pdcnt_otherinfo{
     margin-top: 70px;
     display: flex;

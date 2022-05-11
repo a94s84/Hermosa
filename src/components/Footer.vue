@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="footer_bottom">
-                <p class="footer_copy">& copy Hermosa All Rights Reserved.</p>
+                <p class="footer_copy">&copy; Hermosa All Rights Reserved.</p>
                 <p>本網頁僅供學習使用 無任何商業用途</p>
             </div>
         </div>
