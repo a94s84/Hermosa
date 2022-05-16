@@ -48,6 +48,7 @@
             <i class="bi bi-plus-circle"></i>
         </router-link>
       </div>
+      <div class="yotpo yotpo-pictures-widget" data-gallery-id="6278c5b7a23505074bee661f"> </div>
     </div>
   </div>
   <Footer/>
@@ -89,6 +90,16 @@ export default {
   },
   created () {
     this.getPdList()
+  },
+  mounted () {
+    (function e () {
+      var e = document.createElement('script')
+      e.type = 'text/javascript'
+      e.async = true
+      e.src = '//staticw2.yotpo.com/pDGrvh6zMbPahfy7HVe4OdMBJmbTtcVwHZpnJbM3/widget.js'
+      var t = document.getElementsByTagName('script')[0]
+      t.parentNode.insertBefore(e, t)
+    })()
   }
 }
 </script>
