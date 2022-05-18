@@ -5,43 +5,43 @@ const routes = [
   {
     path: '/',
     name: 'Userboard',
-    component: () => import('../views/Userboard.vue'),
+    component: () => import('../views/front/Userboard.vue'),
     children: [
       {
         path: '',
         name: '',
-        component: () => import('../views/Home.vue')
+        component: () => import('../views/front/Home.vue')
       },
       {
         path: 'cart',
         name: 'cart',
-        component: () => import('../views/UserCart.vue')
+        component: () => import('../views/front/UserCart.vue')
       }, {
         path: 'check',
         name: 'check',
-        component: () => import('../views/UserCheck.vue')
+        component: () => import('../views/front/UserCheck.vue')
       }, {
         path: 'checkout/:orderId',
         name: 'checkout',
-        component: () => import('../views/UserCheckout.vue')
+        component: () => import('../views/front/UserCheckout.vue')
       }, {
         path: 'orderfinish/:orderId',
         name: 'orderfinish',
-        component: () => import('../views/UserOrderFinish.vue')
+        component: () => import('../views/front/UserOrderFinish.vue')
       }, {
         path: 'productlist',
         name: 'productlist',
-        component: () => import('../views/UserPdList.vue')
+        component: () => import('../views/front/UserPdList.vue')
       },
       {
         path: 'product/:productId',
         name: 'product',
-        component: () => import('../views/UserProduct.vue')
+        component: () => import('../views/front/UserProduct.vue')
       },
       {
         path: 'wishlist',
         name: 'wishlist',
-        component: () => import('../views/UserWishList.vue')
+        component: () => import('../views/front/UserWishList.vue')
       }
     ]
   },
@@ -51,21 +51,25 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: () => import('../views/Dashboard.vue'),
+    component: () => import('../views/back/Dashboard.vue'),
     children: [
       {
         path: 'productlist',
-        component: () => import('../views/Productlist.vue')
+        component: () => import('../views/back/Productlist.vue')
       },
       {
         path: 'orderlist',
-        component: () => import('../views/Orderlist.vue')
+        component: () => import('../views/back/Orderlist.vue')
       },
       {
         path: 'coupons',
-        component: () => import('../views/Coupons.vue')
+        component: () => import('../views/back/Coupons.vue')
       }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 

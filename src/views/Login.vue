@@ -9,7 +9,7 @@
                 <input type="email" placeholder="E-mail" v-model="user.username" required>
                 <div class="pw_switch">
                     <input :type="passwordType" placeholder="密碼" v-model="user.password" required>
-                    <span class="pw_see" @click="switchPassword"></span>
+                    <span class="pw_see" ref="switchBtn" @click="switchPassword"></span>
                 </div>
                 <button class="btn_black">登入</button>
             </div>
@@ -20,7 +20,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Footer from '../components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 import ToastList from '@/components/ToastList.vue'
 import emitter from '@/methods/emitter'
 
@@ -76,6 +76,7 @@ export default {
     },
     switchPassword () {
       this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
+      this.$refs.switchBtn.classList.toggle('show')
     }
   },
   mounted () {

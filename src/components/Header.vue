@@ -1,6 +1,5 @@
 <template>
   <header ref="mainHeader">
-    <!-- <img src="../assets/img/logo.png" alt=""> -->
     <div class="header_bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
         <a href="#" class="close_banner" @click.prevent="$emit('close-banner')">
@@ -56,9 +55,9 @@
                 </li>
             </ul>
             <div class="offcanvas_searchWrap">
-                <input type="text">
-                <a href="javascript: void(0);" class="offcanvas_search">
-                    <img src="../assets/img/search.svg" alt="搜尋" title="搜尋">
+                <input type="search" v-model.trim="this.searchKeyword" @keyup.enter="goSearch">
+                <a type="button" class="offcanvas_search" @click.prevent="goSearch">
+                    <img src="../assets/img/search.svg">
                 </a>
             </div>
             <div class="offcanvas_social">
@@ -84,6 +83,7 @@ export default {
   data () {
     return {
       carts: [],
+      searchKeyword: '',
       favoriteNum: this.getLocalStorage() || []
     }
   },
@@ -101,6 +101,11 @@ export default {
   methods: {
     goCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
+      this.closeMenu()
+    },
+    goSearch () {
+      this.$router.push({ name: 'productlist', query: { search: this.searchKeyword } })
+      this.searchKeyword = ''
       this.closeMenu()
     },
     openMenu () {

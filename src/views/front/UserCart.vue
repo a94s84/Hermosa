@@ -52,7 +52,7 @@
                   <div class="d-sp">
                       <p class="pdcnt_price">Total: NT${{ $filters.currency(item.final_total) }}</p>
                       <a href="javascript:void(0)" class="pdcnt_trash" @click.prevent="openDelModal(item)">
-                          <img src="../assets/img/delete.svg" alt="">
+                          <img src="../../assets/img/delete.svg" alt="">
                       </a>
                   </div>
               </div>

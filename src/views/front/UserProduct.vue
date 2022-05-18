@@ -86,7 +86,7 @@
                             <div class="pdcnt_btn_BuyPay">
                                 <a type="button" class="btn_second btn_add" @click.prevent="addCart(product.id, product.qty)" >+&ensp;加入購物車
                                 </a>
-                                <a type="button" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
+                                <a type="button" class="btn_black btn_topay" @click.prevent="gopay(product.id, product.qty)">立即結帳&ensp;<img src="../../assets/img/pdcnt_pay_arrow.svg" width="18px"></a>
                             </div>
                         </div>
                         <!-- 商品尺吋表等按鈕 -->
@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import Footer from '../components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 import emitter from '@/methods/emitter'
 import localStorage from '@/mixins/localStorage'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
@@ -201,16 +201,16 @@ export default {
       let img = ''
       switch (this.product.category) {
         case ('TOPS'):
-          img = require('../assets/img/SizeTop.jpg')
+          img = require('../../assets/img/SizeTop.jpg')
           break
         case ('PANTS'):
-          img = require('../assets/img/SizePants.jpg')
+          img = require('../../assets/img/SizePants.jpg')
           break
         case ('SKIRTS'):
-          img = require('../assets/img/SizeSkirts.jpg')
+          img = require('../../assets/img/SizeSkirts.jpg')
           break
         case ('OUTER'):
-          img = require('../assets/img/SizeOuter.jpg')
+          img = require('../../assets/img/SizeOuter.jpg')
           break
         default:
           break

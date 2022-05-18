@@ -34,7 +34,8 @@
                 </div>
                 <!-- 商品列表 -->
                 <div class="pds">
-                    <div class="pds_col">
+                    <p class="fs-3 my-5 py-5 w-100 text-center"  v-if="filterData.length === 0">沒有相符的搜尋結果 Σ( ° △ °) </p>
+                    <div class="pds_col" v-else>
                         <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
                             <div class="pdbox">
                                 <router-link class="pdbox_img" :to="`/product/${item.id}`">
@@ -58,7 +59,7 @@
                   <div class="pagination_box has-text-centered">
                     <a type="button" class="pagination_prev" :class="{ 'disabled': currentPage == 1 }" @click.prevent="changePage(currentPage - 1)"></a>
                     <a type="button" class="pagination_page" v-for="page in filterData.length" :key="page" :class="{ 'active': currentPage == page}" @click.prevent="currentPage = page">{{ page }}</a>
-                    <a type="button" class="pagination_next" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage == filterData.length }"></a>
+                    <a type="button" class="pagination_next" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage == filterData.length || filterData.length === 0}"></a>
                   </div>
                 </div>
             </div>
@@ -69,7 +70,7 @@
 </template>
 
 <script>
-import Footer from '../components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   data () {
@@ -77,6 +78,7 @@ export default {
       products: [],
       productsCategory: [],
       selectCategory: '',
+      searchKeyword: '',
       currentPage: 1,
       isLoading: false
     }
@@ -87,6 +89,7 @@ export default {
   watch: {
     $route () {
       this.selectCategory = this.$route.query.category || ''
+      this.searchKeyword = this.$route.query.search || ''
     }
   },
   computed: {
@@ -94,13 +97,14 @@ export default {
       let tempData = []
       const filterProducts = []
       // 依照分類按鈕篩選所有商品
-      tempData = this.products.filter((item) => {
-        if (this.selectCategory === 'ALL') {
-          return this.products
-        } else if (this.selectCategory === item.category) {
-          return item
-        }
-      })
+      if (this.selectCategory && this.selectCategory !== 'ALL') {
+        tempData = this.products.filter((item) => item.category?.match(this.selectCategory))
+      } else if (this.searchKeyword && this.searchKeyword !== '') {
+        tempData = this.products.filter((item) => item.title?.match(this.searchKeyword))
+      } else {
+        tempData = this.products
+      }
+
       // 篩選後的商品每10個一頁
       for (var i = 0; i < tempData.length; i += 10) {
         filterProducts.push(tempData.slice(i, i + 10))
@@ -135,7 +139,8 @@ export default {
   },
   mounted () {
     this.getPdList()
-    this.selectCategory = this.$route.query.category
+    this.selectCategory = this.$route.query.category || ''
+    this.searchKeyword = this.$route.query.search || ''
   }
 }
 </script>

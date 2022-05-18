@@ -9,7 +9,7 @@
 <script>
 import ToastList from '@/components/ToastList.vue'
 import emitter from '@/methods/emitter'
-import Header from '../components/Header.vue'
+import Header from '@/components/Header.vue'
 
 export default {
   components: {

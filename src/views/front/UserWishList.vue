@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Footer from '../components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 import emitter from '@/methods/emitter'
 import localStorage from '@/mixins/localStorage'
 export default {

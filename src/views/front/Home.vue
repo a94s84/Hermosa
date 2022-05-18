@@ -6,16 +6,16 @@
         <swiper-slide>
           <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" >
               <picture>
-                  <source srcset="../assets/img/banner1.png" media="(min-width: 1007px)">
-                  <img src="../assets/img/banner_m1.png" alt="">
+                  <source srcset="../../assets/img/banner1.png" media="(min-width: 1007px)">
+                  <img src="../../assets/img/banner_m1.png" alt="">
               </picture>
           </router-link>
         </swiper-slide>
         <swiper-slide>
           <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}" >
               <picture>
-                  <source srcset="../assets/img/banner2.png" media="(min-width: 1007px)">
-                  <img src="../assets/img/banner_m2.png" alt="">
+                  <source srcset="../../assets/img/banner2.png" media="(min-width: 1007px)">
+                  <img src="../../assets/img/banner_m2.png" alt="">
               </picture>
           </router-link>
         </swiper-slide>
@@ -55,7 +55,7 @@
 
 <script>
 // @ is an alias to /src
-import Footer from '../components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, EffectFade }
 from 'swiper'
