@@ -8,12 +8,12 @@
     <thead>
       <tr>
         <th>購買時間</th>
-        <th>訂單編號</th>
+        <th class="d-none d-lg-table-cell">訂單編號</th>
         <th>購買人姓名</th>
-        <th>購買人電話</th>
+        <th class="d-none d-lg-table-cell">購買人電話</th>
         <!-- <th>購買款項</th> -->
-        <th>應付金額</th>
-        <th>訂單狀態</th>
+        <th class="d-none d-lg-table-cell">應付金額</th>
+        <th class="d-none d-lg-table-cell">訂單狀態</th>
         <th class="text-center" style="width:60px">詳情</th>
         <th class="text-center">編輯 / 刪除</th>
       </tr>
@@ -22,9 +22,9 @@
       <template v-for="item in orders" :key="item.id">
         <tr>
           <td>{{ $filters.date(item.create_at) }}</td>
-          <td>{{ item.id }}</td>
+          <td class="d-none d-lg-table-cell">{{ item.id }}</td>
           <td>{{ item.user.name }}</td>
-          <td>{{ item.user.tel }}</td>
+          <td class="d-none d-lg-table-cell">{{ item.user.tel }}</td>
           <!-- <td>
             <ul>
               <li class="pb-1" v-for="(product, i) in item.products" :key="i">
@@ -33,8 +33,8 @@
               </li>
             </ul>
           </td> -->
-          <td class="text-right">{{ $filters.currency(item.total) }}</td>
-          <td>
+          <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.total) }}</td>
+          <td class="d-none d-lg-table-cell">
             <span class="text-success" v-if="item.is_paid">已付款</span>
             <span class="text-muted" v-else>未付款</span>
           </td>

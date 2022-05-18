@@ -7,23 +7,23 @@
   <table v-else class="table mt-4">
     <thead>
       <tr>
-        <th width="10%">產品圖片</th>
-        <th width="25%">產品名稱</th>
-        <th width="10%">分類</th>
-        <th width="12%">原價</th>
-        <th width="12%">售價</th>
-        <th width="10%">是否上架</th>
-        <th width="19%" class="text-center">編輯</th>
+        <th width="12%">產品圖片</th>
+        <th width="27%">產品名稱</th>
+        <th width="10%" class="d-none d-lg-table-cell">分類</th>
+        <th width="12%" class="d-none d-lg-table-cell">原價</th>
+        <th width="12%" class="d-none d-lg-table-cell">售價</th>
+        <th width="10%" class="d-none d-lg-table-cell">是否上架</th>
+        <th width="15%" class="text-center">編輯</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="item in products" :key="item.id">
         <td><img class="w-100 small-size" :src="item.imageUrl" :alt="item.title"/></td>
         <td>{{item.title}}</td>
-        <td>{{item.category}}</td>
-        <td class="text-right">{{ $filters.currency(item.origin_price) }}</td>
-        <td class="text-right">{{ $filters.currency(item.price) }}</td>
-        <td>
+        <td class="d-none d-lg-table-cell">{{item.category}}</td>
+        <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.origin_price) }}</td>
+        <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.price) }}</td>
+        <td class="d-none d-lg-table-cell">
           <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" :id="`launchedSwitch${item.id}`" v-model="item.is_enabled" :true-value="1" :false-value="0">
               <label class="form-check-label" :for="`launchedSwitch${item.id}`">

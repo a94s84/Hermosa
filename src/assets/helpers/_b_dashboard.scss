@@ -1,6 +1,7 @@
 $sidebar-width:250px;
 .main{
   font-size: 14px;
+  width: 100%;
 }
 .nav-link{
     color: #b36319;
@@ -21,7 +22,6 @@ $sidebar-width:250px;
     position: fixed;
     top: 0;
 }
- 
   .sidebar .sidebar-link {
     color: #212529;
     display: block;
@@ -55,23 +55,18 @@ $sidebar-width:250px;
     background-color: #fad1abd3;
     border: none;
   }
-  .main {
-    width:100%;
-  }
   
   .sidebar-toggled .sidebar {
     margin-left: 0;
   }
-  
   .sidebar-toggled .main {
-    margin-left: 280px;
+    width: 100%;
+    margin-left: $sidebar-width;
   }
+  
   .form-row {
     display: flex;
     flex-wrap: wrap;
-    // img{
-    //   width: 100%;
-    // }
 }
 .small-size {
   height: 80px;
@@ -118,7 +113,7 @@ $sidebar-width:250px;
       margin-left: -$sidebar-width;
     }
     .sidebar-toggled .main {
-      width: 100%;
+      // width: 100%;
       margin-left: 0;
     }
   }

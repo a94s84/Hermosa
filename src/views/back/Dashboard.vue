@@ -1,13 +1,17 @@
 <template>
-<body>
+<body ref="dashboardBody">
   <ToastList></ToastList>
   <div class="d-flex">
     <Daside></Daside>
     <main class="main">
       <div class="bg-white w-100 border-bottom sticky-top d-flex">
+        <a href="#"
+        class="d-inline-block py-3 px-4 border-end" @click.prevent="sidebarToggle">
+          <i class="bi bi-arrows-angle-expand"></i>
+        </a>
         <p class="py-3 px-4">Hermosa-後台管理</p>
       </div>
-      <div class="p-4">
+      <div class="p-2 p-md-4">
         <router-view/>
       </div>
     </main>
@@ -27,6 +31,11 @@ export default {
   provide () {
     return {
       emitter
+    }
+  },
+  methods: {
+    sidebarToggle () {
+      this.$refs.dashboardBody.classList.toggle('sidebar-toggled')
     }
   },
   created () {
