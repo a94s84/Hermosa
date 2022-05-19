@@ -44,6 +44,8 @@
 import CouponModal from '@/components/CouponModal.vue'
 import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 export default {
   components: { CouponModal, DelModal, Pagination },
   props: {
@@ -65,6 +67,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     openCouponModal (isNew, item) {
       this.isNew = isNew
       if (this.isNew) {
@@ -85,6 +88,7 @@ export default {
       this.$http.get(url, this.tempCoupon).then((res) => {
         this.coupons = res.data.coupons
         this.pagination = res.data.pagination
+        console.log(this.coupons)
       })
     },
     updateCoupon (tempCoupon) {
@@ -93,7 +97,7 @@ export default {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
         this.$http.post(url, { data: tempCoupon }).then((res) => {
           console.log(res, tempCoupon)
-          this.$httpMessageState(res, '新增優惠券成功')
+          this.pushMessage(res.data.success, '新增', res.data.message)
           this.getCoupons()
           this.$refs.couponModal.hideModal()
           this.isLoading = false
@@ -101,7 +105,7 @@ export default {
       } else {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
         this.$http.put(url, { data: this.tempCoupon }).then((res) => {
-          this.$httpMessageState(res, '更新優惠券成功')
+          this.pushMessage(res.data.success, '更新', res.data.message)
           this.getCoupons()
           this.$refs.couponModal.hideModal()
           this.isLoading = false
@@ -112,7 +116,7 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
       this.isLoading = true
       this.$http.delete(url).then((res) => {
-        this.$httpMessageState(res, '刪除優惠券成功')
+        this.pushMessage(res.data.success, '刪除', res.data.message)
         this.getCoupons()
         this.$refs.delModal.hideModal()
         this.isLoading = false

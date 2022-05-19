@@ -71,16 +71,15 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
+import { mapState, mapActions } from 'pinia'
+import productStore from '@/stores/productStore'
+import statusStore from '@/stores/statusStore'
 
 export default {
   data () {
     return {
-      products: [],
-      productsCategory: [],
       selectCategory: '',
-      searchKeyword: '',
-      currentPage: 1,
-      isLoading: false
+      searchKeyword: ''
     }
   },
   components: {
@@ -93,6 +92,8 @@ export default {
     }
   },
   computed: {
+    ...mapState(productStore, ['products', 'productsCategory', 'currentPage']),
+    ...mapState(statusStore, ['isLoading']),
     filterData () {
       let tempData = []
       const filterProducts = []
@@ -104,7 +105,6 @@ export default {
       } else {
         tempData = this.products
       }
-
       // 篩選後的商品每10個一頁
       for (var i = 0; i < tempData.length; i += 10) {
         filterProducts.push(tempData.slice(i, i + 10))
@@ -113,32 +113,14 @@ export default {
     }
   },
   methods: {
-    getPdList () {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.isLoading = true
-      this.$http.get(url).then((res) => {
-        this.isLoading = false
-        if (res.data.success) {
-          this.products = res.data.products
-          // 篩選分類項目
-          this.products.forEach((product) => {
-            if (!this.productsCategory.includes(product.category)) {
-              this.productsCategory.push(product.category)
-            }
-          })
-        }
-      })
-    },
+    ...mapActions(productStore, ['getPdlist', 'createCategory', 'changePage']),
     changeCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
       this.selectCategory = category
-    },
-    changePage (page = 1) {
-      this.currentPage = page
     }
   },
   mounted () {
-    this.getPdList()
+    this.createCategory()
     this.selectCategory = this.$route.query.category || ''
     this.searchKeyword = this.$route.query.search || ''
   }

@@ -78,62 +78,42 @@
 
 <script>
 import DelModal from '@/components/DelModal.vue'
+import { mapState, mapActions } from 'pinia'
+import cartStore from '@/stores/cartStore'
+import statusStore from '@/stores/statusStore'
 import emitter from '@/methods/emitter'
 
 export default {
   data () {
     return {
-      carts: [],
-      tempProduct: {},
-      isLoading: false
+      tempProduct: {}
     }
   },
   components: {
     DelModal
   },
+  computed: {
+    ...mapState(cartStore, ['carts']),
+    ...mapState(statusStore, ['isLoading'])
+  },
   inject: ['emitter'],
   methods: {
-    getCartList (item) {
-      this.isLoading = true
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      this.$http.get(api).then((res) => {
-        this.isLoading = false
-        if (res.data.success) {
-          this.carts = res.data.data
-        }
-      })
-    },
-    updateCart (item, qty) {
-      this.isLoading = true
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`
-      const cart = {
-        product_id: item.product_id,
-        qty: qty
-      }
-      this.$http.put(url, { data: cart }).then((res) => {
-        this.isLoading = false
-        emitter.emit('updateCart')
-        this.$httpMessageState(res, res.data.message)
-        this.getCartList()
-      })
-    },
+    ...mapActions(cartStore, ['getCartList', 'updateCart']),
+    ...mapActions(statusStore, ['pushMessage']),
     openDelModal (item) {
       this.tempProduct = { ...item }
       this.$refs.delModal.showModal()
-      console.log(this.tempProduct)
     },
     delITem () {
-      this.isLoading = true
       let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`
       if (this.tempProduct.id) {
         url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${this.tempProduct.id}`
       }
       this.$http.delete(url).then((res) => {
-        this.isLoading = false
         const delComponet = this.$refs.delModal
         delComponet.hideModal()
         emitter.emit('updateCart')
-        this.$httpMessageState(res, res.data.message)
+        this.pushMessage(res.data.success, '刪除', res.data.message)
         this.getCartList()
       })
     }

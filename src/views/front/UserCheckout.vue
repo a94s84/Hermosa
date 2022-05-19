@@ -56,6 +56,8 @@
 
 <script>
 // import emitter from '@/methods/emitter'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 export default {
   data () {
     return {
@@ -69,6 +71,7 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     getOrder () {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
@@ -76,7 +79,6 @@ export default {
         this.isLoading = false
         if (res.data.success) {
           this.order = res.data.order
-          console.log(this.order)
         }
       })
     },
@@ -92,16 +94,10 @@ export default {
         if (res.data.success) {
           this.$router.push({ name: 'orderfinish', params: { orderId: this.orderId } })
         } else {
-          this.emitter.emit('push-message', {
-            type: 'danger',
-            message: res.data.message
-          })
+          this.pushMessage(false, res.data.message)
         }
       }).catch(() => {
-        this.emitter.emit('push-message', {
-          type: 'danger',
-          message: '發生錯誤，請重新整理頁面'
-        })
+        this.pushMessage(false, '發生錯誤，請重新整理頁面')
       })
     }
   },

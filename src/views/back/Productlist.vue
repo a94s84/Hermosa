@@ -51,6 +51,8 @@ import ProductModal from '@/components/ProductModal.vue'
 import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import emitter from '@/methods/emitter'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 
 export default {
   data () {
@@ -72,7 +74,7 @@ export default {
   },
   inject: ['emitter'],
   methods: {
-    // currency,
+    ...mapActions(statusStore, ['pushMessage']),
     openModal (isNew, item) {
       if (isNew) {
         this.tempProduct = {}
@@ -105,7 +107,7 @@ export default {
       const productComponet = this.$refs.productModal
       this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
         productComponet.hideModal()
-        this.$httpMessageState(res, '更新商品')
+        this.pushMessage(res.data.success, '更新', res.data.message)
         this.getProducts()
       })
     },
@@ -116,12 +118,10 @@ export default {
     delProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`
       this.$http.delete(api).then((res) => {
+        console.log(res)
         const delComponet = this.$refs.delModal
         delComponet.hideModal()
-        this.emitter.emit('push-message', {
-          style: 'success',
-          title: '成功刪除'
-        })
+        this.pushMessage(res.data.success, '刪除', res.data.message)
         this.getProducts()
       })
     }

@@ -146,6 +146,8 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 export default {
   data () {
     return {
@@ -166,6 +168,7 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     getCartList () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
@@ -184,13 +187,10 @@ export default {
       }
       this.$http.post(url, { data: coupon }).then((res) => {
         this.isLoading = false
+        this.couponCode = ''
+        this.pushMessage(res.data.success, '套用優惠券', res.data.message)
         if (res.data.success) {
-          this.couponCode = ''
           this.getCartList()
-          this.$httpMessageState(res, res.data.message)
-        } else {
-          this.couponCode = ''
-          this.$httpMessageState(res, res.data.message)
         }
       })
     },
@@ -210,20 +210,14 @@ export default {
       this.$http.post(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`, { data: order })
         .then((res) => {
           this.isLoading = false
-          console.log(res.data)
+          this.pushMessage(res.data.success, res.data.message)
           if (res.data.success) {
-            this.$httpMessageState(res, res.data.message)
-            // this.$refs.form.resetForm()
             this.$router.push({ name: 'checkout', params: { orderId: res.data.orderId } })
-          } else {
-            this.$httpMessageState(res, res.data.message)
           }
         })
         .catch(() => {
-          this.emitter.emit('push-message', {
-            type: 'danger',
-            message: '發生錯誤，請重新整理頁面'
-          })
+          this.isLoading = false
+          this.pushMessage(false, '發生錯誤，請重新整理頁面')
         })
     }
   },

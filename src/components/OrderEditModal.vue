@@ -151,7 +151,6 @@ export default {
   watch: {
     order () {
       this.tempOrder = this.order
-      // this.isPaid = this.tempOrder.is_paid
     }
   },
   methods: {

@@ -23,6 +23,8 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import ToastList from '@/components/ToastList.vue'
 import emitter from '@/methods/emitter'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 
 export default {
   name: 'Login',
@@ -45,6 +47,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     signIn () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}admin/signin`
@@ -56,7 +59,7 @@ export default {
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
             this.$router.push('/dashboard/productlist')
           } else {
-            this.$httpMessageState(res, '登入失敗，請輸入正確的帳號密碼')
+            this.pushMessage(false, '登入', '請輸入正確的帳號密碼')
             this.user.username = ''
             this.user.password = ''
           }

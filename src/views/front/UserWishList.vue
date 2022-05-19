@@ -46,6 +46,8 @@
 import Footer from '@/components/Footer.vue'
 import emitter from '@/methods/emitter'
 import localStorage from '@/mixins/localStorage'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 export default {
   data () {
     return {
@@ -60,6 +62,7 @@ export default {
     Footer
   },
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     getFavoriteItems () {
       this.favoriteId = this.getLocalStorage()
       this.isLoading = true
@@ -87,9 +90,9 @@ export default {
       }
       this.$http.post(url, { data: cart }).then((res) => {
         this.isLoading = false
+        this.pushMessage(res.data.success, '更新', res.data.message)
         if (res.data.success) {
           emitter.emit('updateCart')
-          this.$httpMessageState(res, res.data.message)
         }
       })
     },
@@ -97,10 +100,7 @@ export default {
       this.favoriteId.splice(this.favoriteId.indexOf(itemId), 1)
       this.saveLocalStorage(this.favoriteId)
       this.emitter.emit('update-favorite')
-      this.emitter.emit('push-message', {
-        style: 'warning',
-        title: '商品已從收藏清單移除'
-      })
+      this.pushMessage(true, '已從收藏清單移除')
       this.getFavoriteItems()
     }
   },

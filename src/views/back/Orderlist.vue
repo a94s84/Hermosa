@@ -62,6 +62,8 @@ import DelModal from '@/components/DelModal.vue'
 import OrderEditModal from '@/components/OrderEditModal.vue'
 import OrderModal from '@/components/OrderModal.vue'
 import Pagination from '@/components/Pagination.vue'
+import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore'
 export default {
   data () {
     return {
@@ -77,6 +79,7 @@ export default {
     Pagination, OrderEditModal, OrderModal, DelModal
   },
   methods: {
+    ...mapActions(statusStore, ['pushMessage']),
     getOrders (currentPage = 1) {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders?page=${currentPage}`
@@ -114,7 +117,7 @@ export default {
           this.isLoading = false
           this.getOrders(this.currentPage)
           this.$refs.orderEditModal.hideModal()
-          this.$httpMessageState(res, '更新訂單')
+          this.pushMessage(res.data.success, '更新', res.data.message)
         })
       } else {
         this.$refs.orderModal.hideModal()
@@ -130,11 +133,10 @@ export default {
       }
       this.isLoading = true
       this.$http.delete(url).then((res) => {
-        console.log(res)
         this.isLoading = false
         this.getOrders(this.currentPage)
         this.$refs.delModal.hideModal()
-        this.$httpMessageState(res, '訂單刪除')
+        this.pushMessage(res.data.success, '刪除', res.data.message)
       })
     }
   },

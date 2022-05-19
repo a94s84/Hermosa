@@ -170,7 +170,9 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
-import emitter from '@/methods/emitter'
+import { mapState, mapActions } from 'pinia'
+import productStore from '@/stores/productStore'
+import statusStore from '@/stores/statusStore'
 import localStorage from '@/mixins/localStorage'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, Thumbs } from 'swiper'
@@ -182,12 +184,9 @@ export default {
   data () {
     return {
       id: '',
-      products: [],
       product: {},
       favoriteItems: this.getLocalStorage() || [],
-      productsCategory: [],
       relativeProduct: [],
-      Loading: false,
       thumbsSwiper: null
     }
   },
@@ -197,6 +196,8 @@ export default {
   mixins: [localStorage],
   inject: ['emitter'],
   computed: {
+    ...mapState(productStore, ['products', 'productsCategory']),
+    ...mapState(statusStore, ['isLoading']),
     sizeImg () {
       let img = ''
       switch (this.product.category) {
@@ -219,53 +220,30 @@ export default {
     }
   },
   methods: {
+    ...mapActions(productStore, ['getPdList', 'createCategory', 'addCart']),
+    ...mapActions(statusStore, ['pushMessage']),
     setThumbsSwiper (swiper) {
       this.thumbsSwiper = swiper
     },
     getProduct () {
-      this.isLoading = true
+      // this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
       this.$http.get(api).then((res) => {
-        this.isLoading = false
+        // this.isLoading = false
         if (res.data.success) {
           this.product = res.data.product
-          this.getAll()
+          this.getRelativeProduct()
         }
       })
     },
-    getAll () {
-      this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`).then((res) => {
-        if (res.data.success) {
-          this.products = res.data.products
-          const category = this.product.category
-          const id = this.product.id
-          // 相關商品
-          this.relativeProduct = this.products.filter(
-            (item) => item.category === category && item.id !== id
-          )
-          // 商品分類
-          this.products.forEach((product) => {
-            if (!this.productsCategory.includes(product.category)) {
-              this.productsCategory.push(product.category)
-            }
-          })
-        }
-      })
-    },
-    addCart (id, qty = 1) {
-      this.isLoading = true
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      const cart = {
-        product_id: id,
-        qty
-      }
-      this.$http.post(url, { data: cart }).then((res) => {
-        this.isLaoding = false
-        if (res.data.success) {
-          emitter.emit('updateCart')
-          this.$httpMessageState(res, res.data.message)
-        }
-      })
+    getRelativeProduct () {
+      this.createCategory()
+      const category = this.product.category
+      const id = this.product.id
+      // 相關商品
+      this.relativeProduct = this.products.filter(
+        (item) => item.category === category && item.id !== id
+      )
     },
     gopay (id, qty = 1) {
       this.addCart(id, qty)
@@ -286,6 +264,8 @@ export default {
     this.getProduct()
   },
   mounted () {
+    this.getPdList()
+    this.createCategory()
     this.collapse = new Collapse(this.$refs.productCollapse)
   }
 }

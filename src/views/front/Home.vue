@@ -56,6 +56,8 @@
 <script>
 // @ is an alias to /src
 import Footer from '@/components/Footer.vue'
+import productStore from '@/stores/productStore'
+import { mapState, mapActions } from 'pinia'
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
 import SwiperCore, { Navigation, Pagination, Autoplay, EffectFade }
 from 'swiper'
@@ -64,28 +66,14 @@ import 'swiper/swiper-bundle.css'
 SwiperCore.use([Navigation, Pagination, Autoplay, EffectFade])
 
 export default {
-  data () {
-    return {
-      products: [],
-      product: {},
-      status: {
-        loadingItem: ''
-      }
-    }
-  },
   components: {
     Footer, Swiper, SwiperSlide
   },
+  computed: {
+    ...mapState(productStore, ['products'])
+  },
   methods: {
-    getPdList () {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.isLoading = true
-      this.$http.get(url).then((res) => {
-        this.products = res.data.products
-        this.isLoading = false
-        // console.log(res.data.products)
-      })
-    }
+    ...mapActions(productStore, ['getPdList'])
   },
   created () {
     this.getPdList()
