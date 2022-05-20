@@ -8,9 +8,7 @@ const status = statusStore()
 export default defineStore('productStore', {
   state: () => ({
     products: [],
-    productsCategory: [],
-    selectCategory: '',
-    currentPage: 1
+    productsCategory: []
   }),
   actions: {
     getPdList () {
@@ -51,13 +49,6 @@ export default defineStore('productStore', {
         status.isLoading = false
         status.pushMessage(false, '發生錯誤，請重新整理頁面')
       })
-    },
-    changeCategory (category) {
-      this.$router.push({ name: 'productlist', query: { category } })
-      this.selectCategory = category
-    },
-    changePage (page = 1) {
-      this.currentPage = page
     }
   }
 })

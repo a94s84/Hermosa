@@ -100,7 +100,7 @@ export default {
       this.favoriteId.splice(this.favoriteId.indexOf(itemId), 1)
       this.saveLocalStorage(this.favoriteId)
       this.emitter.emit('update-favorite')
-      this.pushMessage(true, '已從收藏清單移除')
+      this.pushMessage(true, '更新', '已從收藏清單移除')
       this.getFavoriteItems()
     }
   },

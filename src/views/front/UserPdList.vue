@@ -79,7 +79,8 @@ export default {
   data () {
     return {
       selectCategory: '',
-      searchKeyword: ''
+      searchKeyword: '',
+      currentPage: 1
     }
   },
   components: {
@@ -117,6 +118,9 @@ export default {
     changeCategory (category) {
       this.$router.push({ name: 'productlist', query: { category } })
       this.selectCategory = category
+    },
+    changePage (page = 1) {
+      this.currentPage = page
     }
   },
   mounted () {
