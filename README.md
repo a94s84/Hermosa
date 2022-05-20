@@ -1,5 +1,5 @@
 # hermosa 服飾店商
-![](https://drive.google.com/file/d/1ICPAKYGup_48IT8wdHVDKDBMd_SgVZyg/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E4%B8%BB%E5%9C%96.JPG)
 
 ## 專案說明
  > Demo Website : [https://a94s84.github.io/Hermosa/#/](https://a94s84.github.io/Hermosa/#/)
@@ -31,29 +31,29 @@
 ## 前台簡介
 
 ### 首頁及商品內頁
-![](https://drive.google.com/file/d/1VB6Eq-lvm0spvgH4lZxyv_fhLrS7WYSM/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E9%A6%96%E9%A0%81.JPG)
 
 ### 商品列表
-![](https://drive.google.com/file/d/1j2SXkFkIbLLXOJsY09qH9zslxYxa9ZY6/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E5%95%86%E5%93%81%E9%A0%81.JPG)
 
 ### 收藏功能
 
 使用 localStorage 來做收藏功能
 
-![](https://drive.google.com/file/d/1mwFJ735C6gEYTnThur_Mn4eCTHYnEnzT/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E6%94%B6%E8%97%8F%E5%8A%9F%E8%83%BD.JPG)
 
 ### 搜尋功能
-![](https://drive.google.com/file/d/1k_xqccbYqGEmPVDC9feIGU0D347asWUw/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E6%90%9C%E5%B0%8B%E5%8A%9F%E8%83%BD.JPG)
 
 ## 後臺簡介
 
 ### 商品管理
-![](https://drive.google.com/file/d/1NeRwUOBzHFSGNGpxF0kqcvzJPD9wJsJE/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E5%BE%8C%E8%87%BA%E5%95%86%E5%93%81.JPG)
 
-![](https://drive.google.com/file/d/1Ag7z20arY6YAgFS2YkxJTu4Eyax4HzH1/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E4%BF%AE%E6%94%B9%E5%95%86%E5%93%81.JPG)
 
 ### 訂單管理
 
 可以在訂單頁面更改用戶資料。
 
-![](https://drive.google.com/file/d/1q7J1sSSL1dXXkloVCtQaAGHa5jiCFLzy/view?usp=sharing)
+![](https://github.com/a94s84/Hermosa/blob/master/readmePic/%E5%BE%8C%E8%87%BA%E8%A8%82%E5%96%AE.JPG)
