@@ -1,9 +1,17 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <Loading :active="isLoading" />
   <div class="text-end mt-3">
-    <button class="btn btn-warning btn-sm" type="button" @click="openModal(true)">增加產品</button>
+    <button
+      class="btn btn-warning btn-sm"
+      type="button"
+      @click="openModal(true)"
+    >
+      增加產品
+    </button>
   </div>
-  <div v-if="this.products.length == 0" class="text-center mt-5 p-5 fs-1">目前沒有產品</div>
+  <div v-if="this.products.length == 0" class="text-center mt-5 p-5 fs-1">
+    目前沒有產品
+  </div>
   <table v-else class="table mt-4">
     <thead>
       <tr>
@@ -18,32 +26,72 @@
     </thead>
     <tbody>
       <tr v-for="item in products" :key="item.id">
-        <td><img class="w-100 small-size" :src="item.imageUrl" :alt="item.title"/></td>
-        <td>{{item.title}}</td>
-        <td class="d-none d-lg-table-cell">{{item.category}}</td>
-        <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.origin_price) }}</td>
-        <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.price) }}</td>
+        <td>
+          <img
+            class="w-100 small-size"
+            :src="item.imageUrl"
+            :alt="item.title"
+          />
+        </td>
+        <td>{{ item.title }}</td>
+        <td class="d-none d-lg-table-cell">{{ item.category }}</td>
+        <td class="text-right d-none d-lg-table-cell">
+          {{ $filters.currency(item.origin_price) }}
+        </td>
+        <td class="text-right d-none d-lg-table-cell">
+          {{ $filters.currency(item.price) }}
+        </td>
         <td class="d-none d-lg-table-cell">
           <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" :id="`launchedSwitch${item.id}`" v-model="item.is_enabled" :true-value="1" :false-value="0">
-              <label class="form-check-label" :for="`launchedSwitch${item.id}`">
-                <span class="text-success" v-if="item.is_enabled">上架</span>
-                <span class="text-muted" v-else>未上架</span>
-              </label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :id="`launchedSwitch${item.id}`"
+              v-model="item.is_enabled"
+              :true-value="1"
+              :false-value="0"
+            />
+            <label class="form-check-label" :for="`launchedSwitch${item.id}`">
+              <span class="text-success" v-if="item.is_enabled">上架</span>
+              <span class="text-muted" v-else>未上架</span>
+            </label>
           </div>
         </td>
         <td class="text-center">
           <div class="btn-group">
-          <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-          <button class="btn btn-outline-danger btn-sm" @click="openDelModal('normal', item)">刪除</button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              @click="openModal(false, item)"
+            >
+              編輯
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              @click="openDelModal('normal', item)"
+            >
+              刪除
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <Pagination v-if="this.products.length !== 0" :pages="pagination" @emitPages="getProducts"></Pagination>
-  <ProductModal ref="productModal" :modalProduct="tempProduct" @update-product="updateProduct"></ProductModal>
-  <DelModal ref="delModal" @del-Product="delProduct" :delItem="tempProduct" :type="'normal'"></DelModal>
+  <Pagination
+    v-if="this.products.length !== 0"
+    :pages="pagination"
+    @emitPages="getProducts"
+  />
+  <ProductModal
+    ref="productModal"
+    :modalProduct="tempProduct"
+    @update-product="updateProduct"
+  />
+  <DelModal
+    ref="delModal"
+    @del-Product="delProduct"
+    :delItem="tempProduct"
+    :type="'normal'"
+  />
 </template>
 
 <script>
@@ -70,7 +118,9 @@ export default {
     }
   },
   components: {
-    ProductModal, DelModal, Pagination
+    ProductModal,
+    DelModal,
+    Pagination
   },
   inject: ['emitter'],
   methods: {
@@ -90,7 +140,6 @@ export default {
       this.$http.get(api).then((res) => {
         this.isLoading = false
         if (res.data.success) {
-          // console.log(res.data)
           this.products = res.data.products
           this.pagination = res.data.pagination
         }
@@ -118,7 +167,6 @@ export default {
     delProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`
       this.$http.delete(api).then((res) => {
-        console.log(res)
         const delComponet = this.$refs.delModal
         delComponet.hideModal()
         this.pushMessage(res.data.success, '刪除', res.data.message)

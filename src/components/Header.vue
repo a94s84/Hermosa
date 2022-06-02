@@ -1,45 +1,45 @@
 <template>
-  <header ref="mainHeader">
-    <div class="header_bannerBar">
+  <header ref="mainHeader" :class="{'header_white':isTrans}">
+    <div class="header-bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
-        <a href="#" class="close_banner" @click.prevent="$emit('close-banner')">
+        <a href="#" class="close-banner" @click.prevent="$emit('close-banner')">
             <img src="../assets/img/close_white.svg" alt="">
         </a>
     </div>
-    <div class="header_inner wrap">
-        <div class="header_pc_menu">
-            <a href="#" class="header_menu" @click.prevent="openMenu"></a>
+    <div class="header-inner wrap">
+        <div class="header-pc-menu">
+            <a href="#" class="header-menu" @click.prevent="openMenu"></a>
         </div>
-        <div class="header_logoWrap">
-            <router-link to="/" class="header_logo">
+        <div class="header-logoWrap">
+            <router-link to="/" class="header-logo">
             <img src="../assets/img/logo.png" title="Hermosa">
             </router-link>
         </div>
-        <div class="header_side_icon">
-            <router-link to="/login" class="header_login">
+        <div class="headerSide-icon">
+            <router-link to="/login" class="header-login">
                 <img src="../assets/img/login.svg" title="登入">
             </router-link>
-            <router-link to="/wishlist" class="header_favorite">
+            <router-link to="/wishlist" class="header-favorite">
                 <img src="../assets/img//favicon.svg" title="收藏">
                 <span  v-if=" favoriteNum.length" >{{ favoriteNum.length }}</span>
             </router-link>
-            <router-link to="/cart" class="header_cart">
+            <router-link to="/cart" class="header-cart">
                 <img src="../assets/img/cart.svg" title="購物車"><span v-if="carts.length" >{{ cartsNum }}</span>
             </router-link>
         </div>
     </div>
   </header>
   <div class="offcan" ref="offcan">
-        <div class="offcanvas_head">
-            <img src="../assets/img/logo_s.png" alt="" class="logo_in_menu">
-            <a href="#" class="close_menu_btn" @click.prevent="closeMenu">
+        <div class="offcanvas-head">
+            <img src="../assets/img/logo_s.png" alt="" class="logo-samll">
+            <a href="#" class="btn-closeMenu" @click.prevent="closeMenu">
                 <img src="../assets/img/close_black.svg" alt="">
             </a>
         </div>
-        <div class="offcanvas_body">
+        <div class="offcanvas-body">
             <ul class="js-menu">
                 <li>
-                    <a href="#"  @click.prevent="goCategory('ALL')">ALL</a>
+                    <a href="#" @click.prevent="goCategory('ALL')">ALL</a>
                 </li>
                 <li>
                     <a href="#" @click.prevent="goCategory('TOPS')">TOPS</a>
@@ -54,13 +54,13 @@
                     <a href="#" @click.prevent="goCategory('SKIRTS')">SKIRTS</a>
                 </li>
             </ul>
-            <div class="offcanvas_searchWrap">
+            <div class="offcanvas-searchWrap">
                 <input type="search" v-model.trim="this.searchKeyword" @keyup.enter="goSearch">
-                <a type="button" class="offcanvas_search" @click.prevent="goSearch">
+                <a href="#" class="offcanvas-search" @click.prevent="goSearch">
                     <img src="../assets/img/search.svg">
                 </a>
             </div>
-            <div class="offcanvas_social">
+            <div class="offcanvas-social">
                 <a href="#">
                     <img src="../assets/img/off_fb.svg" alt="">
                 </a>
@@ -83,6 +83,7 @@ export default {
   data () {
     return {
       carts: [],
+      isTrans: false,
       searchKeyword: '',
       favoriteNum: this.getLocalStorage() || []
     }
@@ -117,9 +118,10 @@ export default {
       this.$refs.pageCover.classList.remove('active')
     },
     windowScroll () {
-      this.$refs.mainHeader.classList.remove('header_white')
       if (window.scrollY > 10) {
-        this.$refs.mainHeader.classList.add('header_white')
+        this.isTrans = true
+      } else {
+        this.isTrans = false
       }
     },
     getCart () {

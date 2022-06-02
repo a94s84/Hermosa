@@ -1,72 +1,104 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <Loading :active="isLoading" />
   <div class="contentWrap">
     <div class="wrap">
-        <div class="pdlist_wrap">
-            <aside class="pdlist_aside">
-                <ul class="pdlist_menu js-menu" >
-                    <li>
-                    <a type="button" @click="changeCategory('ALL')">ALL</a>
-                    </li>
-                    <li v-for="item in productsCategory" :key="item">
-                        <a type="button" @click="changeCategory (item)" >{{item}}
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-            <div class="pdlist_cnt">
-                <!-- 麵包屑及區快icon -->
-                <div class="pdlist_NavPart">
-                    <ol class="breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
-                        <li property="itsemListElement" typeof="ListItem">
-                            <a href="#" title="HOME" property="item" typeof="WebPage">
-                                <span property="name">HOME</span>
-                            </a>
-                            <meta property="position" content="1">
-                        </li>
-                        <li property="itemListElement" typeof="ListItem">
-                            <a type="button" title="ITEM" property="item">
-                                <h1 property="name">{{ selectCategory }}</h1>
-                            </a>
-                            <meta property="position" content="2">
-                        </li>
-                    </ol>
-                </div>
-                <!-- 商品列表 -->
-                <div class="pds">
-                    <p class="fs-3 my-5 py-5 w-100 text-center"  v-if="filterData.length === 0">沒有相符的搜尋結果 Σ( ° △ °) </p>
-                    <div class="pds_col" v-else>
-                        <div class="pds_item js_items" v-for="(item,key) in filterData[currentPage - 1]" :key="key">
-                            <div class="pdbox">
-                                <router-link class="pdbox_img" :to="`/product/${item.id}`">
-                                    <img :src="`${item.imageUrl}`">
-                                </router-link>
-                                <a type="button" @click="getProduct(item.id)">
-                                    <p class="pdbox_name">{{item.title}}</p>
-                                </a>
-                                <div v-if="item.origin_price !== item.price">
-                                <p class="pdbox_price-origin">NT${{ item.origin_price}}</p>
-                                <p class="pdbox_price-sale">NT${{ item.price}} <span>SALE</span></p>
-                            </div>
-                              <p class="pdbox_price" v-else>NT${{ item.origin_price}}</p>
-                            </div>
-                        </div>
-                        <!-- end .pl_item -->
-                    </div>
-                </div>
-                <!-- 分頁頁碼 -->
-                <div>
-                  <div class="pagination_box has-text-centered">
-                    <a type="button" class="pagination_prev" :class="{ 'disabled': currentPage == 1 }" @click.prevent="changePage(currentPage - 1)"></a>
-                    <a type="button" class="pagination_page" v-for="page in filterData.length" :key="page" :class="{ 'active': currentPage == page}" @click.prevent="currentPage = page">{{ page }}</a>
-                    <a type="button" class="pagination_next" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage == filterData.length || filterData.length === 0}"></a>
+      <div class="pdlistWrap">
+        <aside class="pdlistAside ">
+          <ul class="pdlistMenu js-menu">
+            <li>
+              <a href="#" @click.prevent="changeCategory('ALL')">ALL</a>
+            </li>
+            <li v-for="item in productsCategory" :key="item">
+              <a href="#" @click.prevent="changeCategory(item)">{{ item }} </a>
+            </li>
+          </ul>
+        </aside>
+        <div class="pdlistCnt">
+          <div class="pdlistNav">
+            <ol
+              class="breadcrumb"
+              vocab="https://schema.org/"
+              typeof="BreadcrumbList"
+            >
+              <li property="itsemListElement" typeof="ListItem">
+                <a href="#" title="HOME" property="item" typeof="WebPage">
+                  <span property="name">HOME</span>
+                </a>
+                <meta property="position" content="1" />
+              </li>
+              <li property="itemListElement" typeof="ListItem">
+                <a href="#" title="ITEM" property="item">
+                  <h1 property="name">{{ selectCategory }}</h1>
+                </a>
+                <meta property="position" content="2" />
+              </li>
+            </ol>
+          </div>
+          <!-- 商品列表 -->
+          <div class="pds">
+            <p
+              class="fs-3 my-5 py-5 w-100 text-center"
+              v-if="filterData.length === 0"
+            >
+              沒有相符的搜尋結果 Σ( ° △ °)
+            </p>
+            <div class="pds-col" v-else>
+              <div
+                class="pds-item js_items"
+                v-for="(item, key) in filterData[currentPage - 1]"
+                :key="key"
+              >
+                <div class="pdbox">
+                  <router-link class="pdbox-img" :to="`/product/${item.id}`">
+                    <img :src="`${item.imageUrl}`" />
+                  </router-link>
+                  <a href="#" @click.prevent="getProduct(item.id)">
+                    <p class="pdbox-name">{{ item.title }}</p>
+                  </a>
+                  <div v-if="item.origin_price !== item.price">
+                    <p class="pdbox-price-origin">NT${{ item.origin_price }}</p>
+                    <p class="pdbox-price-sale">
+                      NT${{ item.price }} <span>SALE</span>
+                    </p>
                   </div>
+                  <p class="pdbox-price" v-else>NT${{ item.origin_price }}</p>
                 </div>
+              </div>
             </div>
+          </div>
+          <div>
+            <div class="pagination-box has-text-centered">
+              <a
+                href="#"
+                class="pagination-prev"
+                :class="{ disabled: currentPage == 1 }"
+                @click.prevent="changePage(currentPage - 1)"
+              ></a>
+              <a
+                href="#"
+                class="pagination-page"
+                v-for="page in filterData.length"
+                :key="page"
+                :class="{ active: currentPage == page }"
+                @click.prevent="currentPage = page"
+                >{{ page }}</a
+              >
+              <a
+                href="#"
+                class="pagination-next"
+                @click.prevent="changePage(currentPage + 1)"
+                :class="{
+                  disabled:
+                    currentPage == filterData.length || filterData.length === 0
+                }"
+              ></a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
-  <Footer/>
+  <Footer />
 </template>
 
 <script>
@@ -93,20 +125,23 @@ export default {
     }
   },
   computed: {
-    ...mapState(productStore, ['products', 'productsCategory', 'currentPage']),
+    ...mapState(productStore, ['products', 'productsCategory']),
     ...mapState(statusStore, ['isLoading']),
     filterData () {
       let tempData = []
       const filterProducts = []
       // 依照分類按鈕篩選所有商品
       if (this.selectCategory && this.selectCategory !== 'ALL') {
-        tempData = this.products.filter((item) => item.category?.match(this.selectCategory))
+        tempData = this.products.filter((item) =>
+          item.category?.match(this.selectCategory)
+        )
       } else if (this.searchKeyword && this.searchKeyword !== '') {
-        tempData = this.products.filter((item) => item.title?.match(this.searchKeyword))
+        tempData = this.products.filter((item) =>
+          item.title?.match(this.searchKeyword)
+        )
       } else {
         tempData = this.products
       }
-      // 篩選後的商品每10個一頁
       for (var i = 0; i < tempData.length; i += 10) {
         filterProducts.push(tempData.slice(i, i + 10))
       }

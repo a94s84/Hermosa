@@ -1,45 +1,57 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <Loading :active="isLoading" />
   <div class="contentWrap">
     <div class="wrap">
-      <div class="memberWrap_inline">
+      <div class="wishWrap">
         <div class="wishlist">
           <h2>我的收藏</h2>
           <div v-if="favoriteItems.length">
             <p class="wishlistTitle is-hidden-touch">商品資訊</p>
             <div class="wishbox" v-for="item in favoriteItems" :key="item.id">
-              <a href="#" class="wishbox_img">
-                  <img :src="item.imageUrl">
+              <a href="#" class="wishbox-img">
+                <img :src="item.imageUrl" />
               </a>
-              <div class="wishbox_cnt">
-                  <div class="wishbox_info">
-                      <p>{{item.title}}</p>
-                      <p>尺寸<span>F</span></p>
+              <div class="wishbox-cnt">
+                <div class="wishbox-info">
+                  <p>{{ item.title }}</p>
+                  <p>尺寸<span>F</span></p>
+                </div>
+                <div class="wishbox-price">
+                  <p class="price-sale" v-if="item.origin_price == item.price">
+                    <span>NT$</span>{{ item.price }}
+                  </p>
+                  <div v-else>
+                    <p class="price-onsale"><span>NT$</span>{{ item.price }}</p>
+                    <p class="price-origin">NT${{ item.origin_price }}</p>
                   </div>
-                  <div class="wishbox_price">
-                      <p class="price_sale" v-if="item.origin_price == item.price"><span>NT$</span>{{item.price}}</p>
-                      <div v-else>
-                        <p class="price_onsale"><span>NT$</span>{{item.price}}</p>
-                        <p class="price_origin">NT${{item.origin_price}}</p>
-                      </div>
-                  </div>
-                  <a type="button" class="btn_black" @click.prevent="addCart(item.id)">加入購物車&emsp; +</a>
+                </div>
+                <a href="#" class="btn-black " @click.prevent="addCart(item.id)"
+                  >加入購物車&emsp; +</a
+                >
               </div>
-              <a  type="button" class="btn_close" @click.prevent="delFavoriteItems(item.id)"></a>
+              <a
+                href="#"
+                class="btn-close"
+                @click.prevent="delFavoriteItems(item.id)"
+              ></a>
             </div>
           </div>
           <div v-else>
-            <p class="cart_nothing">您的收藏清單目前是空的！</p>
-              <div class="btnWrap">
-              <router-link class="btn_black" to="/">回首頁 </router-link>
-              <router-link :to="{ name: 'productlist', query: { category: 'ALL' }}"  class="btn_second">繼續購物 </router-link>
-              </div>
+            <p class="cart-nothing">您的收藏清單目前是空的！</p>
+            <div class="btnWrap">
+              <router-link class="btn-black " to="/">回首頁 </router-link>
+              <router-link
+                :to="{ name: 'productlist', query: { category: 'ALL' } }"
+                class="btn-second"
+                >繼續購物
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <Footer/>
+  <Footer />
 </template>
 
 <script>

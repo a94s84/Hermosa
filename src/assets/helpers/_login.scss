@@ -1,216 +1,81 @@
 /*------------------------------------*\
   #Login
 \*------------------------------------*/
-.login_Nav{
-    font-size: 30px;
-    color:black;
-    letter-spacing: .1rem;
-    font-family: "Montserrat";
-    text-align:center;
-    margin-bottom:20px;
+.login-Nav {
+  font-size: 30px;
+  color: black;
+  letter-spacing: 0.1rem;
+  font-family: 'Montserrat';
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.loginWrap{
-  padding:0 5%;
-  color:black;
+.loginWrap {
+  padding: 0 5%;
+  color: black;
   min-height: 300px;
-  letter-spacing: .06rem;
+  letter-spacing: 0.06rem;
   max-width: 970px;
   width: 100%;
-  margin:30px auto;
-  letter-spacing: .08rem;
-    .btn_black{
-      width: 100%;
-      margin:25px 0 15px;
-      letter-spacing: 0.2rem;
-    }
-  >div{
+  margin: 30px auto;
+  letter-spacing: 0.08rem;
+  .btn-black {
+    width: 100%;
+    margin: 25px 0 15px;
+    letter-spacing: 0.2rem;
+  }
+  > div {
     width: 50%;
-    margin:0 auto;
+    margin: 0 auto;
   }
-  label{
+  label {
     cursor: pointer;
-    font-family: "NotoSans-Light";
+    font-family: 'NotoSans-Light';
   }
-  p,input{
+  p,
+  input {
     height: 32px;
   }
-  input{
-    margin-top: 15px;    
-    padding:3px 10px;
+  input {
+    margin-top: 15px;
+    padding: 3px 10px;
     font-size: 14px;
   }
-  p{
+  p {
     line-height: 32px;
   }
- 
 }
-.signupWrap{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding:80px 25px 0px;
-  >div{
-    width: 50%;
-    padding:0 25px;
-    >div{
-      margin-bottom: 40px;
-    }
-  }
-  input{
-    width: 70%;
-    border:none;
-    outline: none;
-    height: 32px;
-    flex-grow: 1;
-  }
-  label{
-    display: flex;
-    line-height: 36px;
-    border-bottom: 1px solid $main_color;
-  }
-}
-.login_social{
-  width: 100%;
-  padding:30px 0;
-  color:black;
-  p{
-    border-bottom: 1px solid gray;
-    margin-bottom: 15px;
-  }
-  a{
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
-}
-.signup_social{
-  width: 100%;
-  padding:0 55px;
-  color:black;
-  border-bottom: 1px solid gray;
-  p{
-    font-size: 15px;
-  }
-  a{
-    margin:20px 0;
-    display: inline-block;
-    margin-right: 15px;
-    width: 40px;
-    height: 40px;
-  }
-}
-.btn_signup{
-  max-width: 350px;
-}
-.signup_name{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  label{
-    width: 48%;
-  }
-}
-// .signup_birthday{
-//   width: 48%;
-// }
-
-#captcha{
-  .popupCnt {
-    padding:40px 12%;
-  }
-  .inputWrap{
-    display: flex;
-    padding:15px 0 25px;
-   input{
-     width: 75%;
-   }
-   .btn_black{
-    display: inline-block;
-    line-height: 34px;
-   }
-  }
-}
-.pw_switch{
+.pw-switch {
   position: relative;
-  label .pw_see{
-    top:0;
-    right:0;
+  label .pw-see {
+    top: 0;
+    right: 0;
   }
-  .pw_see{
+  .pw-see {
     position: absolute;
     width: 20px;
     height: 32px;
     background: url(./assets/img/closeEye.svg) no-repeat center center/100% auto;
-    top:15px;
-    right:10px;
+    top: 15px;
+    right: 10px;
     cursor: pointer;
-    &.show{
+    &.show {
       background: url(./assets/img/see.svg) no-repeat center center/100% auto;
     }
   }
-  input{
+  input {
     padding-right: 35px;
   }
 }
 
-
-@include tablet-width() {}
-
 @include phones-width() {
-  
-.login_tabNav {
-  li {
-      padding: 0 20px;
-      font-size: 24px;
-    }
-  }
-.login_tabCnt{
-    margin:50px auto 0; 
-  }
-.loginWrap{
-    >div{
+  .loginWrap {
+    > div {
       width: 100%;
-      padding:0 10px;
-      &:first-of-type{
-       margin-bottom: 50px;
+      padding: 0 10px;
+      &:first-of-type {
+        margin-bottom: 50px;
       }
     }
   }
-.signupWrap{
-  padding:30px 0 0;
-  flex-wrap: wrap;
-  >div{
-    width: 100%;
-    padding:0 15px;
-    >div{
-      margin-bottom: 20px;
-    }
-  }
-}
-.signup_social{
-  padding:0 15px;
-  p{
-    display: inline-block;
-    line-height: 40px;
-    vertical-align: top;
-    margin-bottom: 20px;
-    margin-right: 15px;
-  }
-  a{
-    margin:0 15px 0 0;
-  }
-}
-.signup_name{
-  flex-wrap: wrap;
-  label{
-    width: 100%;
-    margin-bottom: 20px;
-    &:last-of-type{
-      margin-bottom: 0;
-    }
-  }
-}
 }

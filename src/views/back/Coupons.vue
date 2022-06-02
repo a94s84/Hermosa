@@ -1,42 +1,64 @@
 <template>
   <div>
-    <Loading :active="isLoading"></Loading>
+    <Loading :active="isLoading" />
     <div class="text-end mt-4">
-      <button class="btn btn-warning btn-sm" type="button" @click="openCouponModal(true)">建立新的優惠券</button>
+      <button
+        class="btn btn-warning btn-sm"
+        type="button"
+        @click="openCouponModal(true)"
+      >
+        建立新的優惠券
+      </button>
     </div>
     <table class="table mt-4">
       <thead>
-      <tr>
-        <th>活動名稱</th>
-        <th>優惠碼</th>
-        <th class="d-none d-lg-table-cell">折扣百分比</th>
-        <th class="d-none d-lg-table-cell">到期日</th>
-        <th class="d-none d-lg-table-cell">是否啟用</th>
-        <th class="text-center">編輯</th>
-      </tr>
+        <tr>
+          <th>活動名稱</th>
+          <th>優惠碼</th>
+          <th class="d-none d-lg-table-cell">折扣百分比</th>
+          <th class="d-none d-lg-table-cell">到期日</th>
+          <th class="d-none d-lg-table-cell">是否啟用</th>
+          <th class="text-center">編輯</th>
+        </tr>
       </thead>
       <tbody>
-      <tr v-for="(item, key) in coupons" :key="key">
-        <td>{{ item.title }}</td>
-        <td>{{ item.code }}</td>
-        <td class="d-none d-lg-table-cell">{{ item.percent }}%</td>
-        <td class="d-none d-lg-table-cell">{{ $filters.date(item.due_date) }}</td>
-        <td class="d-none d-lg-table-cell">
-          <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
-          <span v-else class="text-muted">未起用</span>
-        </td>
-        <td class="text-center">
-          <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openCouponModal(false, item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDelCouponModal(item)">刪除</button>
-          </div>
-        </td>
-      </tr>
+        <tr v-for="(item, key) in coupons" :key="key">
+          <td>{{ item.title }}</td>
+          <td>{{ item.code }}</td>
+          <td class="d-none d-lg-table-cell">{{ item.percent }}%</td>
+          <td class="d-none d-lg-table-cell">
+            {{ $filters.date(item.due_date) }}
+          </td>
+          <td class="d-none d-lg-table-cell">
+            <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
+            <span v-else class="text-muted">未起用</span>
+          </td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                @click="openCouponModal(false, item)"
+              >
+                編輯
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                @click="openDelCouponModal(item)"
+              >
+                刪除
+              </button>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
-    <Pagination :pages="pagination" @emitPages="getCoupons"></Pagination>
-    <CouponModal ref="couponModal" :coupon="tempCoupon" @update-coupon="updateCoupon"></CouponModal>
-    <DelModal :delItem="tempCoupon" ref="delModal" @del-product="delCoupon"/>
+    <Pagination :pages="pagination" @emitPages="getCoupons" />
+    <CouponModal
+      ref="couponModal"
+      :coupon="tempCoupon"
+      @update-coupon="updateCoupon"
+    />
+    <DelModal :delItem="tempCoupon" ref="delModal" @del-product="delCoupon" />
   </div>
 </template>
 
@@ -88,7 +110,6 @@ export default {
       this.$http.get(url, this.tempCoupon).then((res) => {
         this.coupons = res.data.coupons
         this.pagination = res.data.pagination
-        console.log(this.coupons)
       })
     },
     updateCoupon (tempCoupon) {
@@ -96,7 +117,6 @@ export default {
       if (this.isNew) {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
         this.$http.post(url, { data: tempCoupon }).then((res) => {
-          console.log(res, tempCoupon)
           this.pushMessage(res.data.success, '新增', res.data.message)
           this.getCoupons()
           this.$refs.couponModal.hideModal()

@@ -1,439 +1,426 @@
 /*------------------------------------*\
   #ShoppingCheck
 \*------------------------------------*/
-.shopWrap{
-    width: calc( 100% - 200px);
-    h2{
-      text-align: right;
-      margin-bottom: 60px;
-      letter-spacing: .06rem;
-    }
-    h3{
-      font-size: 16px;
-      color:black;
-      letter-spacing: .06rem;
-    }
-    input{
-      height: 32px;
-    }
+.shopWrap {
+  width: calc(100% - 200px);
+  h2 {
+    text-align: right;
+    margin-bottom: 60px;
+    letter-spacing: 0.06rem;
   }
-  
-  .shopTitle{
-    padding-bottom: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid $main_color;
+  h3 {
+    font-size: 16px;
+    color: black;
+    letter-spacing: 0.06rem;
   }
-  .recipientBox{
-    width: 70%;
-    margin: 0 auto;
-    >p{
-      line-height: 20px;
-      font-size: 13px;
-      letter-spacing: .05rem;
-    }
-    .shopinfoBox{
-      margin-bottom: 6px;
-    }
-    .selectwrap{
-      position: relative;
-      &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 6.5px;
-        height: 9px;
-        background: url(./assets/img/arrow_open.svg) no-repeat center center/100% auto;
-        right: 10px;
-        top: 12px;
-        pointer-events: none;
-    }
-      select{
-        height: 32px;
-        appearance: none;
-      }
-    }
+  input {
+    height: 32px;
   }
-  
-  .receipien_old{
-    width: 40%;
-    flex-direction: column;
-    label{
-      display: flex;
-      margin-bottom: 20px;
-      &:hover{
-        cursor: pointer;
-      }
-      >div{
-        margin-left: 10px;
-      }
-    }
-  }
-  
-  .shopinfoBox{
-    line-height: 32px;
-    input{
-      font-family: 'Noto Sans TC', sans-serif;
-      letter-spacing: .03rem;
-      font-size: 10px;
-    }    
-    .is-invalid{
-      border:1px solid #dc3545;
-    }
-    .invalid-feedback{
-      line-height: 0.875rem;
-    }
-    .selectwrap{
-      width:calc( (33.33% - 5px));
-    }
-    &.d-sp{
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-  
-  .shopinfoBox_name,.shopinfoBox_tel{
-    width: calc( (50% - 2.5px));
-  }
-  
-  .shop_orderlist{
-    padding-bottom: 50px;
-  }
-  .shopItem{
-    display: flex;
-    text-align: center;
-    padding:10px 30px;
-    border-bottom: 1px solid gray;
-    color:$main_gray;
-    >div{
-      width: calc( 100% / 8);
-      letter-spacing: .06rem;
-      &.shopItem_name{
-        width: calc( 100%*2 /8 );
-        text-align: left;
-        p{
-          margin-top: 20px;
-        }
-      }
-      &.shopItem_price{
-        width: calc( 100%*2 /8 );
-        padding-left: 8%;
-        text-align: left;
-        span{
-          display: inline-block;
-        }
-        .pdbox_price-origin{
-          color: #A2A2A2;
-          text-decoration: line-through;
-        }
-        .pdbox_price-sale{
-          color:$price_sale;
-          padding-left:  5%;;
-        }
-      }
-      >p{
-        margin-top: 15px;
-        font-weight: bold;
-      }
-      >span{
-        display: block;
-        margin-top: 10px;
-        font-family: 'Noto Sans TC', sans-serif;
-      }
-    }
-    
-  }
-  
-  .shopItem_img{
-    a{
-      display: block;
-    }
-    img{
-      max-width: 80px;
-      width: 100%;     
-    }
-  }
-  
-  .shop_cost{
-    padding:0 0 35px;
-    h3{
-      padding-left: 45px;
-      margin-bottom: 30px;
-      letter-spacing: .06rem;
-    }
-  }
-  
-  .shop_costbox{
-    display: flex;
-  }
-  
-  .shop_discountbox{
-    padding:0 45px;
-    width: 46%;
-    border-right: 1px solid gray;
-    >div{
-      padding:20px 0;
-      font-size: 13px;
-    } 
-  }
-  .shop_discount_code{
-    display: flex;
-    flex-wrap: wrap;
-    input{
-      width: 40%;
-      margin:0 10px;
-    }
-    >p{
-      line-height: 34px;
-      letter-spacing: .06rem;
-    }
-    .btn_black{
-      width: 64px;
-      line-height: 30px;
-      &:hover, &:active{
-        color:white
-      }
-    }
-  }
-  .shop_note{
-    width: 80%;
-    text-align: justify;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    p{
-      font-size: 10px;
-      line-height: 14px;
-      font-family: 'Noto Sans TC', sans-serif;
-    }
-    &.is-hidden-touch{
-      margin-top: 0;
-      padding-top: 15px;
-    }
-  }
-  .shop_count{
-    width: 54%;
-    padding-left: 60px;
+}
+
+.shopTitle {
+  padding-bottom: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid $main_color;
+}
+.recipientBox {
+  width: 70%;
+  margin: 0 auto;
+  > p {
+    line-height: 20px;
     font-size: 13px;
-    >div{
-      padding:0 20px;
-      >p{
-        color:black;
+    letter-spacing: 0.05rem;
+  }
+  .shopinfoBox {
+    margin-bottom: 6px;
+  }
+  .selectwrap {
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 6.5px;
+      height: 9px;
+      background: url(./assets/img/arrow_open.svg) no-repeat center center/100%
+        auto;
+      right: 10px;
+      top: 12px;
+      pointer-events: none;
+    }
+    select {
+      height: 32px;
+      appearance: none;
+    }
+  }
+}
+
+.shopinfoBox {
+  line-height: 32px;
+  input {
+    font-family: 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.03rem;
+    font-size: 10px;
+  }
+  .is-invalid {
+    border: 1px solid #dc3545;
+  }
+  .invalid-feedback {
+    line-height: 0.875rem;
+  }
+  .selectwrap {
+    width: calc((33.33% - 5px));
+  }
+  &.d-sp {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.shopinfoBox-name,
+.shopinfoBox-tel {
+  width: calc((50% - 2.5px));
+}
+
+.shop-orderlist {
+  padding-bottom: 50px;
+}
+.shopItem {
+  display: flex;
+  text-align: center;
+  padding: 10px 30px;
+  border-bottom: 1px solid gray;
+  color: $main_gray;
+  > div {
+    width: calc(100% / 8);
+    letter-spacing: 0.06rem;
+    &.shopItem-name {
+      width: calc(100% * 2 / 8);
+      text-align: left;
+      p {
+        margin-top: 20px;
+      }
+    }
+    &.shopItem-price {
+      width: calc(100% * 2 / 8);
+      padding-left: 8%;
+      text-align: left;
+      span {
         display: inline-block;
-        width: 30%;
-        line-height: 36px;
-        letter-spacing: .06rem;
-        font-family: 'Noto Sans TC', sans-serif;
       }
-      >span{
-        color:black;
-        letter-spacing: .04rem;
+      .pdbox-price-origin {
+        color: #a2a2a2;
+        text-decoration: line-through;
       }
-    }
-    .shop_minus{
-      position: relative;
-      letter-spacing: .04rem;
-      &::before{
-        position: absolute;
-        content:"-";
-        top:2px;
-        left: -10px;
+      .pdbox-price-sale {
+        color: $price-sale;
+        padding-left: 5%;
       }
     }
-   
-    .shop_total{
-      padding:25px 20px;
-      margin-top: 25px;
-      border-top: 1px solid gray;
+    > p {
+      margin-top: 15px;
       font-weight: bold;
     }
+    > span {
+      display: block;
+      margin-top: 10px;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
   }
-.shop_sendinfo{
-  letter-spacing: .06rem;
-  padding:30px 0 60px;
+}
+
+.shopItem-img {
+  a {
+    display: block;
+  }
+  img {
+    max-width: 80px;
+    width: 100%;
+  }
+}
+
+.shop-cost {
+  padding: 0 0 35px;
+  h3 {
+    padding-left: 45px;
+    margin-bottom: 30px;
+    letter-spacing: 0.06rem;
+  }
+}
+
+.shop-costbox {
+  display: flex;
+}
+
+.shop-discountbox {
+  padding: 0 45px;
+  width: 46%;
+  border-right: 1px solid gray;
+  > div {
+    padding: 20px 0;
+    font-size: 13px;
+  }
+}
+.shop-discount-code {
+  display: flex;
+  flex-wrap: wrap;
+  input {
+    width: 40%;
+    margin: 0 10px;
+  }
+  > p {
+    line-height: 34px;
+    letter-spacing: 0.06rem;
+  }
+  .btn-black {
+    width: 64px;
+    line-height: 30px;
+    &:hover,
+    &:active {
+      color: white;
+    }
+  }
+}
+.shop-note {
+  width: 80%;
+  text-align: justify;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  p {
+    font-size: 10px;
+    line-height: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  &.is-hidden-touch {
+    margin-top: 0;
+    padding-top: 15px;
+  }
+}
+.shop-count {
+  width: 54%;
+  padding-left: 60px;
+  font-size: 13px;
+  > div {
+    padding: 0 20px;
+    > p {
+      color: black;
+      display: inline-block;
+      width: 30%;
+      line-height: 36px;
+      letter-spacing: 0.06rem;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    > span {
+      color: black;
+      letter-spacing: 0.04rem;
+    }
+  }
+  .shop-minus {
+    position: relative;
+    letter-spacing: 0.04rem;
+    &::before {
+      position: absolute;
+      content: '-';
+      top: 2px;
+      left: -10px;
+    }
+  }
+
+  .shop-total  {
+    padding: 25px 20px;
+    margin-top: 25px;
+    border-top: 1px solid gray;
+    font-weight: bold;
+  }
+}
+.shop-sendinfo {
+  letter-spacing: 0.06rem;
+  padding: 30px 0 60px;
   display: flex;
   flex-wrap: wrap;
   font-size: 13px;
-  label{
+  label {
     line-height: 32px;
   }
-  .inputwrap{
+  .inputwrap {
     display: flex;
     width: 33%;
     line-height: 32px;
     margin-bottom: 20px;
-    label{
+    label {
       margin-right: 25px;
     }
   }
-  a{
+  a {
     line-height: 32px;
     margin-left: 15px;
   }
 }
-  @include tablet-width() {
-     .shopWrap{
-       width: 100%;
-       h2{
-         text-align: center;
-         margin-top: 40px;
-         margin-bottom: 0;
-         padding-bottom: 25px;
-         border-bottom: 1px solid $main_color;
-       }
-       h3{
-         font-size: 20px;
-       }
-     }
-    .shopItem_name{
-      padding-left: 10px;
-    }
-    .shop_discount_code{
-      flex-wrap: wrap;
-      align-items: center;
-      p{
-        width: 100%;
-        line-height: 1rem;
-      }
-      input{
-        width: calc( 100% - 71px);
-        margin:15px 10px 15px 0;
-        height: 32px;
-      }
-      .btn_black{
-        width: 60px;
-        height: 32px;
-        line-height: 32px;
-        font-size: 14px;
-      }
-    }
-    .shopItem{
-      >div{
-        &.shopItem_price{
-          .pdbox_price-sale{
-            padding-left: 0;
-          }
-        }
-      }
-    }
-  }
-  
-  @include phones-width() {
-    .shopinfoBox{
-      margin-bottom: 10px;
-      input{
-        font-size: 13px;
-      }
-      &.d-sp{
-        flex-wrap: wrap;
-      }
-    }
-    .shop_sendinfo{
-      padding:30px 0;
-    }
-    .shopinfoBox_name,.shopinfoBox_tel{
-      width: 100%;
-    }
-    .shopinfoBox_name{
-      margin-bottom: 10px;
-    }
-    .shopItem{
-      position: relative;
-      flex-wrap: wrap;
-      text-align: left;
-      padding:25px 15px 25px 110px;
-      >div{
-        display: block;
-        width: 80%;
-        p{
-            margin-top: 8px;
-            display: inline-block;
-        }
-        >span{
-          display: inline;
-        }
-        &.shopItem_name{
-          width:100%;
-          padding-left: 0;
-          p{
-            margin-top: 5px;
-          }
-        }
-        &.shopItem_img{
-          max-width: 80px;
-          position: absolute;
-          top:17px;
-          left: 15px;
-          img{
-            max-height: 110px;
-          }
-        }
-        &.shopItem_price{
-          display: none;
-        }
-      }
-    }
-    .shopTitle{
+@include tablet-width() {
+  .shopWrap {
+    width: 100%;
+    h2 {
       text-align: center;
-      margin-top: 30px;
-    } 
-    .recipientBox {
-      width: 100%;
+      margin-top: 40px;
+      margin-bottom: 0;
+      padding-bottom: 25px;
+      border-bottom: 1px solid $main_color;
     }
-    .shop_orderlist{
-      padding-bottom: 40px;
-      >div{
-        &:last-of-type{
-          border-bottom: none;
+    h3 {
+      font-size: 20px;
+    }
+  }
+  .shopItem-name {
+    padding-left: 10px;
+  }
+  .shop-discount-code {
+    flex-wrap: wrap;
+    align-items: center;
+    p {
+      width: 100%;
+      line-height: 1rem;
+    }
+    input {
+      width: calc(100% - 71px);
+      margin: 15px 10px 15px 0;
+      height: 32px;
+    }
+    .btn-black {
+      width: 60px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+    }
+  }
+  .shopItem {
+    > div {
+      &.shopItem-price {
+        .pdbox-price-sale {
+          padding-left: 0;
         }
       }
     }
-    .shop_cost{
-      h3{
-        padding-left: 0;
-      }
+  }
+}
+
+@include phones-width() {
+  .shopinfoBox {
+    margin-bottom: 10px;
+    input {
+      font-size: 13px;
     }
-    .shop_cost{
-      h3{
-        text-align: center;
-        padding-bottom: 15px;
-        font-weight: bold;
-        border-bottom: 1px solid #565045;
-      }
-    }
-    .shop_costbox{
+    &.d-sp {
       flex-wrap: wrap;
     }
-    .shop_discountbox{
-      padding:0 15px;
-      width: 100%;
-      border-right: 0;
-      border-bottom: 1px solid gray;
-    }
-    .shop_note{
-      width: 100%;
-      margin:initial;
-    }
-    .shop_count{
-      width: 100%;
-      padding:15px 0 0;
-      >div{
-        padding:0 5px;
-        >p{
-          width: 70%;
-          font-size: 14px;
-          line-height: 25px;
-        }
-      }
-      .shop_total{
-        padding:15px 5px 0;
-        margin-top: 15px;
-        span{
-          &:nth-of-type(2){
-            display: block;
-            text-align: right;
-            font-weight: normal;
-          }
-        }
-      }
-    } 
   }
-  
+  .shop-sendinfo {
+    padding: 30px 0;
+  }
+  .shopinfoBox-name,
+  .shopinfoBox-tel {
+    width: 100%;
+  }
+  .shopinfoBox-name {
+    margin-bottom: 10px;
+  }
+  .shopItem {
+    position: relative;
+    flex-wrap: wrap;
+    text-align: left;
+    padding: 25px 15px 25px 110px;
+    > div {
+      display: block;
+      width: 80%;
+      p {
+        margin-top: 8px;
+        display: inline-block;
+      }
+      > span {
+        display: inline;
+      }
+      &.shopItem-name {
+        width: 100%;
+        padding-left: 0;
+        p {
+          margin-top: 5px;
+        }
+      }
+      &.shopItem-img {
+        max-width: 80px;
+        position: absolute;
+        top: 17px;
+        left: 15px;
+        img {
+          max-height: 110px;
+        }
+      }
+      &.shopItem-price {
+        display: none;
+      }
+    }
+  }
+  .shopTitle {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .recipientBox {
+    width: 100%;
+  }
+  .shop-orderlist {
+    padding-bottom: 40px;
+    > div {
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
+  .shop-cost {
+    h3 {
+      padding-left: 0;
+    }
+  }
+  .shop-cost {
+    h3 {
+      text-align: center;
+      padding-bottom: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid #565045;
+    }
+  }
+  .shop-costbox {
+    flex-wrap: wrap;
+  }
+  .shop-discountbox {
+    padding: 0 15px;
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid gray;
+  }
+  .shop-note {
+    width: 100%;
+    margin: initial;
+  }
+  .shop-count {
+    width: 100%;
+    padding: 15px 0 0;
+    > div {
+      padding: 0 5px;
+      > p {
+        width: 70%;
+        font-size: 14px;
+        line-height: 25px;
+      }
+    }
+    .shop-total  {
+      padding: 15px 5px 0;
+      margin-top: 15px;
+      span {
+        &:nth-of-type(2) {
+          display: block;
+          text-align: right;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}

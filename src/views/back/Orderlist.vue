@@ -1,9 +1,18 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <Loading :active="isLoading" />
   <div class="text-end mt-3">
-    <button class="btn btn-danger btn-sm" v-if="this.orders.length !== 0" type="button" @click="openModal('deleteAll')"> <i class="bi bi-exclamation-octagon"></i> 刪除所有訂單</button>
+    <button
+      class="btn btn-danger btn-sm"
+      v-if="this.orders.length !== 0"
+      type="button"
+      @click="openModal('deleteAll')"
+    >
+      <i class="bi bi-exclamation-octagon"></i> 刪除所有訂單
+    </button>
   </div>
-  <div v-if="this.orders.length == 0" class="text-center mt-5 p-5 fs-1">目前沒有訂單</div>
+  <div v-if="this.orders.length == 0" class="text-center mt-5 p-5 fs-1">
+    目前沒有訂單
+  </div>
   <table v-else class="table mt-4">
     <thead>
       <tr>
@@ -14,7 +23,7 @@
         <!-- <th>購買款項</th> -->
         <th class="d-none d-lg-table-cell">應付金額</th>
         <th class="d-none d-lg-table-cell">訂單狀態</th>
-        <th class="text-center" style="width:60px">詳情</th>
+        <th class="text-center" style="width: 60px">詳情</th>
         <th class="text-center">編輯 / 刪除</th>
       </tr>
     </thead>
@@ -33,28 +42,59 @@
               </li>
             </ul>
           </td> -->
-          <td class="text-right d-none d-lg-table-cell">{{ $filters.currency(item.total) }}</td>
+          <td class="text-right d-none d-lg-table-cell">
+            {{ $filters.currency(item.total) }}
+          </td>
           <td class="d-none d-lg-table-cell">
             <span class="text-success" v-if="item.is_paid">已付款</span>
             <span class="text-muted" v-else>未付款</span>
           </td>
           <td class="text-center">
-            <button @click="openModal('watch', item)"><i class="bi bi-eye-fill"></i></button>
+            <button @click="openModal('watch', item)">
+              <i class="bi bi-eye-fill"></i>
+            </button>
           </td>
           <td class="text-center">
             <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openModal('edit', item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="openModal('delete', item)">刪除</button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                @click="openModal('edit', item)"
+              >
+                編輯
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                @click="openModal('delete', item)"
+              >
+                刪除
+              </button>
             </div>
           </td>
         </tr>
       </template>
     </tbody>
   </table>
-  <Pagination  v-if="this.orders.length !== 0" :pages="pagination" @emitPages="getOrders"></Pagination>
-  <OrderModal ref="orderModal" :order="tempOrder" @update-order="updateOrder"></OrderModal>
-  <OrderEditModal ref="orderEditModal" :order="tempOrder" @update-order="updateOrder"></OrderEditModal>
-  <DelModal ref="delModal" :delItem="tempOrder" :type="'order'" @del-Product="delOrder"></DelModal>
+  <Pagination
+    v-if="this.orders.length !== 0"
+    :pages="pagination"
+    @emitPages="getOrders"
+  />
+  <OrderModal
+    ref="orderModal"
+    :order="tempOrder"
+    @update-order="updateOrder"
+  />
+  <OrderEditModal
+    ref="orderEditModal"
+    :order="tempOrder"
+    @update-order="updateOrder"
+  />
+  <DelModal
+    ref="delModal"
+    :delItem="tempOrder"
+    :type="'order'"
+    @del-Product="delOrder"
+  />
 </template>
 
 <script>
@@ -71,12 +111,14 @@ export default {
       tempOrder: {},
       pagination: {},
       isLoading: false,
-      // isEdit: false,
       currentPage: 1
     }
   },
   components: {
-    Pagination, OrderEditModal, OrderModal, DelModal
+    Pagination,
+    OrderEditModal,
+    OrderModal,
+    DelModal
   },
   methods: {
     ...mapActions(statusStore, ['pushMessage']),
@@ -87,7 +129,6 @@ export default {
         this.isLoading = false
         this.orders = res.data.orders
         this.pagination = res.data.pagination
-        // console.log(res)
       })
     },
     openModal (type, item) {
@@ -100,7 +141,6 @@ export default {
       } else if (type === 'delete') {
         this.tempOrder = { ...item }
         this.$refs.delModal.showModal()
-        console.log(this.tempOrder)
       } else if (type === 'deleteAll') {
         this.tempOrder = { id: null, user: {} }
         this.$refs.delModal.showModal()

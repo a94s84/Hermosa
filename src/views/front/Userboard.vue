@@ -1,7 +1,7 @@
 <template>
-  <body class="hasBannerBar" ref="mainbody" >
-    <Header @close-banner="removeBanner"></Header>
-    <ToastList></ToastList>
+  <body class="hasBannerBar" ref="mainbody">
+    <Header @close-banner="removeBanner" />
+    <ToastList />
     <router-view />
   </body>
 </template>
@@ -13,7 +13,8 @@ import Header from '@/components/Header.vue'
 
 export default {
   components: {
-    Header, ToastList
+    Header,
+    ToastList
   },
   methods: {
     removeBanner () {

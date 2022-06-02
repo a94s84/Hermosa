@@ -1,19 +1,17 @@
 @mixin flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-// tablet
 @mixin tablet-width() {
-    @media (max-width: $tablets-media) {
-        @content;
-    }
+  @media (max-width: $tablets-media) {
+    @content;
+  }
 }
 
-// phone
 @mixin phones-width() {
-    @media (max-width: $phones-media) {
-        @content;
-    }
+  @media (max-width: $phones-media) {
+    @content;
+  }
 }

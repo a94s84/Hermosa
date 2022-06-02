@@ -16,8 +16,8 @@
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="title" class="form-label">*產品名稱</label>
-                <Field type="text" class="form-control" id="title" name="產品名稱" placeholder="輸入產品名稱" rules="required" :class="{ 'is-invalid': errors['產品名稱'] }" v-model="innerTempProduct.title"></Field>
-                <error-message name="產品名稱" class="invalid-feedback" />
+                <Field type="text" class="form-control" id="title" name="產品名稱" placeholder="輸入產品名稱" rules="required" :class="{ 'is-invalid': errors['產品名稱'] }" v-model="innerTempProduct.title"/>
+                <ErrorMessage name="產品名稱" class="invalid-feedback" />
               </div>
               <div class="row gx-2">
                 <label for="category" class="form-label">*產品分類</label>
@@ -26,7 +26,7 @@
                     <option :disabled="productCategory">請選擇</option>
                     <option v-for="category in productCategory" :value="category" :key="category">{{ category }}</option>
                   </Field>
-                  <error-message name="產品分類" class="invalid-feedback" />
+                  <ErrorMessage name="產品分類" class="invalid-feedback" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <div v-if="isEdit" class="d-flex">
@@ -39,8 +39,8 @@
               <div class="row gx-2">
                 <div class="mb-3 col-md-6">
                   <label for="unit" class="form-label">*單位</label>
-                  <Field type="text" class="form-control" id="unit" name="單位" placeholder="請輸入單位" rules="required" :class="{ 'is-invalid': errors['單位'] }" v-model="innerTempProduct.unit"></Field>
-                  <error-message name="單位" class="invalid-feedback" />
+                  <Field type="text" class="form-control" id="unit" name="單位" placeholder="請輸入單位" rules="required" :class="{ 'is-invalid': errors['單位'] }" v-model="innerTempProduct.unit"/>
+                  <ErrorMessage name="單位" class="invalid-feedback" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <p class="form-label">是否上架</p>
@@ -58,13 +58,13 @@
               <div class="row gx-2">
                 <div class="mb-3 col-md-6">
                   <label for="origin_price" class="form-label">*原價</label>
-                  <Field type="number" class="form-control" id="origin_price" name="原價" rules="required" :class="{ 'is-invalid': errors['原價'] }" v-model.number="innerTempProduct.origin_price" placeholder="請輸入原價"></Field>
-                  <error-message name="原價" class="invalid-feedback" />
+                  <Field type="number" class="form-control" id="origin_price" name="原價" rules="required" :class="{ 'is-invalid': errors['原價'] }" v-model.number="innerTempProduct.origin_price" placeholder="請輸入原價"/>
+                  <ErrorMessage name="原價" class="invalid-feedback" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <label for="price" class="form-label">*售價</label>
-                  <Field type="number" class="form-control" id="price" name="售價" rules="required" :class="{ 'is-invalid': errors['售價'] }" v-model.number="innerTempProduct.price" placeholder="請輸入售價"></Field>
-                  <error-message name="售價" class="invalid-feedback" />
+                  <Field type="number" class="form-control" id="price" name="售價" rules="required" :class="{ 'is-invalid': errors['售價'] }" v-model.number="innerTempProduct.price" placeholder="請輸入售價"/>
+                  <ErrorMessage name="售價" class="invalid-feedback" />
                 </div>
               </div>
               <hr>
@@ -134,7 +134,7 @@
           <button type="button" class="btn btn-outline-secondary"
                   data-bs-dismiss="modal">取消
           </button>
-          <button type="button" class="btn btn-primary" @click.prevent="$emit('update-product',innerTempProduct)">確認</button>
+          <button type="submit" class="btn btn-primary" @click.prevent="$emit('update-product',innerTempProduct)">確認</button>
         </div>
       </div>
       </Form>

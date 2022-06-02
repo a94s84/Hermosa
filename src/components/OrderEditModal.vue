@@ -20,29 +20,29 @@
                   <tr>
                     <th style="width:60px" class="fw-bold">姓名</th>
                     <td>
-                        <Field type="text" class="form-control" name="姓名" rules="required" :class="{'is-invalid': errors['姓名'] }" v-model="tempOrder.user.name"></Field>
-                        <error-message name="姓名" class="invalid-feedback" />
+                        <Field type="text" class="form-control" name="姓名" rules="required" :class="{'is-invalid': errors['姓名'] }" v-model="tempOrder.user.name"/>
+                        <ErrorMessage name="姓名" class="invalid-feedback" />
                     </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">Email</th>
                     <td>
-                        <Field type="email" class="form-control" name="Email" rules="required" :class="{ 'is-invalid': errors['Email'] }" v-model="tempOrder.user.email"></Field>
-                        <error-message name="Email" class="invalid-feedback" />
+                        <Field type="email" class="form-control" name="Email" rules="required" :class="{ 'is-invalid': errors['Email'] }" v-model="tempOrder.user.email"/>
+                        <ErrorMessage name="Email" class="invalid-feedback" />
                     </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">電話</th>
                     <td>
-                        <Field type="tel" class="form-control" name="電話" :rules="isPhone" :class="{ 'is-invalid': errors['電話'] }" v-model="tempOrder.user.tel"></Field>
-                        <error-message name="電話" class="invalid-feedback" />
+                        <Field type="tel" class="form-control" name="電話" :rules="isPhone" :class="{ 'is-invalid': errors['電話'] }" v-model="tempOrder.user.tel"/>
+                        <ErrorMessage name="電話" class="invalid-feedback" />
                     </td>
                   </tr>
                   <tr>
                     <th class="fw-bold">地址</th>
                     <td>
-                        <Field type="text" class="form-control" name="地址" rules="required" :class="{ 'is-invalid': errors['地址'] }" v-model="tempOrder.user.address"></Field>
-                        <error-message name="地址" class="invalid-feedback" />
+                        <Field type="text" class="form-control" name="地址" rules="required" :class="{ 'is-invalid': errors['地址'] }" v-model="tempOrder.user.address"/>
+                        <ErrorMessage name="地址" class="invalid-feedback" />
                     </td>
                   </tr>
                 </tbody>

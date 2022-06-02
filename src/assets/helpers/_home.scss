@@ -43,20 +43,6 @@
             }
         }
     }
-    .pdbox_color {
-        ul {
-            margin: 25px 0 0;
-        }
-        li {
-            margin: 0 10px 0 0;
-            img {
-                border-radius: 50%;
-            }
-            &:last-of-type{
-                margin:0;
-            }
-        }
-    }
 }
 .seeMore{
     display: block;
@@ -69,20 +55,6 @@
 
 .lessMargin {
     padding: 55px 140px;
-}
-
-#startAd {
-    .default_popupSubtitle {
-        letter-spacing: 1;
-        font-size: 12px;
-        font-weight: normal;
-        color:$main_color;
-        margin-top: 15px;
-    }
-    img{
-        max-width: 100%;
-        width: 100%;
-    }
 }
 
 @include tablet-width() {
@@ -132,16 +104,8 @@
            display: flex;
            justify-content: space-between;
         }
-        .pdbox_price-sale{
+        .pdbox-price-sale{
             padding-bottom: 10px;
-        }
-        .pdbox_color {
-            ul {
-                margin: 10px 0 0;
-            }
-            li {
-               height:30px;
-            }
         }
     }
 }

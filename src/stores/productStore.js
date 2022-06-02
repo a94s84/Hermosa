@@ -21,7 +21,7 @@ export default defineStore('productStore', {
         }
       }).catch(() => {
         status.isLoading = false
-        status.pushMessage(false, '發生錯誤，請重新整理頁面')
+        status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
       })
     },
     createCategory () {
@@ -41,13 +41,13 @@ export default defineStore('productStore', {
       }
       axios.post(url, { data: cart }).then((res) => {
         status.isLoading = false
-        status.pushMessage(res.data.success, res.data.message)
+        status.pushMessage(res.data.success, '加入', res.data.message)
         if (res.data.success) {
           emitter.emit('updateCart')
         }
       }).catch(() => {
         status.isLoading = false
-        status.pushMessage(false, '發生錯誤，請重新整理頁面')
+        status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
       })
     }
   }

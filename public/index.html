@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="zh-Hant-TW">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://a94s84.github.io/Hermosa">
-    <meta property="og:title" content="Hermosa">
-    <meta name="description" content="Hermosa用溫暖率性的風格描繪日常的細膩，每一個日子，都能享受美麗的自己；用服裝上的細節，訴說不同的故事，每個你都是故事的主角。" />
+    <meta property="og:title" content="<%- htmlWebpackPlugin.options.meta.og.title %>" />
+    <meta property="og:url" content="<%- htmlWebpackPlugin.options.meta.og.url %>" />
+    <meta property="og:type" content="<%- htmlWebpackPlugin.options.meta.og.type %>" />
+    <meta property="og:description" content="<%- htmlWebpackPlugin.options.meta.og.description %>" />
+    <meta property="og:image" content="<%- htmlWebpackPlugin.options.meta.og.image %>" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Hermosa | 美麗如你</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    
+    <meta name="description" content="<%- htmlWebpackPlugin.options.meta.description %>" />
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Montserrat:wght@300&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
   </head>
   <body>

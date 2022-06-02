@@ -20,7 +20,7 @@ export default {
   mounted () {
     const toastEl = this.$refs.toast
     const toast = new Toast(toastEl, {
-      delay: 2000
+      delay: 1500
     })
     toast.show()
   }

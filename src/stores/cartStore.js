@@ -20,7 +20,7 @@ export default defineStore('cartStore', {
         }
       }).catch(() => {
         status.isLoading = false
-        status.pushMessage(false, '發生錯誤，請重新整理頁面')
+        status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
       })
     },
     updateCart (item, qty) {
@@ -33,11 +33,11 @@ export default defineStore('cartStore', {
       axios.put(url, { data: cart }).then((res) => {
         status.isLoading = false
         emitter.emit('updateCart')
-        status.pushMessage(res, res.data.message)
+        status.pushMessage(res, '更新', res.data.message)
         this.getCartList()
       }).catch(() => {
         status.isLoading = false
-        status.pushMessage(false, '發生錯誤，請重新整理頁面')
+        status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
       })
     }
   }
