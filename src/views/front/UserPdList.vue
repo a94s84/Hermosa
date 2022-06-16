@@ -43,18 +43,14 @@
               沒有相符的搜尋結果 Σ( ° △ °)
             </p>
             <div class="pds-col" v-else>
-              <div
-                class="pds-item js_items"
+              <router-link
+                class="pds-item" :to="`/product/${item.id}`"
                 v-for="(item, key) in filterData[currentPage - 1]"
                 :key="key"
               >
                 <div class="pdbox">
-                  <router-link class="pdbox-img" :to="`/product/${item.id}`">
-                    <img :src="`${item.imageUrl}`" />
-                  </router-link>
-                  <a href="#" @click.prevent="getProduct(item.id)">
-                    <p class="pdbox-name">{{ item.title }}</p>
-                  </a>
+                  <img :src="`${item.imageUrl}`" />
+                  <p class="pdbox-name">{{ item.title }}</p>
                   <div v-if="item.origin_price !== item.price">
                     <p class="pdbox-price-origin">NT${{ item.origin_price }}</p>
                     <p class="pdbox-price-sale">
@@ -63,7 +59,7 @@
                   </div>
                   <p class="pdbox-price" v-else>NT${{ item.origin_price }}</p>
                 </div>
-              </div>
+              </router-link>
             </div>
           </div>
           <div>

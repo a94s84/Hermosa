@@ -22,7 +22,7 @@
             />
             <span class="pw-see" ref="switchBtn" @click="switchPassword"></span>
           </div>
-          <button class="btn-black ">登入</button>
+          <button type="submit" class="btn-black ">登入</button>
         </div>
       </form>
     </div>
@@ -67,7 +67,7 @@ export default {
           this.$router.push('/dashboard/productlist')
         } else {
           this.pushMessage(false, '登入', '請輸入正確的帳號密碼')
-          this.user.username = ''
+          this.user.username = 'hermoda@service.com'
           this.user.password = ''
         }
       })

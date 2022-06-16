@@ -13,94 +13,101 @@
           <h2>購物清單</h2>
           <a
             href="#"
+            v-if="carts.total !== 0"
             class="btn btn-outline-secondary"
             @click.prevent="openDelModal()"
             >清空購物車</a
           >
         </div>
       </div>
-      <div class="cart-buyinglist">
-        <form v-if="carts.total !== 0">
-          <div
-            class="cart-pdbox pdbox"
-            v-for="item in carts.carts"
-            :key="item.id"
-          >
-            <router-link :to="`/product/${item.product.id}`">
-              <img :src="`${item.product.imageUrl}`" />
-            </router-link>
-            <router-link :to="`/product/${item.product.id}`">
-              <p class="pdbox-name">{{ item.product.title }}</p>
-            </router-link>
-            <table class="pdcnt-table">
-              <thead>
-                <tr>
-                  <th>SIZE</th>
-                  <th>QUANTITY</th>
-                  <td>Price</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="pdcnt-info-size">F</td>
-                  <td class="pdcnt-info-number">
-                    <div class="position-relative">
-                      <button
-                        class="text-dark qty-minus"
-                        type="button"
-                        @click.prevent="updateCart(item, item.qty - 1)"
-                      >
-                        -
-                      </button>
-                      <input
-                        class="text-center w-25 border-0 bg-transparent"
-                        type="number"
-                        min="1"
-                        v-model.number="item.qty"
-                        @change="updateCart(item, item.qty)"
-                      />
-                      <button
-                        type="button"
-                        class="text-dark qty-plus"
-                        @click.prevent="updateCart(item, item.qty + 1)"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </td>
-                  <td v-if="item.product.price !== item.product.origin_price">
-                    <span class="pdbox-price-sale">{{
-                      $filters.currency(item.product.price)
-                    }}</span
-                    ><span class="pdbox-price-origin">{{
-                      $filters.currency(item.product.origin_price)
-                    }}</span>
-                  </td>
-                  <td v-else>{{ $filters.currency(item.product.price) }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-sp">
-              <p class="pdcnt-price">
-                Total: NT${{ $filters.currency(item.final_total) }}
-              </p>
-              <a
-                href="#"
-                class="pdcnt-trash"
-                @click.prevent="openDelModal(item)"
-              >
-                <img src="../../assets/img/delete.svg" alt="" />
-              </a>
-            </div>
+      <div class="cart-buyinglist" v-if="carts.total !== 0">
+        <div
+          class="cart-pdbox pdbox"
+          v-for="item in carts.carts"
+          :key="item.id"
+        >
+          <router-link :to="`/product/${item.product.id}`">
+            <img :src="`${item.product.imageUrl}`" />
+          </router-link>
+          <router-link :to="`/product/${item.product.id}`">
+            <p class="pdbox-name">{{ item.product.title }}</p>
+          </router-link>
+          <table class="pdcnt-table">
+            <thead>
+              <tr>
+                <th>SIZE</th>
+                <th>QUANTITY</th>
+                <td>Price</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pdcnt-info-size">F</td>
+                <td class="pdcnt-info-number">
+                  <div class="position-relative">
+                    <button
+                      class="text-dark qty-minus"
+                      type="button"
+                      @click.prevent="updateCart(item, item.qty - 1)"
+                    >
+                      -
+                    </button>
+                    <input
+                      class="text-center w-25 border-0 bg-transparent"
+                      type="number"
+                      min="1"
+                      v-model.number="item.qty"
+                      @change="updateCart(item, item.qty)"
+                    />
+                    <button
+                      type="button"
+                      class="text-dark qty-plus"
+                      @click.prevent="updateCart(item, item.qty + 1)"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+                <td v-if="item.product.price !== item.product.origin_price">
+                  <span class="pdbox-price-sale">{{
+                    $filters.currency(item.product.price)
+                  }}</span
+                  ><span class="pdbox-price-origin">{{
+                    $filters.currency(item.product.origin_price)
+                  }}</span>
+                </td>
+                <td v-else>{{ $filters.currency(item.product.price) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-sp">
+            <p class="pdcnt-price">
+              Total: NT${{ $filters.currency(item.final_total) }}
+            </p>
+            <a
+              href="#"
+              class="pdcnt-trash"
+              @click.prevent="openDelModal(item)"
+            >
+              <img src="../../assets/img/delete.svg" alt="" />
+            </a>
           </div>
-        </form>
-        <div class="cart-nothing" v-else>您的購物車目前是空的！</div>
-        <DelModal
-          ref="delModal"
-          @del-Product="delITem"
-          :delItem="tempProduct"
-        />
+        </div>
       </div>
+      <div class="cart-nothing" v-else>
+        <p class="fs-1">您的購物車目前是空的。</p>
+        <router-link
+          :to="{ name: 'productlist', query: { category: 'ALL' } }"
+          >
+          <p>點此繼續購物吧！</p>
+          <img src="@/assets/img/shopnow.gif">
+        </router-link>
+      </div>
+      <DelModal
+        ref="delModal"
+        @del-Product="delITem"
+        :delItem="tempProduct"
+      />
     </div>
     <div class="footer-fixed">
       <div class="wrap d-sp">
