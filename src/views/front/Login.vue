@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <!-- <body> -->
     <Loading :active="isLoading" />
     <Header />
     <ToastList />
@@ -26,7 +26,7 @@
         </div>
       </form>
     </div>
-  </body>
+  <!-- </body> -->
   <Footer />
 </template>
 
@@ -87,7 +87,6 @@ export default {
           this.$router.push('/dashboard/productlist')
         } else {
           this.isLoading = false
-          this.pushMessage(false, '登入', '請重新登入')
         }
       })
     },
