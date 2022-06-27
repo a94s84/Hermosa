@@ -1,5 +1,5 @@
 <template>
-  <!-- <body> -->
+  <body>
     <Loading :active="isLoading" />
     <Header />
     <ToastList />
@@ -26,7 +26,7 @@
         </div>
       </form>
     </div>
-  <!-- </body> -->
+  </body>
   <Footer />
 </template>
 
