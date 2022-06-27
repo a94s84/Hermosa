@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "variables";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/transitions";
+
+@import "mixin";
+@import "general";
+@import "header";
+@import "footer";
+@import "login";
+@import "b_dashboard";
+@import "home";
+@import "offcanvas";
+@import "pdlist";
+@import "product";
+@import "cart";
+@import "check";
+@import "checkout";
+@import "wishlist";

@@ -1,7 +1,7 @@
 /*------------------------------------*\
   #Productlist
 \*------------------------------------*/
-.pdlistWrap {
+.productListWrap {
   padding-bottom: 80px;
   display: flex;
   justify-content: space-between;
@@ -79,7 +79,7 @@
 }
 
 @include phones-width() {
-  .pdlistWrap {
+  .productListWrap {
     padding-bottom: 30px;
   }
   .pdlistNav {

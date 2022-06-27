@@ -40,10 +40,13 @@ export default defineStore('productStore', {
         qty
       }
       axios.post(url, { data: cart }).then((res) => {
-        status.isLoading = false
-        status.pushMessage(res.data.success, '加入', res.data.message)
         if (res.data.success) {
           emitter.emit('updateCart')
+          status.isLoading = false
+          status.pushMessage(res.data.success, '加入', res.data.message)
+        } else {
+          status.isLoading = false
+          status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
         }
       }).catch(() => {
         status.isLoading = false

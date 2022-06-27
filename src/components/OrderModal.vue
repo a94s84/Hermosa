@@ -119,6 +119,7 @@
 
 <script>
 import modalMixin from '@/mixins/modalMixin'
+
 export default {
   name: 'orderModal',
   props: {

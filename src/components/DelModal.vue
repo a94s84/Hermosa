@@ -8,7 +8,7 @@
         </div>
         <div class="modal-body">
           <p class="text-dark text-center fs-6 mb-3"> 確定要刪除<span v-if="type == 'normal'" class="text-danger">{{ delItem.title }}</span>
-            <span v-if="type == 'order' && delItem.id"> <span  class="text-danger">{{ delItem.id }}</span>這筆訂單</span>
+            <span v-if="type == 'order' && delItem.id"> <span class="text-danger">{{ delItem.id }}</span>這筆訂單</span>
             <span v-if="type == 'order' && !delItem.id" class="text-danger">全部訂單</span>嗎？
           </p>
           <p class="text-sm text-gray-400 text-center">(刪除後將無法恢復)</p>
@@ -23,6 +23,7 @@
 
 <script>
 import modalMixin from '@/mixins/modalMixin'
+
 export default {
   props: {
     delItem: {},

@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       user: {
-        username: 'hermoda@service.com',
+        username: 'hermosa@service.com',
         password: ''
       },
       passwordType: 'password',
@@ -60,14 +60,15 @@ export default {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}admin/signin`
       this.$http.post(api, this.user).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
           const { token, expired } = res.data
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
+          this.isLoading = false
           this.$router.push('/dashboard/productlist')
         } else {
+          this.isLoading = false
           this.pushMessage(false, '登入', '請輸入正確的帳號密碼')
-          this.user.username = 'hermoda@service.com'
+          this.user.username = 'hermosa@service.com'
           this.user.password = ''
         }
       })
@@ -81,9 +82,12 @@ export default {
       this.$http.defaults.headers.common.Authorization = token
       const api = `${process.env.VUE_APP_API}api/user/check`
       this.$http.post(api).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
+          this.isLoading = false
           this.$router.push('/dashboard/productlist')
+        } else {
+          this.isLoading = false
+          this.pushMessage(false, '登入', '請重新登入')
         }
       })
     },

@@ -15,7 +15,7 @@
             href="#"
             v-if="carts.total !== 0"
             class="btn btn-outline-secondary"
-            @click.prevent="openDelModal()"
+            @click.prevent="openDelModal"
             >清空購物車</a
           >
         </div>
@@ -27,7 +27,7 @@
           :key="item.id"
         >
           <router-link :to="`/product/${item.product.id}`">
-            <img :src="`${item.product.imageUrl}`" />
+            <img :src="`${item.product.imageUrl}`" :alt="item.product.title" />
           </router-link>
           <router-link :to="`/product/${item.product.id}`">
             <p class="pdbox-name">{{ item.product.title }}</p>
@@ -89,7 +89,7 @@
               class="pdcnt-trash"
               @click.prevent="openDelModal(item)"
             >
-              <img src="../../assets/img/delete.svg" alt="" />
+              <img src="../../assets/img/delete.svg" alt="刪除" />
             </a>
           </div>
         </div>
@@ -151,7 +151,6 @@ export default {
     ...mapState(cartStore, ['carts']),
     ...mapState(statusStore, ['isLoading'])
   },
-  inject: ['emitter'],
   methods: {
     ...mapActions(cartStore, ['getCartList', 'updateCart']),
     ...mapActions(statusStore, ['pushMessage']),

@@ -1,5 +1,6 @@
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+import emitter from '@/methods/emitter'
 
 export default {
   methods: {
@@ -17,7 +18,7 @@ export default {
         this.pushMessage(true, '加入', '已加入收藏清單')
       }
       localStorage.setItem('favoriteItems', JSON.stringify(this.favoriteItems))
-      this.emitter.emit('update-favorite')
+      emitter.emit('update-favorite')
     },
     getLocalStorage () {
       return JSON.parse(localStorage.getItem('favoriteItems'))

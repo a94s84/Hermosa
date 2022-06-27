@@ -60,12 +60,14 @@
         <td class="text-center">
           <div class="btn-group">
             <button
+              type="button"
               class="btn btn-outline-primary btn-sm"
               @click="openModal(false, item)"
             >
               編輯
             </button>
             <button
+              type="button"
               class="btn btn-outline-danger btn-sm"
               @click="openDelModal('normal', item)"
             >
@@ -98,7 +100,6 @@
 import ProductModal from '@/components/ProductModal.vue'
 import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
-import emitter from '@/methods/emitter'
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
 
@@ -112,17 +113,11 @@ export default {
       isLoading: false
     }
   },
-  provide () {
-    return {
-      emitter
-    }
-  },
   components: {
     ProductModal,
     DelModal,
     Pagination
   },
-  inject: ['emitter'],
   methods: {
     ...mapActions(statusStore, ['pushMessage']),
     openModal (isNew, item) {
@@ -138,10 +133,13 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`
       this.isLoading = true
       this.$http.get(api).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
           this.products = res.data.products
           this.pagination = res.data.pagination
+          this.isLoading = false
+        } else {
+          this.pushMessage(false, '更新', '發生錯誤，請重新整理')
+          this.isLoading = false
         }
       })
     },

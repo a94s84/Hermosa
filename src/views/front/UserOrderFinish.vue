@@ -44,7 +44,7 @@
             <span>購買商品</span>
             <div class="shopItem" v-for="item in order.products" :key="item.id">
               <div class="shopItem-img">
-                <img :src="`${item.product.imageUrl}`" />
+                <img :src="`${item.product.imageUrl}`" :alt="item.product.title" />
               </div>
               <div class="shopItem-name">
                 <p>{{ item.product.title }}</p>
@@ -105,10 +105,13 @@ export default {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
       this.$http.get(url).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
+          this.isLoading = false
           this.order = res.data.order
           emitter.emit('updateCart')
+        } else {
+          this.isLoading = false
+          this.pushMessage(false, '讀取', '發生錯誤，請重新整理頁面')
         }
       })
     },

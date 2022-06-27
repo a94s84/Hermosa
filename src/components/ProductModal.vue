@@ -31,9 +31,9 @@
                 <div class="mb-3 col-md-6">
                   <div v-if="isEdit" class="d-flex">
                     <input type="text" v-model.trim="newCategory" class="form-control" placeholder="新增分類">
-                    <button class="btn btn-secondary flex-shrink-0 ms-2" @click.prevent="editCategory">新增</button>
+                    <button type="button" class="btn btn-secondary flex-shrink-0 ms-2" @click.prevent="editCategory">新增</button>
                   </div>
-                  <button v-else class="btn btn-secondary" @click="this.isEdit = true">新增產品分類</button>
+                  <button type="button" v-else class="btn btn-secondary" @click="this.isEdit = true">新增產品分類</button>
                 </div>
               </div>
               <div class="row gx-2">
@@ -122,7 +122,7 @@
               <!-- 延伸技巧，多圖 -->
               <div class="mt-2" v-if="innerTempProduct.images">
                 <div v-if="innerTempProduct.images[innerTempProduct.images.length - 1] || !innerTempProduct.images.length">
-                  <button
+                  <button type="button"
                     class="btn btn-secondary btn-sm d-block w-100"
                     @click="innerTempProduct.images.push('')" >新增輪播</button>
                 </div>

@@ -3,7 +3,7 @@
     <div class="header-bannerBar">
         <p>輸入優惠碼Hermosa85，結帳再享85折</p>
         <a href="#" class="close-banner" @click.prevent="$emit('close-banner')">
-            <img src="../assets/img/close_white.svg" alt="">
+            <img src="../assets/img/close_white.svg" alt="close">
         </a>
     </div>
     <div class="header-inner wrap">
@@ -12,28 +12,28 @@
         </div>
         <div class="header-logoWrap">
             <router-link to="/" class="header-logo">
-            <img src="../assets/img/logo.png" title="Hermosa">
+            <img src="../assets/img/logo.png" title="Hermosa" alt="Hermosa">
             </router-link>
         </div>
         <div class="headerSide-icon">
             <router-link to="/login" class="header-login">
-                <img src="../assets/img/login.svg" title="登入">
+                <img src="../assets/img/login.svg" title="登入" alt="登入">
             </router-link>
             <router-link to="/wishlist" class="header-favorite">
-                <img src="../assets/img//favicon.svg" title="收藏">
+                <img src="../assets/img//favicon.svg" title="收藏" alt="收藏">
                 <span  v-if=" favoriteNum.length" >{{ favoriteNum.length }}</span>
             </router-link>
             <router-link to="/cart" class="header-cart">
-                <img src="../assets/img/cart.svg" title="購物車"><span v-if="carts.length" >{{ cartsNum }}</span>
+                <img src="../assets/img/cart.svg" title="購物車" alt="購物車"><span v-if="carts.length" >{{ cartsNum }}</span>
             </router-link>
         </div>
     </div>
   </header>
   <div class="offcan" ref="offcan">
         <div class="offcanvas-head">
-            <img src="../assets/img/logo_s.png" alt="" class="logo-samll">
+            <img src="../assets/img/logo_s.png" alt="logo" class="logo-samll">
             <a href="#" class="btn-closeMenu" @click.prevent="closeMenu">
-                <img src="../assets/img/close_black.svg" alt="">
+                <img src="../assets/img/close_black.svg" alt="closeMenu">
             </a>
         </div>
         <div class="offcanvas-body">
@@ -57,18 +57,18 @@
             <div class="offcanvas-searchWrap">
                 <input type="search" v-model.trim="this.searchKeyword" @keyup.enter="goSearch">
                 <a href="#" class="offcanvas-search" @click.prevent="goSearch">
-                    <img src="../assets/img/search.svg">
+                    <img src="../assets/img/search.svg" alt="搜尋">
                 </a>
             </div>
             <div class="offcanvas-social">
                 <a href="#">
-                    <img src="../assets/img/off_fb.svg" alt="">
+                    <img src="../assets/img/off_fb.svg" alt="FB">
                 </a>
                 <a href="#">
-                    <img src="../assets/img/off_ig.svg" alt="">
+                    <img src="../assets/img/off_ig.svg" alt="IG">
                 </a>
                 <a href="#">
-                    <img src="../assets/img/off_line.svg" alt="">
+                    <img src="../assets/img/off_line.svg" alt="line">
                 </a>
             </div>
         </div>
@@ -79,6 +79,7 @@
 <script>
 import emitter from '@/methods/emitter'
 import localStorage from '@/mixins/localStorage'
+
 export default {
   data () {
     return {

@@ -8,14 +8,16 @@
 
 <script>
 import Toast from '@/components/Toast.vue'
-import { storeToRefs } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+
 export default {
   components: { Toast },
-  setup () {
-    const status = statusStore()
-    const { messages } = storeToRefs(status)
-    return { messages }
+  computed: {
+    ...mapState(statusStore, ['messages'])
+  },
+  methods: {
+    ...mapActions(statusStore, ['pushMessage'])
   }
 }
 </script>

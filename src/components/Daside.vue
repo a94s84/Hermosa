@@ -1,7 +1,13 @@
 <template>
-    <aside class="sidebar vh-100 border-end pt-3 d-flex bg-white flex-column">
+  <aside class="sidebar vh-100 border-end pt-3 d-flex bg-white flex-column">
     <!-- 1. 後台名稱 -->
-    <a href="#" class="w-50"><img class="w-100" src="../assets/img/logo.png" alt="Hermosa" title="HermosaPlat"></a>
+    <a href="#" class="w-50"
+      ><img
+        class="w-100"
+        src="../assets/img/logo.png"
+        alt="Hermosa"
+        title="HermosaPlat"
+    /></a>
     <!-- 2. 選單 -->
     <div class="overflow-auto mt-3 w-100">
       <div>
@@ -12,16 +18,16 @@
           </div>
         </router-link>
       </div>
-       <div>
+      <div>
         <router-link to="/dashboard/orderlist" class="sidebar-link">
           <div class="px-4">
             <i class="bi bi-card-checklist me-2"></i>
-              訂單管理
+            訂單管理
           </div>
         </router-link>
       </div>
       <div>
-         <router-link to="/dashboard/coupons" class="sidebar-link">
+        <router-link to="/dashboard/coupons" class="sidebar-link">
           <div class="px-4">
             <i class="bi bi-ticket-detailed"></i>
             優惠券
@@ -29,7 +35,7 @@
         </router-link>
       </div>
       <div class="mt-3">
-         <router-link to="/" class="sidebar-link">
+        <router-link to="/" class="sidebar-link">
           <div class="px-4">
             <i class="bi bi-house-door"></i>
             前往前台
@@ -53,10 +59,9 @@ export default {
   methods: {
     logout () {
       const api = `${process.env.VUE_APP_API}logout`
-      this.$http.post(api)
-        .then((res) => {
-          this.$router.push('/login')
-        })
+      this.$http.post(api).then((res) => {
+        this.$router.push('/login')
+      })
     }
   }
 }

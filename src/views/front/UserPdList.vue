@@ -2,7 +2,7 @@
   <Loading :active="isLoading" />
   <div class="contentWrap">
     <div class="wrap">
-      <div class="pdlistWrap">
+      <div class="productListWrap">
         <aside class="pdlistAside ">
           <ul class="pdlistMenu js-menu">
             <li>
@@ -49,7 +49,7 @@
                 :key="key"
               >
                 <div class="pdbox">
-                  <img :src="`${item.imageUrl}`" />
+                  <img :src="`${item.imageUrl}`" :alt="item.title" />
                   <p class="pdbox-name">{{ item.title }}</p>
                   <div v-if="item.origin_price !== item.price">
                     <p class="pdbox-price-origin">NT${{ item.origin_price }}</p>

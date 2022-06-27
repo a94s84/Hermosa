@@ -48,6 +48,7 @@
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin'
+
 export default {
   name: 'couponModal',
   props: {

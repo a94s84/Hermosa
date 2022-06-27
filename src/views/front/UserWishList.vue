@@ -9,7 +9,7 @@
             <p class="wishlistTitle is-hidden-touch">商品資訊</p>
             <div class="wishbox" v-for="item in favoriteItems" :key="item.id">
               <a href="#" class="wishbox-img">
-                <img :src="item.imageUrl" />
+                <img :src="item.imageUrl" :alt="item.title" />
               </a>
               <div class="wishbox-cnt">
                 <div class="wishbox-info">
@@ -60,6 +60,8 @@ import emitter from '@/methods/emitter'
 import localStorage from '@/mixins/localStorage'
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+import productStore from '@/stores/productStore'
+
 export default {
   data () {
     return {
@@ -75,6 +77,7 @@ export default {
   },
   methods: {
     ...mapActions(statusStore, ['pushMessage']),
+    ...mapActions(productStore, ['addCart']),
     getFavoriteItems () {
       this.favoriteId = this.getLocalStorage()
       this.isLoading = true
@@ -83,9 +86,12 @@ export default {
         this.favoriteId.forEach((item) => {
           const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${item}`
           this.$http.get(url).then((res) => {
-            this.isLoading = false
             if (res.data.success) {
               this.favoriteItems.push(res.data.product)
+              this.isLoading = false
+            } else {
+              this.isLoading = false
+              this.pushMessage(false, '讀取', '發生錯誤，請重新整理頁面')
             }
           })
         })
@@ -93,25 +99,10 @@ export default {
         this.isLoading = false
       }
     },
-    addCart (id, qty = 1) {
-      this.isLoading = true
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      const cart = {
-        product_id: id,
-        qty
-      }
-      this.$http.post(url, { data: cart }).then((res) => {
-        this.isLoading = false
-        this.pushMessage(res.data.success, '更新', res.data.message)
-        if (res.data.success) {
-          emitter.emit('updateCart')
-        }
-      })
-    },
     delFavoriteItems (itemId) {
       this.favoriteId.splice(this.favoriteId.indexOf(itemId), 1)
       this.saveLocalStorage(this.favoriteId)
-      this.emitter.emit('update-favorite')
+      emitter.emit('update-favorite')
       this.pushMessage(true, '更新', '已從收藏清單移除')
       this.getFavoriteItems()
     }

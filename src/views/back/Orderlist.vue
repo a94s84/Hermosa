@@ -50,19 +50,21 @@
             <span class="text-muted" v-else>未付款</span>
           </td>
           <td class="text-center">
-            <button @click="openModal('watch', item)">
+            <button type="button" @click="openModal('watch', item)">
               <i class="bi bi-eye-fill"></i>
             </button>
           </td>
           <td class="text-center">
             <div class="btn-group">
               <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal('edit', item)"
               >
                 編輯
               </button>
               <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openModal('delete', item)"
               >
@@ -79,11 +81,7 @@
     :pages="pagination"
     @emitPages="getOrders"
   />
-  <OrderModal
-    ref="orderModal"
-    :order="tempOrder"
-    @update-order="updateOrder"
-  />
+  <OrderModal ref="orderModal" :order="tempOrder" @update-order="updateOrder" />
   <OrderEditModal
     ref="orderEditModal"
     :order="tempOrder"
@@ -104,6 +102,7 @@ import OrderModal from '@/components/OrderModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+
 export default {
   data () {
     return {

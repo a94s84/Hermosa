@@ -36,12 +36,14 @@
           <td class="text-center">
             <div class="btn-group">
               <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openCouponModal(false, item)"
               >
                 編輯
               </button>
               <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDelCouponModal(item)"
               >
@@ -68,12 +70,12 @@ import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+
 export default {
   components: { CouponModal, DelModal, Pagination },
   props: {
     config: Object
   },
-  inject: ['emitter'],
   data () {
     return {
       coupons: {},

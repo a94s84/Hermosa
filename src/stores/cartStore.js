@@ -30,15 +30,20 @@ export default defineStore('cartStore', {
         product_id: item.product_id,
         qty: qty
       }
-      axios.put(url, { data: cart }).then((res) => {
+      if (qty >= 1) {
+        axios.put(url, { data: cart }).then((res) => {
+          this.getCartList()
+          status.isLoading = false
+          emitter.emit('updateCart')
+          status.pushMessage(res, '更新', res.data.message)
+        }).catch(() => {
+          status.isLoading = false
+          status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
+        })
+      } else {
         status.isLoading = false
-        emitter.emit('updateCart')
-        status.pushMessage(res, '更新', res.data.message)
-        this.getCartList()
-      }).catch(() => {
-        status.isLoading = false
-        status.pushMessage(false, '更新', '發生錯誤，請重新整理頁面')
-      })
+        status.pushMessage(false, '更新', '至少購入一件商品')
+      }
     }
   }
 })

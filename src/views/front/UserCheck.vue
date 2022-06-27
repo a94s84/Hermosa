@@ -14,7 +14,7 @@
           <div class="shop-orderlist">
             <div class="shopItem" v-for="item in carts.carts" :key="item.id">
               <div class="shopItem-img">
-                <img :src="`${item.product.imageUrl}`" />
+                <img :src="`${item.product.imageUrl}`" :alt="item.product.title" />
               </div>
               <div class="shopItem-name">
                 <p>{{ item.product.title }}</p>
@@ -57,7 +57,7 @@
                 <div class="shop-discount-code">
                   <p>請輸入折扣碼：</p>
                   <input type="text" v-model="couponCode" />
-                  <a href="#" class="btn-black " @click.prevent="useCoupon()"
+                  <a href="#" class="btn-black " @click.prevent="useCoupon"
                     >套用</a
                   >
                   <div class="shop-note">
@@ -219,6 +219,7 @@
 <script>
 import { mapActions } from 'pinia'
 import statusStore from '@/stores/statusStore'
+
 export default {
   data () {
     return {
@@ -237,16 +238,18 @@ export default {
       }
     }
   },
-  inject: ['emitter'],
   methods: {
     ...mapActions(statusStore, ['pushMessage']),
     getCartList () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(api).then((res) => {
-        this.isLoading = false
         if (res.data.success) {
           this.carts = res.data.data
+          this.isLoading = false
+        } else {
+          this.pushMessage(false, '更新', '發生錯誤，請重新整理')
+          this.isLoading = false
         }
       })
     },
@@ -257,11 +260,14 @@ export default {
         code: this.couponCode
       }
       this.$http.post(url, { data: coupon }).then((res) => {
-        this.isLoading = false
         this.couponCode = ''
-        this.pushMessage(res.data.success, '套用優惠券', res.data.message)
         if (res.data.success) {
           this.getCartList()
+          this.isLoading = false
+          this.pushMessage(res.data.success, '套用優惠券', res.data.message)
+        } else {
+          this.isLoading = false
+          this.pushMessage(false, '套用優惠券', '套用優惠券失敗，請再試一次')
         }
       })
     },
@@ -284,13 +290,15 @@ export default {
           { data: order }
         )
         .then((res) => {
-          this.isLoading = false
-          this.pushMessage(res.data.success, res.data.message, '請確認訂單')
           if (res.data.success) {
+            this.isLoading = false
             this.$router.push({
               name: 'checkout',
               params: { orderId: res.data.orderId }
             })
+          } else {
+            this.isLoading = false
+            this.pushMessage(false, '更新', '發生錯誤，請再試一次')
           }
         })
         .catch(() => {

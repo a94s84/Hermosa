@@ -84,7 +84,7 @@
                     <td class="pdcnt-info-size">F</td>
                     <td class="pdcnt-info-number">
                       <div>
-                        <select ref="pdQty" @change="qtyChnage()">
+                        <select ref="pdQty" @change="qtyChange">
                           <option v-for="num in 10" :key="num" :value="num">
                             {{ num }}
                           </option>
@@ -130,7 +130,7 @@
                 <a
                   href="#"
                   class="btn-black btn-topay"
-                  @click.prevent="gopay(product.id, product.qty)"
+                  @click.prevent="goPay(product.id, product.qty)"
                   >立即結帳&ensp;<img
                     src="../../assets/img/pdcnt_pay_arrow.svg"
                     width="18px"
@@ -270,6 +270,7 @@ import 'swiper/swiper-bundle.css'
 import Collapse from 'bootstrap/js/dist/collapse'
 
 SwiperCore.use([Navigation, Pagination, Autoplay, Thumbs])
+
 export default {
   data () {
     return {
@@ -286,7 +287,6 @@ export default {
     SwiperSlide
   },
   mixins: [localStorage],
-  inject: ['emitter'],
   computed: {
     ...mapState(productStore, ['products', 'productsCategory']),
     ...mapState(statusStore, ['isLoading']),
@@ -334,11 +334,11 @@ export default {
         (item) => item.category === category && item.id !== id
       )
     },
-    gopay (id, qty = 1) {
+    goPay (id, qty = 1) {
       this.addCart(id, qty)
       this.$router.push('/cart')
     },
-    qtyChnage () {
+    qtyChange () {
       const pdQty = parseInt(this.$refs.pdQty.value)
       this.product.qty = pdQty
     },
