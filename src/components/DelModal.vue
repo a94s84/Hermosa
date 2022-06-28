@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-dark py-3 border-0">
-          <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p class="text-dark text-center fs-6 mb-3"> 確定要刪除<span v-if="type == 'normal'" class="text-danger">{{ delItem.title }}</span>

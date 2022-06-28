@@ -57,7 +57,7 @@
                 <div class="shop-discount-code">
                   <p>請輸入折扣碼：</p>
                   <input type="text" v-model="couponCode" />
-                  <a href="#" class="btn-black " @click.prevent="useCoupon"
+                  <a href="#" class="btn-black" @click.prevent="useCoupon"
                     >套用</a
                   >
                   <div class="shop-note">
@@ -83,7 +83,7 @@
                   <p>運費</p>
                   <span>NT$80</span>
                 </div>
-                <div class="shop-total ">
+                <div class="shop-total">
                   <p>總計</p>
                   <span>NT$ {{ $filters.currency(carts.final_total) }}</span>
                   <span

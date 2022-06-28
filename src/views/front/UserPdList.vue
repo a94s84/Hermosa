@@ -3,7 +3,7 @@
   <div class="contentWrap">
     <div class="wrap">
       <div class="productListWrap">
-        <aside class="pdlistAside ">
+        <aside class="pdlistAside">
           <ul class="pdlistMenu js-menu">
             <li>
               <a href="#" @click.prevent="changeCategory('ALL')">ALL</a>

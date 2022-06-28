@@ -22,7 +22,7 @@
             />
             <span class="pw-see" ref="switchBtn" @click="switchPassword"></span>
           </div>
-          <button type="submit" class="btn-black ">登入</button>
+          <button type="submit" class="btn-black">登入</button>
         </div>
       </form>
     </div>

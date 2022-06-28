@@ -25,7 +25,7 @@
                     <p class="price-origin">NT${{ item.origin_price }}</p>
                   </div>
                 </div>
-                <a href="#" class="btn-black " @click.prevent="addCart(item.id)"
+                <a href="#" class="btn-black" @click.prevent="addCart(item.id)"
                   >加入購物車&emsp; +</a
                 >
               </div>
@@ -39,7 +39,7 @@
           <div v-else>
             <p class="cart-nothing">您的收藏清單目前是空的！</p>
             <div class="btnWrap">
-              <router-link class="btn-black " to="/">回首頁 </router-link>
+              <router-link class="btn-black" to="/">回首頁 </router-link>
               <router-link
                 :to="{ name: 'productlist', query: { category: 'ALL' } }"
                 class="btn-second"

@@ -3,7 +3,7 @@
   <div class="contentWrap">
     <div class="wrap">
       <div class="pdcntWrap">
-        <aside class="pdlistAside ">
+        <aside class="pdlistAside">
           <ul class="pdlistMenu js-menu">
             <li>
               <router-link
