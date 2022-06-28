@@ -20,6 +20,9 @@ export default defineStore('statusStore', {
           content: `${content}`
         })
       }
+      setTimeout(() => {
+        this.messages.shift()
+      }, 2000)
     }
   }
 })
